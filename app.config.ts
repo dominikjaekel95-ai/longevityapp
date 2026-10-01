@@ -17,7 +17,7 @@ const cameraText =
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: APP_NAME,
-  slug: 'longvy-app',
+  slug: 'longvy',
   version: '0.1.0',
   orientation: 'portrait',
   icon: './assets/images/icon.png',

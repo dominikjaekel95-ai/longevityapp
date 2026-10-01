@@ -17,7 +17,7 @@ Kein `npm install -g`: Auf dem Mac scheitert das oft an Berechtigungen (`EACCES`
 2. Auf dem Laptop im Repo: `npx expo start`. Laptop und Handy im selben WLAN. Bricht die Verbindung ab oder zeigt Expo Go „Something went wrong“: `npx expo start --tunnel`. Das nötige Tunnel-Paket ist im Projekt enthalten, keine globale Installation nötig. Fritzbox-Nutzer: unter WLAN, Sicherheit müssen WLAN-Geräte untereinander kommunizieren dürfen, sonst hilft nur der Tunnel.
 3. In Expo Go den QR-Code scannen. Die App lädt vom Laptop; Änderungen am Code erscheinen sofort.
 
-Was geht: alles aus Phase 1, auch Kamera, lokale Datenbank, Erinnerung, Export. Was nicht geht: eigenes App-Icon und eigener Name (es ist Expo Go), und ohne `.env.local` mit Supabase-Werten läuft die App im Modus „nur Gerät“ (kein Konto, keine Foto-Schätzung).
+Was geht: alles aus Phase 1, auch Kamera, lokale Datenbank, Export. Was nicht geht: die Erinnerung (Expo Go kann seit SDK 53 keine Benachrichtigungen; die App zeigt in den Einstellungen „In Expo Go nicht verfügbar“, in der APK funktioniert sie), eigenes App-Icon und eigener Name (es ist Expo Go), und ohne `.env.local` mit Supabase-Werten läuft die App im Modus „nur Gerät“ (kein Konto, keine Foto-Schätzung).
 
 ## 2. Eigene APK über EAS (eine Stunde beim ersten Mal, dann zehn Minuten)
 
@@ -49,7 +49,7 @@ Wie Expo Go, aber mit dem eigenen Build. Nötig, sobald Module dazukommen, die E
 | Check-in ohne Foto | Nur Werte, mindestens ein Wert Pflicht |
 | Verlauf | Unter drei Check-ins Zahl und Veränderung, ab drei eine Kurve mit Punkten und Achsen |
 | Programm | Wochenkarten mit Checkliste; Haken bleiben nach Neustart |
-| Einstellungen | Erinnerung an/aus mit Wochentag, Kopf abschneiden an/aus, Sprache, Export als ZIP, Konto löschen mit Bestätigungswort |
+| Einstellungen | Erinnerung an/aus mit Wochentag (nur APK, in Expo Go steht dort „nicht verfügbar“), Sprache, Export als ZIP, Konto löschen mit Bestätigungswort. Der Kopf wird immer abgeschnitten, es gibt keinen Schalter mehr |
 | Offline | Flugmodus an: Check-in speichern funktioniert; danach synchronisiert die App, sobald ein Konto besteht |
 | Dunkelmodus | Systemeinstellung umschalten: alle Bildschirme lesbar |
 

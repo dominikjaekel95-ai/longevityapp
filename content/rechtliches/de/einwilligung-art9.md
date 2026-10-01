@@ -6,7 +6,7 @@ geltung: "Testversion für eingeladene Testerinnen und Tester"
 einwilligungen:
   - id: gesundheitsdaten
     pflicht: true
-    text: "Ich willige ausdrücklich ein, dass meine Gesundheitsdaten (Gewicht, Taillenumfang, Griffkraft, Check-in-Fotos ohne Kopf, Datum der letzten Dosis und mein Programmfortschritt) auf meinem Gerät und auf Servern in Frankfurt am Main gespeichert und verarbeitet werden, damit die App mir mein Programm und meinen Verlauf anzeigen kann."
+    text: "Ich willige ausdrücklich ein, dass meine Gesundheitsdaten (Gewicht, Taillenumfang, Griffkraft, Check-in-Fotos ohne Kopf, Angaben zu meinem gewählten Programm und mein Programmfortschritt) auf meinem Gerät und auf Servern in Frankfurt am Main gespeichert und verarbeitet werden, damit die App mir mein Programm und meinen Verlauf anzeigen kann."
   - id: foto-auswertung
     pflicht: false
     text: "Ich willige ausdrücklich ein, dass meine Check-in-Fotos ohne Kopf an Google übermittelt und dort in der EU automatisch ausgewertet werden, um meine Körperzusammensetzung zu schätzen. In dieser Version wird die Schätzung nur gespeichert und mir nicht angezeigt. Sie dient dazu, die Genauigkeit des Verfahrens zu prüfen."
@@ -20,7 +20,7 @@ einwilligungen:
 
 ## Bildschirmtext
 
-Diese App verarbeitet Gesundheitsdaten: dein Gewicht, deinen Taillenumfang, deine Griffkraft, deine Check-in-Fotos und das Datum deiner letzten Dosis. Solche Daten sind nach Art. 9 DSGVO besonders geschützt. Wir verarbeiten sie nur mit deiner ausdrücklichen Einwilligung.
+Diese App verarbeitet Gesundheitsdaten: dein Gewicht, deinen Taillenumfang, deine Griffkraft, deine Check-in-Fotos und Angaben zu deinem gewählten Programm. Solche Daten sind nach Art. 9 DSGVO besonders geschützt. Wir verarbeiten sie nur mit deiner ausdrücklichen Einwilligung.
 
 Die erste Einwilligung brauchst du, um die App zu nutzen. Die zweite ist freiwillig. Du kannst jede Einwilligung jederzeit in den Einstellungen unter „Datenschutz“ widerrufen. Der Widerruf gilt ab dann, die Verarbeitung bis dahin bleibt rechtmäßig.
 
@@ -35,9 +35,9 @@ Die App stellt keine Diagnosen und gibt keine medizinischen Empfehlungen.
 
 ## Details
 
-**Verantwortlich:** [PRÜFEN: Name und Anschrift wie im Impressum von nachderspritze.de; nach einer Gründung die Gesellschaft]
+**Verantwortlich:** [PRÜFEN: Name und Anschrift; für den Test wie im Impressum von nachderspritze.de, nach einer Gründung die Gesellschaft]
 
-**Welche Daten:** E-Mail-Adresse für die Anmeldung; Bestätigung, dass du mindestens 18 Jahre alt bist; Gewicht, Taillenumfang, Griffkraft; Check-in-Fotos ohne Kopf; Datum der letzten Dosis; abgehakte Punkte der Wochenkarten; Erinnerungszeit. Mit der zweiten Einwilligung zusätzlich die automatische Schätzung der Körperzusammensetzung.
+**Welche Daten:** E-Mail-Adresse für die Anmeldung; Bestätigung, dass du mindestens 18 Jahre alt bist; Gewicht, Taillenumfang, Griffkraft; Check-in-Fotos ohne Kopf; Angaben, die dein gewähltes Programm abfragt (zum Beispiel im Programm „Nach der Spritze“ das Datum der letzten Dosis); abgehakte Punkte der Wochenkarten; Erinnerungszeit. Mit der zweiten Einwilligung zusätzlich die automatische Schätzung der Körperzusammensetzung.
 
 **Wozu:** Programm und Verlauf anzeigen, Daten zwischen Gerät und Konto abgleichen, Export und Löschung. Mit der zweiten Einwilligung: prüfen, wie genau eine Schätzung aus Fotos ist.
 

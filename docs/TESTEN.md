@@ -14,7 +14,7 @@ Kein `npm install -g`: Auf dem Mac scheitert das oft an Berechtigungen (`EACCES`
 ## 1. Expo Go (zehn Minuten, kein Konto nötig)
 
 1. App „Expo Go“ aus dem Play Store installieren.
-2. Auf dem Laptop im Repo: `npx expo start`. Laptop und Handy im selben WLAN. Bricht die Verbindung ab: `npx expo start --tunnel`.
+2. Auf dem Laptop im Repo: `npx expo start`. Laptop und Handy im selben WLAN. Bricht die Verbindung ab oder zeigt Expo Go „Something went wrong“: `npx expo start --tunnel`. Das nötige Tunnel-Paket ist im Projekt enthalten, keine globale Installation nötig. Fritzbox-Nutzer: unter WLAN, Sicherheit müssen WLAN-Geräte untereinander kommunizieren dürfen, sonst hilft nur der Tunnel.
 3. In Expo Go den QR-Code scannen. Die App lädt vom Laptop; Änderungen am Code erscheinen sofort.
 
 Was geht: alles aus Phase 1, auch Kamera, lokale Datenbank, Erinnerung, Export. Was nicht geht: eigenes App-Icon und eigener Name (es ist Expo Go), und ohne `.env.local` mit Supabase-Werten läuft die App im Modus „nur Gerät“ (kein Konto, keine Foto-Schätzung).

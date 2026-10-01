@@ -6,8 +6,8 @@ Zwei Claude-Instanzen arbeiten hier, Dominik gibt frei. Keine der beiden kann de
 
 | Wer | Macht | Besitzt (nur diese Instanz ändert die Dateien) |
 |---|---|---|
-| Coding-Instanz | App, Backend, Tests, CI, technische Doku | alles außerhalb der Zeile darunter, u. a. `CLAUDE.md`, `docs/SETUP.md` |
-| Begleitinstanz | Programmtexte, Rechtstext-Entwürfe, Reviews, Recherche (Regionen, Anbieter, Recht) | `content/`, `docs/REVIEW.md`, `docs/ZUSAMMENARBEIT.md` |
+| Coding-Instanz | App, Backend, Tests, CI, technische Doku und alle Texte, auch `content/` (seit 01.10.2026, Entscheidung Dominik) | alles außer den zwei Dateien der Begleitinstanz |
+| Begleitinstanz | Reviews und Feedback zu Code und Texten, Recherche (Regionen, Anbieter, Recht), Einrichtung mit Dominik | `docs/REVIEW.md`, `docs/ZUSAMMENARBEIT.md` |
 | Dominik | Konten, Schlüssel, Entscheidungen, Freigaben | – |
 
 Eine Instanz ändert nie Dateien der anderen. Braucht sie dort etwas, schreibt sie es auf (siehe Kanäle).
@@ -27,6 +27,6 @@ Eine Instanz ändert nie Dateien der anderen. Braucht sie dort etwas, schreibt s
 
 ## Inhalte
 
-- Programmtexte (Wochenkarten, Onboarding-Hinweise) liegen als Markdown mit YAML-Frontmatter in `content/`. Die App liest sie von dort ein (Build-Schritt der Coding-Instanz). Die Coding-Instanz schreibt keine eigenen Programmtexte, legt bei Bedarf aber Platzhalter im Code an.
+- Alle Texte, auch `content/`, schreibt und pflegt die Coding-Instanz. Die Begleitinstanz gibt Feedback in `docs/REVIEW.md` und ändert keine Texte selbst.
 - Rechtstexte in `content/rechtliches/` sind Entwürfe, bis Dominik sie freigibt (Feld `status` im Frontmatter). Die App zeigt sie mit sichtbarer Kennzeichnung „Entwurf“, solange `status: entwurf` gilt.
-- Alle Texte in `content/` müssen die Claims-Prüfung der App bestehen.
+- Alle Texte müssen die Claims-Prüfung der App bestehen und durchgehend in einer Sprache erscheinen.

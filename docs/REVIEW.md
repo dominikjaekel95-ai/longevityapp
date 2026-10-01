@@ -55,3 +55,9 @@ Erledigt und geprüft: R1, R2 (Prüfung in App und `estimate-body`, Sync nur mit
 
 - [ ] **R18 SOLLTE · Widerruf nur für `revoked_at`.** Die Policy „consents: eigenen Widerruf nachtragen“ erlaubt das Ändern aller Spalten der eigenen Zeilen, auch `granted_at` und `text_version`. Das schwächt den Nachweis. Lösung: `revoke update on public.consents from authenticated; grant update (revoked_at) on public.consents to authenticated;` in einer Migration 0002.
 - [ ] **R19 INFO · Vor externen Nutzern:** Die Redirect-URL `exp://**` in Supabase entfernen (steht schon in SETUP.md), den OAuth-Zustimmungsbildschirm von „Testen“ auf „In Produktion“ umstellen. In `docs/TESTEN.md` steht noch „Kopf abschneiden an/aus“; das sollte jetzt „immer an“ heißen.
+
+## Rollenwechsel und Sprachmix (2026-10-01, 15:10)
+
+Entscheidung Dominik: Ab jetzt schreibt und pflegt die Coding-Instanz alle Texte, auch `content/`. Die Begleitinstanz gibt nur noch Feedback.
+
+- [ ] **R20 MUSS · Kein Sprachmix.** Dominik sieht in der App ein Gemisch aus Deutsch und Englisch. Wahrscheinliche Ursache: `src/i18n/index.ts:18` wählt die Sprache nach der Gerätesprache. Steht das Handy auf Englisch, kommen Oberfläche und `claims.ts` auf Englisch, die Inhalte aus `content/` aber nur auf Deutsch (es gibt kein `en/`). Vorschlag: Bis englische Inhalte vollständig vorliegen, ist Deutsch fest eingestellt, unabhängig von der Gerätesprache, und Englisch lässt sich in den Einstellungen nicht wählen. Danach alle Bildschirme einmal auf verbliebene englische Wörter prüfen.

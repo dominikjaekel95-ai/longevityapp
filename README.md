@@ -30,7 +30,7 @@ npx eas-cli build -p android --profile preview   # APK zum Testen (docs/TESTEN.m
 | `supabase/` | Migration mit Row Level Security und Bucket-Regeln, Edge Functions `estimate-body` (Provider Gemini, Claude, Mock) und `delete-account` |
 | `scripts/` | `check-claims.mjs` mit `forbidden-terms.json`, `build-content.mjs` |
 | `content/` | Programmtexte, Hinweise, Übungen, Rechtstext-Entwürfe (Coding-Instanz schreibt, Begleitinstanz gibt Feedback in `docs/REVIEW.md`) |
-| `docs/` | SETUP, TESTEN, DECISIONS, DESIGN, KI, CONTENT-LOADER, REVIEW (Begleitinstanz) |
+| `docs/` | SETUP, TESTEN, DECISIONS, DESIGN, KI, CONTENT-LOADER, ONBOARDING-RECHERCHE, IDEEN, REVIEW (Begleitinstanz) |
 | `store/` | Entwurf des Store-Eintrags, Freigabe durch Dominik |
 
 ## Arbeitsweise

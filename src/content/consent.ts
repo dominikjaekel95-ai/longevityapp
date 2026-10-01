@@ -5,6 +5,8 @@
  */
 import type { Locale } from '@/i18n';
 
+import { env } from '@/lib/env';
+
 import generated from './generated/content.json';
 import { placeholderConsent } from './placeholder/consent';
 import type { ContentStatus } from './program';
@@ -12,9 +14,10 @@ import type { ContentStatus } from './program';
 export const CONSENT_HEALTH = 'gesundheitsdaten';
 export const CONSENT_PHOTO = 'foto-auswertung';
 export const CONSENT_ANALYTICS = 'nutzungsstatistik';
-export const CONSENT_AGE = 'alter18';
+export const CONSENT_AGE = 'age18';
 
-export type ConsentItem = { id: string; required: boolean; active: boolean; text: string };
+/** text gilt für den Schätz-Modus hintergrund, textVisible für sichtbar (docs/REVIEW.md R1/R2). */
+export type ConsentItem = { id: string; required: boolean; active: boolean; text: string; textVisible: string | null };
 
 export type ConsentText = {
   status: ContentStatus;
@@ -37,4 +40,9 @@ export function getConsent(locale: Locale): ConsentText {
 
 export function consentItem(locale: Locale, id: string): ConsentItem | undefined {
   return getConsent(locale).items.find((i) => i.id === id);
+}
+
+/** Text einer Einwilligung passend zum Schätz-Modus des Builds. */
+export function consentItemText(item: ConsentItem): string {
+  return env.estimateMode === 'sichtbar' && item.textVisible ? item.textVisible : item.text;
 }

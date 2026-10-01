@@ -87,7 +87,7 @@ export const migrations: Record<number, string> = {
 
 /**
  * Spaltenbedeutung (Kommentare außerhalb des SQL, damit die Claims-Prüfung und SQLite nicht stolpern):
- * consents.consent_id: ID aus content/rechtliches (gesundheitsdaten, foto-auswertung, nutzungsstatistik) oder alter18. checkins.week_index: relativ zum Programmstart, ohne Programm relativ zum
+ * consents.consent_id: ID aus content/rechtliches (gesundheitsdaten, foto-auswertung, nutzungsstatistik) oder age18. checkins.week_index: relativ zum Programmstart, ohne Programm relativ zum
  * ersten Check-in. checkins.grip_hand: 'links' | 'rechts'. checkins.photo_status: 'none' | 'local' | 'uploaded'.
  * checkins.duration_s: Dauer des Check-ins (Nebenzahl aus dem Brief). checkins.extra_json: Platz für spätere
  * Messwerte wie Schlaf oder Schritte, in 0.1 ungenutzt. program_settings.settings_json: programmspezifische Angaben

@@ -14,7 +14,7 @@ create table public.profiles (
 );
 
 -- Einwilligungen (Art. 9 DSGVO): pro ID Fassung, Erteilung, Widerruf. IDs aus content/rechtliches: gesundheitsdaten,
--- foto-auswertung, nutzungsstatistik; dazu alter18. Erteilung = neue Zeile, Widerruf = revoked_at setzen.
+-- foto-auswertung, nutzungsstatistik; dazu age18. Erteilung = neue Zeile, Widerruf = revoked_at setzen.
 create table public.consents (
   id uuid primary key,
   user_id uuid not null references auth.users(id) on delete cascade,

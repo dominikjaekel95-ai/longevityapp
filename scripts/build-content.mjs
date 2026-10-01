@@ -238,7 +238,13 @@ const einwilligung = {};
       details: paragraphs(secs.details ?? ''),
       items: items.map((e, i) => {
         if (!e?.id || !e?.text) fail(`einwilligung (${locale}): Eintrag ${i + 1} braucht 'id' und 'text'`);
-        return { id: str(e?.id), required: e?.pflicht === true, active: e?.aktiv !== false, text: str(e?.text) };
+        return {
+          id: str(e?.id),
+          required: e?.pflicht === true,
+          active: e?.aktiv !== false,
+          text: str(e?.text),
+          textVisible: e?.text_sichtbar ? str(e.text_sichtbar) : null,
+        };
       }),
     };
     if (!einwilligung[locale].items.some((e) => e.required)) fail(`einwilligung (${locale}): keine Pflicht-Einwilligung`);

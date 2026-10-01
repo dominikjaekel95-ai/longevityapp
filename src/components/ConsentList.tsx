@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 
-import { CONSENT_ANALYTICS, type ConsentText } from '@/content/consent';
+import { CONSENT_ANALYTICS, consentItemText, type ConsentText } from '@/content/consent';
 import { useT } from '@/hooks/useT';
 import { statusKey } from '@/i18n';
 import { env } from '@/lib/env';
@@ -42,7 +42,7 @@ export function ConsentList({ consent, checked, onChange, showAnalytics = false 
       <View>
         {items.map((item) => (
           <View key={item.id} style={{ gap: 2 }}>
-            <Checkbox checked={Boolean(checked[item.id])} onChange={(v) => onChange(item.id, v)} label={item.text} />
+            <Checkbox checked={Boolean(checked[item.id])} onChange={(v) => onChange(item.id, v)} label={consentItemText(item)} />
             <Txt variant="small" color="ink3" style={{ marginLeft: 40 }}>
               {item.required ? t('einwilligung.pflicht') : t('einwilligung.freiwillig')}
             </Txt>

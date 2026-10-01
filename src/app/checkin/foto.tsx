@@ -11,13 +11,11 @@ import { Txt } from '@/components/Txt';
 import { useT } from '@/hooks/useT';
 import { track } from '@/lib/analytics';
 import { commitPhoto, deleteLocalPhoto, PREVIEW_ASPECT, processCapture, type ProcessedPhoto } from '@/lib/photo';
-import { useApp } from '@/state/AppProvider';
 import { countRetake, setDraftPhoto, startDraft } from '@/state/checkinDraft';
 import { spacing } from '@/theme/tokens';
 
 export default function CheckinFoto() {
   const { t, tc } = useT();
-  const { settings } = useApp();
   const { width, height } = useWindowDimensions();
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
@@ -40,8 +38,13 @@ export default function CheckinFoto() {
     try {
       const pic = await cameraRef.current.takePictureAsync({ quality: 0.9 });
       if (pic) {
-        const processed = await processCapture(pic.uri, pic.width, pic.height, { maskHead: settings.headMask });
-        setShot(processed);
+        try {
+          // Zuschnitt läuft immer (docs/REVIEW.md R12); das Original wird in jedem Fall gelöscht (R13).
+          const processed = await processCapture(pic.uri, pic.width, pic.height, { maskHead: true });
+          setShot(processed);
+        } finally {
+          deleteLocalPhoto(pic.uri);
+        }
       }
     } catch {
       setCameraError(true);

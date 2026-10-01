@@ -20,12 +20,14 @@ export const placeholderConsent: ConsentText = {
       required: true,
       active: true,
       text: 'Ich willige ausdrücklich ein, dass meine Gesundheitsdaten auf meinem Gerät und auf Servern in Frankfurt am Main gespeichert und verarbeitet werden, damit die App mir Programm und Verlauf anzeigen kann.',
+      textVisible: null,
     },
     {
       id: 'foto-auswertung',
       required: false,
       active: true,
       text: 'Ich willige ausdrücklich ein, dass meine Check-in-Fotos ohne Kopf an einen KI-Dienst in der EU übermittelt und dort automatisch ausgewertet werden, um meine Körperzusammensetzung zu schätzen.',
+      textVisible: null,
     },
   ],
 };

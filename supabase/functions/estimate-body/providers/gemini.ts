@@ -62,8 +62,10 @@ export class GeminiProvider implements EstimateProvider {
 }
 
 function defaultHost(location: string): string {
-  // Multi-Regionen (eu, us) und global laufen über den globalen Host; Einzelregionen über den regionalen Host.
-  if (location === 'global' || location === 'eu' || location === 'us') return 'https://aiplatform.googleapis.com';
+  // Data-Residency-Endpunkte der Multi-Regionen (docs/REVIEW.md R15); so routet auch Googles SDK google-genai.
+  if (location === 'eu') return 'https://aiplatform.eu.rep.googleapis.com';
+  if (location === 'us') return 'https://aiplatform.us.rep.googleapis.com';
+  if (location === 'global') return 'https://aiplatform.googleapis.com';
   return `https://${location}-aiplatform.googleapis.com`;
 }
 

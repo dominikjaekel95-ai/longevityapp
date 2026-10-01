@@ -182,7 +182,7 @@
               },
               {
                 "id": "w04-kreatin-rat",
-                "text": "Wenn du in ärztlicher Behandlung bist oder regelmäßig Medikamente nimmst: Kreatin vorher mit deiner Ärztin oder deinem Arzt besprechen. Kreatin kann den Laborwert Kreatinin erhöhen; sag es bei einer Blutabnahme dazu.",
+                "text": "Wenn du regelmäßig Medikamente nimmst oder ärztlich betreut wirst: Kreatin vorher mit deiner Ärztin oder deinem Arzt besprechen. Kreatin kann den Laborwert Kreatinin erhöhen; sag es bei einer Blutabnahme dazu.",
                 "quellen": [
                   "kreider2017"
                 ]
@@ -453,12 +453,12 @@
         ]
       }
     },
-    "nach-der-spritze": {
+    "nach-dem-absetzen-abnehmspritze": {
       "status": "entwurf",
       "meta": {
         "title": {
-          "de": "Nach der Spritze",
-          "en": "Nach der Spritze"
+          "de": "Nach dem Absetzen der Abnehmspritze",
+          "en": "Nach dem Absetzen der Abnehmspritze"
         },
         "summary": {
           "de": "Zwölf Wochen für die Zeit nach dem Absetzen der Abnehmspritze: Muskeln behalten, Kraft aufbauen, Routine finden.",
@@ -486,7 +486,7 @@
         ],
         "hinweise": [
           "Ob und wie du dein Medikament absetzt oder wieder beginnst, besprichst du mit deiner Ärztin oder deinem Arzt. Das entscheidet niemand allein.",
-          "Wenn du wegen einer Erkrankung in Behandlung bist: in der Praxis absprechen, worauf du nach dem Absetzen achten sollst."
+          "Wenn du ärztlich betreut wirst: in der Praxis absprechen, worauf du nach dem Absetzen achten sollst."
         ]
       },
       "weeks": {
@@ -655,7 +655,7 @@
               },
               {
                 "id": "w04-kreatin-rat",
-                "text": "Wenn du in ärztlicher Behandlung bist oder regelmäßig Medikamente nimmst: Kreatin vorher mit deiner Ärztin oder deinem Arzt besprechen. Kreatin kann den Laborwert Kreatinin erhöhen; sag es bei einer Blutabnahme dazu.",
+                "text": "Wenn du regelmäßig Medikamente nimmst oder ärztlich betreut wirst: Kreatin vorher mit deiner Ärztin oder deinem Arzt besprechen. Kreatin kann den Laborwert Kreatinin erhöhen; sag es bei einer Blutabnahme dazu.",
                 "quellen": [
                   "kreider2017"
                 ]
@@ -783,7 +783,7 @@
             "tasks": [
               {
                 "id": "w08-bilanz",
-                "text": "Bilanz ziehen: Was hat funktioniert, was fällt aus? In der S-LiTE-Studie hielten Menschen, die trainiert hatten, Gewicht und Körperzusammensetzung ein Jahr nach dem Ende aller Behandlungen.",
+                "text": "Bilanz ziehen: Was hat funktioniert, was fällt aus? In der S-LiTE-Studie hielten Menschen, die trainiert hatten, Gewicht und Körperzusammensetzung noch ein Jahr nach dem Ende des Studienprogramms.",
                 "quellen": [
                   "jensen2024"
                 ]
@@ -991,7 +991,7 @@
       "sicherheit": [
         "Bei Schwindel, Brustschmerz oder Atemnot während des Trainings: aufhören und abklären lassen.",
         "Muskelkater ist normal, Gelenkschmerz nicht. Dann die Übung leichter machen oder tauschen.",
-        "Wenn du in ärztlicher Behandlung bist oder Gelenkprobleme hast: den Start vorher mit deiner Ärztin oder deinem Arzt besprechen."
+        "Wenn du ärztlich betreut wirst oder Gelenkprobleme hast: den Start vorher mit deiner Ärztin oder deinem Arzt besprechen."
       ]
     }
   },
@@ -1002,7 +1002,7 @@
         "items": [
           "Bei Brustschmerz, Atemnot oder starkem Schwindel: sofort ärztliche Hilfe holen, im Notfall die 112.",
           "Bei Beschwerden, die dich beunruhigen oder nicht weggehen: ärztlich abklären lassen.",
-          "Wenn du in ärztlicher Behandlung bist oder regelmäßig Medikamente nimmst: Training und Ernährung mit deiner Praxis absprechen."
+          "Wenn du regelmäßig Medikamente nimmst oder ärztlich betreut wirst: Training und Ernährung mit deiner Praxis absprechen."
         ],
         "closing": "Die App ist eine allgemeine Information. Sie stellt keine Diagnosen und ersetzt keine ärztliche Beratung.",
         "status": "entwurf"
@@ -1016,7 +1016,7 @@
         "items": [
           "Die App ist für Erwachsene ab 18 Jahren.",
           "Hast du eine Essstörung oder hattest du eine: Bitte sprich zuerst mit deiner Behandlerin oder deinem Behandler. Die App arbeitet mit Gewicht, Umfang und Körperfotos.",
-          "Bist du schwanger, stillst du oder bist du in ärztlicher Behandlung: Sprich Training und Ernährung vorher mit deiner Ärztin oder deinem Arzt ab."
+          "Bist du schwanger, stillst du oder wirst du ärztlich betreut: Sprich Training und Ernährung vorher mit deiner Ärztin oder deinem Arzt ab."
         ],
         "closing": "Die App stellt keine Diagnosen und ersetzt keine ärztliche Beratung.",
         "status": "entwurf"
@@ -1050,19 +1050,22 @@
           "id": "gesundheitsdaten",
           "required": true,
           "active": true,
-          "text": "Ich willige ausdrücklich ein, dass meine Gesundheitsdaten (Gewicht, Taillenumfang, Griffkraft, Check-in-Fotos ohne Kopf, Angaben zu meinem gewählten Programm und mein Programmfortschritt) auf meinem Gerät und auf Servern in Frankfurt am Main gespeichert und verarbeitet werden, damit die App mir mein Programm und meinen Verlauf anzeigen kann."
+          "text": "Ich willige ausdrücklich ein, dass meine Gesundheitsdaten (Gewicht, Taillenumfang, Griffkraft, Check-in-Fotos ohne Kopf, Angaben zu meinem gewählten Programm und mein Programmfortschritt) auf meinem Gerät und auf Servern in Frankfurt am Main gespeichert und verarbeitet werden, damit die App mir mein Programm und meinen Verlauf anzeigen kann.",
+          "textVisible": null
         },
         {
           "id": "foto-auswertung",
           "required": false,
           "active": true,
-          "text": "Ich willige ausdrücklich ein, dass meine Check-in-Fotos ohne Kopf an Google übermittelt und dort in der EU automatisch ausgewertet werden, um meine Körperzusammensetzung zu schätzen. In dieser Version wird die Schätzung nur gespeichert und mir nicht angezeigt. Sie dient dazu, die Genauigkeit des Verfahrens zu prüfen."
+          "text": "Ich willige ausdrücklich ein, dass meine Check-in-Fotos ohne Kopf an Google übermittelt und dort in der EU automatisch ausgewertet werden, um meine Körperzusammensetzung zu schätzen. In dieser Version wird die Schätzung nur gespeichert und mir nicht angezeigt. Sie dient dazu, die Genauigkeit des Verfahrens zu prüfen.",
+          "textVisible": "Ich willige ausdrücklich ein, dass meine Check-in-Fotos ohne Kopf an Google übermittelt und dort in der EU automatisch ausgewertet werden, um meine Körperzusammensetzung zu schätzen. Die Schätzung ist ungeprüft und wird mir als Spanne angezeigt; sie dient außerdem dazu, die Genauigkeit des Verfahrens zu prüfen."
         },
         {
           "id": "nutzungsstatistik",
           "required": false,
           "active": false,
-          "text": "Ich willige ein, dass die App erfasst, welche Bildschirme und Funktionen ich nutze, und diese Angaben an PostHog (Server in der EU) übermittelt werden, damit die App verbessert werden kann. Messwerte und Fotos werden dabei nicht übertragen."
+          "text": "Ich willige ein, dass die App erfasst, welche Bildschirme und Funktionen ich nutze, und diese Angaben an PostHog (Server in der EU) übermittelt werden, damit die App verbessert werden kann. Messwerte und Fotos werden dabei nicht übertragen.",
+          "textVisible": null
         }
       ]
     }

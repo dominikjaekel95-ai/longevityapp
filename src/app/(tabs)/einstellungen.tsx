@@ -120,12 +120,7 @@ export default function EinstellungenTab() {
       </Section>
 
       <Section title={t('einstellungen.foto')}>
-        <Row
-          label={t('einstellungen.kopfAbschneiden')}
-          sub={tc('headMaskExplain')}
-          last
-          right={<Switch value={settings.headMask} trackColor={{ true: colors.accent }} onValueChange={(v) => update('headMask', v ? '1' : '0')} />}
-        />
+        <Row label={t('einstellungen.kopfAbschneiden')} sub={tc('headMaskExplain')} value={t('common.an')} last />
       </Section>
 
       <Section title={t('einstellungen.programm')}>
@@ -178,7 +173,6 @@ export default function EinstellungenTab() {
         <Row label={t('einstellungen.einwilligungen')} onPress={() => router.push('/einstellungen/datenschutz')} />
         <Row label={t('einstellungen.datenschutz')} onPress={() => open(env.urlDatenschutz, 'datenschutz')} />
         <Row label={t('einstellungen.impressum')} onPress={() => open(env.urlImpressum, 'impressum')} />
-        <Row label={t('programm.wissen')} onPress={() => open(env.urlWissen, 'wissen')} />
         <Row
           label={consentDate ? t('einstellungen.einwilligung', { datum: formatDate(consentDate, locale), version: consent.version }) : ''}
           value=""

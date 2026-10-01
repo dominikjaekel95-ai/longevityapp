@@ -67,7 +67,7 @@ Alle Daten liegen in SQLite auf dem Gerät; ohne Konto funktioniert die App voll
 
 docs/REVIEW.md R1 und R2, umgesetzt 01.10.2026. IDs aus `content/rechtliches/de/einwilligung-art9.md`: `gesundheitsdaten` (Pflicht), `foto-auswertung`, `nutzungsstatistik`; dazu `alter18`. Jede Erteilung ist eine Zeile mit Fassung und Zeitpunkt, ein Widerruf setzt `revoked_at`; lokal und in Supabase. Ohne `gesundheitsdaten` verlässt nichts das Gerät. Ohne `foto-auswertung` ruft die App die Schätzung nicht auf, und die Edge Function prüft die Einwilligung noch einmal serverseitig. Widerruf von `foto-auswertung` löscht alle Schätzungen lokal und im Konto. Widerruf von `gesundheitsdaten` ist das Löschen des Kontos. Der Export enthält Schätzungen und Einwilligungen als eigene CSV-Dateien (R8).
 
-Offen für die Begleitinstanz: Der Einwilligungstext sagt, die Schätzung werde „nur gespeichert und nicht angezeigt“. Dominik hat entschieden, dass sie sichtbar ist (D2). Der Text muss nachziehen.
+Die Einwilligung `foto-auswertung` hat zwei Texte (`text` für hintergrund, `text_sichtbar` für sichtbar); die App zeigt den, der zu `EXPO_PUBLIC_ESTIMATE_MODE` passt.
 
 ## D16. Fragt ein Programm ein Datum ab, ist es Woche 0
 
@@ -79,4 +79,8 @@ Einwand zu docs/REVIEW.md R6 („kein EXPO_PUBLIC_ außer Supabase-URL und Anon-
 
 ## D18. Programmnamen in content/ sind Sache der Begleitinstanz
 
-Dominik will nüchterne Namen statt Marketing (D10). Die Begleitinstanz hat `nach-der-spritze` mit dem Titel „Nach der Spritze“ angelegt. Die App zeigt den Titel aus `programm.md`; der Vorschlag der Coding-Instanz steht in D10 („Nach dem Absetzen der Abnehmspritze“). Entscheidung: Dominik, Umsetzung: Begleitinstanz in `content/programme/nach-der-spritze/programm.md`.
+Dominik will nüchterne Namen statt Marketing (D10). Die Begleitinstanz hat das Programm am 01.10.2026 auf `nach-dem-absetzen-abnehmspritze` umbenannt; die App zeigt den Titel aus `programm.md`. Erledigt.
+
+## D19. Zuschnitt ohne Schalter
+
+docs/REVIEW.md R12, 01.10.2026. Der Schnitt an der Schulterlinie läuft immer; die Einwilligung verspricht Fotos ohne Kopf, ein Schalter hätte das Versprechen brechen können. Die Einstellungen zeigen den Zuschnitt nur noch als Information.

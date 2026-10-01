@@ -4,6 +4,7 @@ import {
   applyRemoteCheckin,
   listUnsyncedCheckins,
   markCheckinsSynced,
+  saveEstimate,
   type Checkin,
 } from '@/lib/db/checkins';
 import { CONSENT_HEALTH } from '@/content/consent';
@@ -172,6 +173,26 @@ async function doSync(): Promise<SyncResult> {
     );
     pulled += remoteProgress.length;
   }
+  // Schätzungen schreibt nur die Edge Function; nach einem Gerätewechsel holt die App sie hierher (Export, R8).
+  const { data: remoteEstimates } = await supabase.from('estimates').select('*').gt('created_at', since);
+  for (const e of remoteEstimates ?? []) {
+    await saveEstimate({
+      id: String(e.id),
+      checkin_id: String(e.checkin_id),
+      provider: String(e.provider),
+      body_fat_low: e.body_fat_low === null ? null : Number(e.body_fat_low),
+      body_fat_high: e.body_fat_high === null ? null : Number(e.body_fat_high),
+      body_fat_mid: e.body_fat_mid === null ? null : Number(e.body_fat_mid),
+      lean_mass_low_kg: e.lean_mass_low_kg === null ? null : Number(e.lean_mass_low_kg),
+      lean_mass_high_kg: e.lean_mass_high_kg === null ? null : Number(e.lean_mass_high_kg),
+      confidence: e.confidence === null ? null : Number(e.confidence),
+      consistency: e.consistency === null ? null : Number(e.consistency),
+      accepted: e.accepted ? 1 : 0,
+      notes_json: e.notes ? JSON.stringify(e.notes) : null,
+    });
+    pulled++;
+  }
+
   if (!settings[SettingKeys.programStart]) {
     const { data: profile } = await supabase.from('profiles').select('*').eq('user_id', userId).maybeSingle();
     if (profile?.program_start) {

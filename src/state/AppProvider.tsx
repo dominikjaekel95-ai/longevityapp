@@ -15,7 +15,6 @@ export type Settings = {
   programStart: string | null;
   reminderEnabled: boolean;
   reminderWeekday: number;
-  headMask: boolean;
   estimateVisible: boolean;
   locale: Locale;
   lastSyncAt: string | null;
@@ -37,7 +36,6 @@ const defaults: Settings = {
   programStart: null,
   reminderEnabled: false,
   reminderWeekday: 1,
-  headMask: true,
   estimateVisible: env.estimateMode === 'sichtbar',
   locale: 'de',
   lastSyncAt: null,
@@ -62,7 +60,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       programStart: raw[SettingKeys.programStart] ?? null,
       reminderEnabled: boolSetting(raw[SettingKeys.reminderEnabled], false),
       reminderWeekday: Number(raw[SettingKeys.reminderWeekday] ?? 1),
-      headMask: boolSetting(raw[SettingKeys.headMask], true),
       estimateVisible: boolSetting(raw[SettingKeys.estimateVisible], env.estimateMode === 'sichtbar'),
       locale: loc,
       lastSyncAt: raw[SettingKeys.lastSyncAt] ?? null,

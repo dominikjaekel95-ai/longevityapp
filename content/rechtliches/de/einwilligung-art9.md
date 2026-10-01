@@ -10,6 +10,8 @@ einwilligungen:
   - id: foto-auswertung
     pflicht: false
     text: "Ich willige ausdrücklich ein, dass meine Check-in-Fotos ohne Kopf an Google übermittelt und dort in der EU automatisch ausgewertet werden, um meine Körperzusammensetzung zu schätzen. In dieser Version wird die Schätzung nur gespeichert und mir nicht angezeigt. Sie dient dazu, die Genauigkeit des Verfahrens zu prüfen."
+    text_sichtbar: "Ich willige ausdrücklich ein, dass meine Check-in-Fotos ohne Kopf an Google übermittelt und dort in der EU automatisch ausgewertet werden, um meine Körperzusammensetzung zu schätzen. Die Schätzung ist ungeprüft und wird mir als Spanne angezeigt; sie dient außerdem dazu, die Genauigkeit des Verfahrens zu prüfen."
+    hinweis_modus: "text gilt für EXPO_PUBLIC_ESTIMATE_MODE=hintergrund, text_sichtbar für sichtbar"
   - id: nutzungsstatistik
     pflicht: false
     aktiv: false

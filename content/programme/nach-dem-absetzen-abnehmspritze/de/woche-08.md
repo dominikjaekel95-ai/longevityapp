@@ -10,7 +10,7 @@ training:
   hinweis: "Wie Woche 7."
 checkliste:
   - id: w08-bilanz
-    text: "Bilanz ziehen: Was hat funktioniert, was fällt aus? In der S-LiTE-Studie hielten Menschen, die trainiert hatten, Gewicht und Körperzusammensetzung ein Jahr nach dem Ende aller Behandlungen."
+    text: "Bilanz ziehen: Was hat funktioniert, was fällt aus? In der S-LiTE-Studie hielten Menschen, die trainiert hatten, Gewicht und Körperzusammensetzung noch ein Jahr nach dem Ende des Studienprogramms."
     quellen: [jensen2024]
   - id: w08-termin
     text: "Kontrolltermin wahrnehmen, wenn er ansteht. Mitbringen: den Verlauf aus der App (Export) und deine Fragen."

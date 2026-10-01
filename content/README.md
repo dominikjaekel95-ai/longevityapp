@@ -1,12 +1,12 @@
 # content/
 
-Alle Texte, die die App anzeigt und die nicht Oberfläche sind: Programme, Übungen, Hinweise, Rechtstexte. Gepflegt von der Begleitinstanz (siehe `docs/ZUSAMMENARBEIT.md`), fachlich geprüft von Michael, freigegeben von Dominik. Alles hier ist `status: entwurf`, bis Dominik freigibt.
+Alle Texte, die die App anzeigt und die nicht Oberfläche sind: Programme, Übungen, Hinweise, Rechtstexte. Gepflegt von der Begleitinstanz (siehe `docs/ZUSAMMENARBEIT.md`), fachlich gegengelesen von Michael, freigegeben von Dominik. Alles hier ist `status: entwurf`, bis Dominik freigibt.
 
 ## Was die App ist
 
 Eine allgemeine Longevity-App: Körperzusammensetzung, Kraft, Ernährung, Verlauf. Der Kern (Onboarding, Check-in, Verlauf, Übungen, Hinweise, Einwilligung) hat keinen Bezug zu einer bestimmten Lebenslage oder einem Medikament.
 
-**Programme sind Anwendungen.** Jedes Programm ist ein Modul unter `programme/<id>/` mit eigenen Wochenkarten. Das Grundprogramm ist Standard. Weitere Programme wählt man im Onboarding oder später, zum Beispiel „Nach der Spritze“ für die Zeit nach dem Absetzen der Abnehmspritze. Neue Programme (etwa „Kreatin und Krafttraining ab 50“) kommen als neuer Ordner dazu, ohne Änderung am Kern.
+**Programme sind Anwendungen.** Jedes Programm ist ein Modul unter `programme/<id>/` mit eigenen Wochenkarten. Das Grundprogramm ist Standard. Weitere Programme wählt man im Onboarding oder später, zum Beispiel „Nach dem Absetzen der Abnehmspritze“. Neue Programme (etwa „Kreatin und Krafttraining ab 50“) kommen als neuer Ordner dazu, ohne Änderung am Kern.
 
 ## Dateien
 
@@ -29,7 +29,7 @@ Markdown mit YAML-Frontmatter, der Body ist bei Programmen und Wochenkarten leer
 `programm.md`:
 
 ```yaml
-id: nach-der-spritze          # = Ordnername, stabil
+id: nach-dem-absetzen-abnehmspritze   # = Ordnername, stabil
 titel: "…"
 kurz: "…"
 standard: false               # genau ein Programm hat true
@@ -76,15 +76,16 @@ Strenger als auf der Website, weil die App Messwerte erfasst und sonst schnell w
 6. Gesundheitsbezogene Angaben zu Protein und Kreatin nur im zugelassenen Wortlaut (CLAIMS.md der Website, A1 und A2).
 7. Jede Zahl mit Quelle aus `quellen.json`.
 8. Ton: nüchtern, „du“, keine Superlative, keine Emojis.
+9. Die Claims-Prüfung der App gilt auch hier (`npm run check:claims`, Wortliste `scripts/forbidden-terms.json`). Deshalb heißt es zum Beispiel „ärztlich betreut“.
 
 ## Grundprogramm
 
-Gleicher Trainingsplan wie „Nach der Spritze“ (12 Wochen, sechs Übungen, Steigerung nach dem Positionspapier des ACSM), aber ohne Bezug zum Absetzen:
+Gleicher Trainingsplan wie „Nach dem Absetzen der Abnehmspritze“ (12 Wochen, sechs Übungen, Steigerung nach dem Positionspapier des ACSM), aber ohne Bezug zum Absetzen:
 - Protein nach DGE (0,8 g/kg, ab 65 Jahren 1,0 g/kg) statt der Spanne für Gewichtsabnahme und -erhalt.
 - Woche 0 mit persönlichem Ziel statt Dosis-Datum und Kontrolltermin; Woche 8 und 12 greifen das Ziel auf.
 - Woche 3 und 7 ohne Appetit- und Absetzkurven-Bezug, Woche 8 ohne S-LiTE.
 
-## „Nach der Spritze“: Abweichungen von der Website
+## „Nach dem Absetzen der Abnehmspritze“: Abweichungen von der Website
 
 Grundlage sind die Checkliste `/checkliste/` (Woche 0 bis 8) und der 12-Wochen-Plan im Artikel `/wissen/krafttraining-nach-abnehmspritze/`. Die Zweiwochen-Blöcke der Checkliste sind auf einzelne Wochen verteilt, Woche 9 bis 12 sind neu.
 
@@ -98,9 +99,9 @@ Website: „Kontrolltermin in acht bis zwölf Wochen bei der Ärztin oder dem Ar
 
 **2. Kreatin (Woche 4, `w04-kreatin-rat`, gilt auch im Grundprogramm)**
 Website: „Bei Nierenerkrankungen vorher fragen.“ Die Nierenerkrankung steht jetzt in `vorab_klaeren` beider Programme.
-- A: „Wenn du in ärztlicher Behandlung bist oder regelmäßig Medikamente nimmst: Kreatin vorher mit deiner Ärztin oder deinem Arzt besprechen. Kreatin kann den Laborwert Kreatinin erhöhen; sag es bei einer Blutabnahme dazu.“
-- B: „Nimmst du regelmäßig Medikamente oder bist in Behandlung, sprich Kreatin vorher in der Praxis an.“
-- C: „Kreatin ist bei gesunden Erwachsenen in üblichen Mengen gut untersucht. Bist du in ärztlicher Behandlung, frag vorher nach.“
+- A: „Wenn du regelmäßig Medikamente nimmst oder ärztlich betreut wirst: Kreatin vorher mit deiner Ärztin oder deinem Arzt besprechen. Kreatin kann den Laborwert Kreatinin erhöhen; sag es bei einer Blutabnahme dazu.“
+- B: „Nimmst du regelmäßig Medikamente oder wirst ärztlich betreut, sprich Kreatin vorher in der Praxis an.“
+- C: „Kreatin ist bei gesunden Erwachsenen in üblichen Mengen gut untersucht. Wirst du ärztlich betreut, frag vorher nach.“
 
 **3. Anstiegsregel (Woche 7, `w07-anstieg`)**
 Website: „Regel für den Anstieg: Steigt das Gewicht über zwei Wochen um mehr als 1,5 kg, zuerst Protein und Bewegung prüfen, nicht hungern. Hungern kostet Muskeln.“
@@ -111,15 +112,15 @@ Website: „Regel für den Anstieg: Steigt das Gewicht über zwei Wochen um mehr
 Weitere Anpassungen nach denselben Regeln:
 - Woche 0: Halbwertszeiten und Wirkstoffnamen gestrichen.
 - Woche 7: „Ein bis zwei Kilo Schwankung“ ohne Zahl formuliert.
-- Typ-2-Diabetes in „Wann du zur Ärztin gehst“ durch „wenn du wegen einer Erkrankung in Behandlung bist“ ersetzt (jetzt in `hinweise` des Programms).
-- `uebungen.md`: Die Liste „Herz-Kreislauf-Erkrankungen, Bluthochdruck, Diabetes mit Insulin“ aus dem Artikel durch „in ärztlicher Behandlung“ ersetzt.
+- Typ-2-Diabetes in „Wann du zur Ärztin gehst“ durch „wenn du ärztlich betreut wirst“ ersetzt (jetzt in `hinweise` des Programms).
+- `uebungen.md`: Die Liste „Herz-Kreislauf-Erkrankungen, Bluthochdruck, Diabetes mit Insulin“ aus dem Artikel durch „ärztlich betreut“ ersetzt.
 - Dritter Satz ab Woche 5 wie im 12-Wochen-Plan. Die Website-Checkliste nennt ihn schon in Woche 3 bis 4; dort sollte die Website angeglichen werden.
 
 ## Offen für Michael
 
 - [ ] Grundprogramm: Passt der Rahmen (Kraft, Protein, Messen) als Kern, oder soll er breiter werden (Schlaf, Ausdauer, Biomarker)?
 - [ ] Grundprogramm: Protein nach DGE als Basis, oder höher für Menschen mit Krafttraining?
-- [ ] „Nach der Spritze“: alle Karten fachlich prüfen, besonders Woche 9 bis 12 (neu) und die drei Umformulierungen. Protein: 25 bis 30 g pro Mahlzeit und 1,2 bis 1,6 g/kg (Website-CLAIMS C8: Zielwert 1,2 g/kg).
-- [ ] Kreatin-Hinweis `w04-kreatin-rat`: reicht „in ärztlicher Behandlung oder Medikamente“?
+- [ ] „Nach dem Absetzen der Abnehmspritze“: alle Karten fachlich prüfen, besonders Woche 9 bis 12 (neu) und die drei Umformulierungen. Protein: 25 bis 30 g pro Mahlzeit und 1,2 bis 1,6 g/kg (Website-CLAIMS C8: Zielwert 1,2 g/kg).
+- [ ] Kreatin-Hinweis `w04-kreatin-rat`: reicht „Medikamente oder ärztlich betreut“?
 - [ ] `vorab_klaeren` beider Programme und `onboarding/de/bevor-du-startest.md`.
 - [ ] `hinweise/de/aerztlicher-rat.md`: Notfallsatz und Formulierungen.

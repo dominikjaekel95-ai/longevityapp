@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "npm:@supabase/supabase-js@2": "npm:@supabase/supabase-js@2",
+    "npm:@anthropic-ai/sdk": "npm:@anthropic-ai/sdk",
+    "npm:@anthropic-ai/vertex-sdk": "npm:@anthropic-ai/vertex-sdk"
+  }
+}

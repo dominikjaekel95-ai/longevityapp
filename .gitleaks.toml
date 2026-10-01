@@ -1,0 +1,10 @@
+# gitleaks: Standardregeln plus Ausnahmen für Beispielwerte.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Beispiel- und Platzhalterdateien"
+paths = [
+  '''\.env\.example$''',
+  '''docs/SETUP\.md$''',
+]

@@ -1,0 +1,39 @@
+name: Prüfung (Inhalte, Typen, Lint, Claims, Tests, Secrets)
+
+# npm run check:all muss grün sein, bevor ein Pull Request nach main gemergt wird (CLAUDE.md, Abschnitt 7).
+# Zusätzlich: Secret-Scan, weil das Repo öffentlich ist.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Inhalte aus content/ müssen committet sein
+        run: npm run check:content
+      - run: npm run check:all
+
+  secrets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -6,14 +6,14 @@ Jede Entscheidung mit Begründung, Alternativen und wer sie getroffen hat. Domin
 
 Dominik, 01.10.2026. Kern (Name, Onboarding, Startbildschirm, Texte im Code) ohne Bezug zur Abnehmspritze. Programme sind Module in `content/programme/<id>/`; Standard ist das Grundprogramm, „Nach dem Absetzen der Abnehmspritze“ ist optional. Programmspezifische Angaben (z. B. ein Datum, das nur ein Programm braucht) liegen in `program_settings` (jsonb pro Nutzer und Programm), nicht im Kern. Der Brief in CLAUDE.md beschreibt Phase 1 noch als GLP-1-App; die Funktionen bleiben, der Rahmen ist allgemein.
 
-## D2. Foto-Schätzung in 0.1 im Hintergrund protokolliert, sichtbar per Konfiguration
+## D2. Foto-Schätzung sichtbar, als Beta mit Spanne
 
-Begleitinstanz im Auftrag von Dominik, 01.10.2026. Offen, weil Dominik vorher sagte, ein schnell sichtbares Ergebnis wäre gut. Abwägung:
+Dominik, 01.10.2026: im Testbuild sichtbar, für Nutzer ebenfalls, nach längerer Analyse gegen die Waage. Standard im Code ist deshalb `sichtbar`; `hintergrund` bleibt als Konfiguration für einen Nutzer-Build, falls der Abgleich das nahelegt. Die Abwägung, die zu der Frage führte:
 
-- **Sichtbar** (`EXPO_PUBLIC_ESTIMATE_MODE=sichtbar`): Nach dem Foto erscheint ausklappbar „Beta-Schätzung Körperfett: 21 bis 27 Prozent“ mit dem Hinweis, dass nur der Verlauf zählt. Vorteil: sofortiger Nutzen aus dem Foto. Nachteil: Die Schätzung ist ungeprüft; eine Zahl, die um fünf Punkte danebenliegt, kostet Vertrauen, und beim ersten Foto gibt es keinen Verlauf.
-- **Hintergrund** (`hintergrund`, Standard): Die Schätzung wird berechnet und gespeichert (`estimates.raw`), der Nutzer sieht nichts. Vorteil: Abgleich mit einer Bioimpedanzwaage, bevor jemand eine Zahl sieht. Nachteil: Das Foto zeigt im Verlauf nur sich selbst.
+- **Sichtbar** (`EXPO_PUBLIC_ESTIMATE_MODE=sichtbar`, Standard): Nach dem Foto erscheint ausklappbar „Beta-Schätzung Körperfett: 21 bis 27 Prozent“ mit dem Hinweis, dass nur der Verlauf zählt. Vorteil: sofortiger Nutzen aus dem Foto. Nachteil: Die Schätzung ist ungeprüft; eine Zahl, die um fünf Punkte danebenliegt, kostet Vertrauen, und beim ersten Foto gibt es keinen Verlauf.
+- **Hintergrund** (`hintergrund`): Die Schätzung wird berechnet und gespeichert (`estimates.raw`), der Nutzer sieht nichts. Vorteil: Abgleich mit einer Bioimpedanzwaage, bevor jemand eine Zahl sieht. Nachteil: Das Foto zeigt im Verlauf nur sich selbst.
 - Regulatorisch ist beides zulässig, solange es eine Schätzung mit Spanne ohne Bewertung bleibt (CLAUDE.md, Abschnitt 2, „Erlaubt“). Der Grund für Hintergrund ist Qualität, nicht Recht.
-- Vorschlag: Für den internen Testbuild (Dominik, Michael) `sichtbar`, damit ihr seht, was die Schätzung liefert; für Nutzer `hintergrund`, bis der Abgleich vorliegt. Beides ist eine Umgebungsvariable je Build, kein Code.
+- Umsetzung: ausklappbar im Check-in-Abschluss, Kurve mit Spanne im Verlauf, immer mit dem Hinweis, dass nur der Verlauf zählt. Beides ist eine Umgebungsvariable je Build, kein Code.
 
 ## D3. Anmeldung mit sechsstelligem E-Mail-Code statt Magic-Link
 

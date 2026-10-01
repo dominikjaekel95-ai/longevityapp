@@ -18,7 +18,7 @@ Alle Variablen stehen mit Erklärung in `.env.example`. Lokal als `.env.local` (
 |---|---|---|
 | `EXPO_PUBLIC_SUPABASE_URL` | Supabase, Project Settings, API | öffentlich (im Bundle) |
 | `EXPO_PUBLIC_SUPABASE_ANON_KEY` | Supabase, Project Settings, API, anon public | öffentlich (RLS schützt) |
-| `EXPO_PUBLIC_ESTIMATE_MODE` | `hintergrund` (Standard 0.1) oder `sichtbar` | öffentlich |
+| `EXPO_PUBLIC_ESTIMATE_MODE` | `sichtbar` (Standard) oder `hintergrund` | öffentlich |
 | `EXPO_PUBLIC_POSTHOG_KEY`, `EXPO_PUBLIC_POSTHOG_HOST` | PostHog Cloud EU, Projekt-API-Key; leer lassen = aus | öffentlich |
 | `EXPO_PUBLIC_URL_DATENSCHUTZ`, `EXPO_PUBLIC_URL_IMPRESSUM`, `EXPO_PUBLIC_URL_WISSEN` | vorläufig nachderspritze.de | öffentlich |
 | `EAS_PROJECT_ID`, `EXPO_OWNER` | `eas init` | nur Build |

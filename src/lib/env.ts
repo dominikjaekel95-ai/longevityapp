@@ -31,7 +31,7 @@ const read = (key: string): string => {
 export const env = {
   supabaseUrl: read('EXPO_PUBLIC_SUPABASE_URL'),
   supabaseAnonKey: read('EXPO_PUBLIC_SUPABASE_ANON_KEY'),
-  estimateMode: (read('EXPO_PUBLIC_ESTIMATE_MODE') === 'sichtbar' ? 'sichtbar' : 'hintergrund') as EstimateMode,
+  estimateMode: (read('EXPO_PUBLIC_ESTIMATE_MODE') === 'hintergrund' ? 'hintergrund' : 'sichtbar') as EstimateMode,
   posthogKey: read('EXPO_PUBLIC_POSTHOG_KEY'),
   posthogHost: read('EXPO_PUBLIC_POSTHOG_HOST') || 'https://eu.i.posthog.com',
   urlDatenschutz: read('EXPO_PUBLIC_URL_DATENSCHUTZ') || 'https://nachderspritze.de/datenschutz/',

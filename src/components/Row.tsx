@@ -30,7 +30,7 @@ export function Row({ label, value, sub, onPress, right, last, accessibilityHint
         ) : null}
       </View>
       {right ?? (
-        <Txt tabular color="ink2" align="right">
+        <Txt tabular color="ink2" align="right" style={styles.value}>
           {value ?? ''}
         </Txt>
       )}
@@ -69,5 +69,6 @@ const styles = StyleSheet.create({
     gap: spacing.m,
   },
   left: { flex: 1, gap: 2 },
+  value: { flexShrink: 1 },
   section: { gap: spacing.s },
 });

@@ -13,7 +13,8 @@ import type { EstimateProvider } from './providers/types.ts';
  * Ablauf: Nutzer prüfen, Check-in muss dem Nutzer gehören, Fotos aus dem privaten Bucket lesen (Service-Role, nur
  * innerhalb dieses Aufrufs), Provider aufrufen, Ergebnis in estimates speichern, zurückgeben.
  * Konsistenz-Score unter ESTIMATE_CONSISTENCY_THRESHOLD: Foto wird nicht gewertet (accepted=false), die App zeigt die
- * Pose-Anleitung erneut. KI-Aufrufe nur hier, nie in der App.
+ * Pose-Anleitung erneut. Meldet das Modell "kein_koerper" (kein menschlicher Oberkörper im Bild), wird das Foto ebenfalls
+ * nicht gewertet und keine Magermasse berechnet. KI-Aufrufe nur hier, nie in der App.
  */
 const BUCKET = 'checkins';
 const THRESHOLD = Number(Deno.env.get('ESTIMATE_CONSISTENCY_THRESHOLD') ?? '0.6');
@@ -76,10 +77,11 @@ Deno.serve(async (req) => {
   }
 
   const { output, model, raw } = result;
-  const accepted = output.consistency === null ? true : output.consistency >= THRESHOLD;
+  const noBody = output.notes.includes('kein_koerper');
+  const accepted = !noBody && (output.consistency === null ? true : output.consistency >= THRESHOLD);
   const mid = (output.body_fat_low + output.body_fat_high) / 2;
   const leanMass =
-    weight_kg && weight_kg > 0
+    !noBody && weight_kg && weight_kg > 0
       ? {
           low: round1(weight_kg * (1 - output.body_fat_high / 100)),
           high: round1(weight_kg * (1 - output.body_fat_low / 100)),

@@ -8,7 +8,7 @@ Verbindliche Vorgaben: `CLAUDE.md` (Brief und Zweckbestimmung), `docs/ZUSAMMENAR
 
 ```bash
 npm ci                    # Abhängigkeiten (Node 22)
-npm run build:content     # content/ der Begleitinstanz nach src/content/generated/content.json einlesen
+npm run build:content     # content/ nach src/content/generated/content.json einlesen
 npm run check:all         # Inhalte, Typen, Lint, Claims-Prüfung, Tests. Pflicht vor jedem Push.
 npm start                 # Expo-Entwicklungsserver (Expo Go oder Dev Build)
 npx eas-cli build -p android --profile preview   # APK zum Testen (docs/TESTEN.md)
@@ -29,7 +29,7 @@ npx eas-cli build -p android --profile preview   # APK zum Testen (docs/TESTEN.m
 | `src/theme/` | Design-Tokens: Farben der Website (Variante d1), Hanken Grotesk, Abstände |
 | `supabase/` | Migration mit Row Level Security und Bucket-Regeln, Edge Functions `estimate-body` (Provider Gemini, Claude, Mock) und `delete-account` |
 | `scripts/` | `check-claims.mjs` mit `forbidden-terms.json`, `build-content.mjs` |
-| `content/` | Programmtexte und Rechtstext-Entwürfe der Begleitinstanz (nur sie ändert dort) |
+| `content/` | Programmtexte, Hinweise, Übungen, Rechtstext-Entwürfe (Coding-Instanz schreibt, Begleitinstanz gibt Feedback in `docs/REVIEW.md`) |
 | `docs/` | SETUP, TESTEN, DECISIONS, DESIGN, KI, CONTENT-LOADER, REVIEW (Begleitinstanz) |
 | `store/` | Entwurf des Store-Eintrags, Freigabe durch Dominik |
 

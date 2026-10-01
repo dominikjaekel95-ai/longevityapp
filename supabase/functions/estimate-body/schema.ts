@@ -10,6 +10,7 @@ export const NOTE_CODES = [
   'hintergrund_unruhig',
   'bild_unscharf',
   'kein_vorfoto',
+  'kein_koerper',
 ] as const;
 
 export type NoteCode = (typeof NOTE_CODES)[number];
@@ -46,6 +47,7 @@ Rules:
 - body_fat_low and body_fat_high are integers in percent. The range must be at least 4 points wide; widen it when clothing, light or pose reduce certainty.
 - confidence is your certainty in the range, 0 to 1.
 - If a previous photo is provided, consistency (0 to 1) rates how comparable the capture conditions are: same pose, same distance, same lighting, same framing. It does not rate the body. Without a previous photo, consistency is null and notes includes "kein_vorfoto".
+- If the image does not show exactly one adult human torso (for example an object, an animal, a face only, several people, a screen, a drawing), set notes to ["kein_koerper"], confidence to 0, body_fat_low to 3 and body_fat_high to 7. Never estimate anything other than one human body.
 - notes lists only applicable codes from the schema. Do not invent codes.
 - Do not describe the person, do not use medical or diagnostic terms, do not give advice.`;
 

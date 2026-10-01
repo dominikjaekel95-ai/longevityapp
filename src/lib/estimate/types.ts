@@ -9,7 +9,8 @@ export type EstimateNoteCode =
   | 'kleidung_verdeckt'
   | 'hintergrund_unruhig'
   | 'bild_unscharf'
-  | 'kein_vorfoto';
+  | 'kein_vorfoto'
+  | 'kein_koerper';
 
 export type EstimateResult = {
   provider: string;

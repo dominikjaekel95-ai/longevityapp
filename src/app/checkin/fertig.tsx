@@ -14,6 +14,17 @@ import { useApp } from '@/state/AppProvider';
 import { resetDraft } from '@/state/checkinDraft';
 import { spacing } from '@/theme/tokens';
 
+/** Prüft, ob die gespeicherte Schätzung einen bestimmten Hinweis-Code enthält (notes_json aus der Edge Function). */
+function hasNote(estimate: Estimate | null, code: string): boolean {
+  if (!estimate?.notes_json) return false;
+  try {
+    const notes = JSON.parse(estimate.notes_json) as unknown;
+    return Array.isArray(notes) && notes.includes(code);
+  } catch {
+    return false;
+  }
+}
+
 export default function CheckinFertig() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { t, tc, locale } = useT();
@@ -44,6 +55,7 @@ export default function CheckinFertig() {
   }, [id, checkin, settings.estimateVisible]);
 
   const fmt = (v: number | null, unit: string, d = 1) => (v === null ? '' : `${formatNumber(v, d, locale)} ${unit}`);
+  const noBody = hasNote(estimate, 'kein_koerper');
 
   return (
     <Screen
@@ -83,6 +95,8 @@ export default function CheckinFertig() {
                     <Txt color="ink2">{tc('estimateUnavailable')}</Txt>
                   ) : !estimate ? (
                     <Txt color="ink2">{tc('estimatePending')}</Txt>
+                  ) : estimate.accepted === 0 && noBody ? (
+                    <Txt color="ink2">{tc('photoNoBody')}</Txt>
                   ) : estimate.accepted === 0 ? (
                     <>
                       <Txt color="ink2">{t('checkin.fertig.schaetzungAbgelehnt')}</Txt>

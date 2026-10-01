@@ -1,0 +1,195 @@
+{
+  "_hinweis": "Verbotene Formulierungen für alle nutzerseitigen Texte der App und den Store-Eintrag. Quellen: CLAUDE.md Abschnitt 2 (Brief), CLAIMS.md Abschnitt E des Website-Repos, scripts/check-text.mjs der Website. Ein Treffer bricht den Build (npm run check:claims). Einträge unter 'pruefen' erzeugen nur eine Warnung.",
+  "dateien": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.json",
+    "store/**/*.md",
+    "content/**/*.md",
+    "app.config.ts"
+  ],
+  "verboten": [
+    {
+      "muster": "(?<![a-zäöüß])erkennt(?![a-zäöüß])",
+      "label": "„erkennt“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "diagnostizier",
+      "label": "„diagnostiziert“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "misst medizinisch",
+      "label": "„misst medizinisch“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "muskelabbau festgestellt",
+      "label": "„Muskelabbau festgestellt“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "sarkopenie",
+      "label": "„Sarkopenie“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "adipositas|adipös",
+      "label": "„Adipositas“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "risiko f[üu]r",
+      "label": "„Risiko für …“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "verhindert (den )?(jojo|jo-jo)",
+      "label": "„verhindert Jojo-Effekt“ (Brief 2, CLAIMS E)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "gegen den (jojo|jo-jo)",
+      "label": "„gegen den Jojo-Effekt“ (CLAIMS E)",
+      "quelle": "claims-md"
+    },
+    {
+      "muster": "verhindert (die |eine )?gewichtszunahme",
+      "label": "„verhindert Gewichtszunahme“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "(?<![a-zäöüß])rückfall",
+      "label": "„Rückfall“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "(?<![a-zäöüß])therapie",
+      "label": "„Therapie“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "(?<![a-zäöüß])behandlung",
+      "label": "„Behandlung“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "(?<![a-zäöüß])patient",
+      "label": "„Patient“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "nach (ihrer|deiner) medikation",
+      "label": "„nach Ihrer Medikation“ (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "wegovy|ozempic|mounjaro|saxenda|rybelsus|zepbound|trulicity|victoza|foundayo",
+      "label": "Medikamentenname (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "semaglutid|tirzepatid|liraglutid|orforglipron|retatrutid",
+      "label": "Wirkstoffname (Brief 2, sinngemäß)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "(ersetzt|verstärkt|verlängert) (die |deine )?(wirkung der )?(abnehm)?spritze",
+      "label": "„ersetzt/verstärkt die Spritze“ (CLAIMS E)",
+      "quelle": "claims-md"
+    },
+    {
+      "muster": "von [äa]rzt(en|innen|:innen) empfohlen",
+      "label": "„von Ärzten empfohlen“ (CLAIMS E)",
+      "quelle": "claims-md"
+    },
+    {
+      "muster": "klinisch getestet",
+      "label": "„klinisch getestet“ (CLAIMS E)",
+      "quelle": "claims-md"
+    },
+    {
+      "muster": "kurbelt den stoffwechsel|stoffwechsel ankurbeln",
+      "label": "„Stoffwechsel ankurbeln“ (CLAIMS E)",
+      "quelle": "claims-md"
+    },
+    {
+      "muster": "fatburner|fettverbrenner|entgiftet|detox",
+      "label": "„Fatburner/entgiftet“ (CLAIMS E)",
+      "quelle": "claims-md"
+    },
+    {
+      "muster": "macht (dich )?länger satt|sättigt",
+      "label": "„sättigt“ (CLAIMS E)",
+      "quelle": "claims-md"
+    },
+    {
+      "muster": "baut muskeln auf",
+      "label": "„baut Muskeln auf“ (CLAIMS E)",
+      "quelle": "claims-md"
+    },
+    {
+      "muster": "stärkt das immunsystem|gut für die knochen",
+      "label": "„Immunsystem/Knochen“ (CLAIMS E)",
+      "quelle": "claims-md"
+    },
+    {
+      "muster": "fachlich gepr[üu]ft",
+      "label": "„fachlich geprüft“ ohne Prüfer (Website)",
+      "quelle": "website"
+    },
+    {
+      "muster": "\\[(vorname|qualifikation|plz|straße|link|name|datum)\\]",
+      "label": "Platzhalter in eckigen Klammern (Website)",
+      "quelle": "website"
+    },
+    {
+      "muster": "(?<![a-z])(detects?|diagnos(es|is|ed)|sarcopenia|obesity|obese|relapse|therapy|treatment|patients?|medically measures|risk of)(?![a-z])",
+      "label": "englische Entsprechung eines verbotenen Begriffs (Brief 2)",
+      "quelle": "brief"
+    },
+    {
+      "muster": "prevents? (weight regain|yo-yo|rebound)",
+      "label": "„prevents weight regain“ (Brief 2)",
+      "quelle": "brief"
+    }
+  ],
+  "pruefen": [
+    {
+      "muster": "(?<![a-zäöüß])muskelabbau",
+      "label": "„Muskelabbau“: nur beschreibend, nie als Befund"
+    },
+    {
+      "muster": "(?<![a-zäöüß])diagnose",
+      "label": "„Diagnose“: vermeiden"
+    },
+    {
+      "muster": "(?<![a-zäöüß])krankheit",
+      "label": "„Krankheit“: vermeiden"
+    },
+    {
+      "muster": "übergewicht",
+      "label": "„Übergewicht“: vermeiden"
+    },
+    {
+      "muster": "(?<![a-zäöüß])symptom",
+      "label": "„Symptom“: vermeiden"
+    },
+    {
+      "muster": "medikament|medikation",
+      "label": "„Medikament“: nur im Arzt-Hinweis, sonst „Abnehmspritze“"
+    },
+    {
+      "muster": "(?<![a-zäöüß])warnung|(?<![a-zäöüß])alarm",
+      "label": "Warnung/Alarm mit Gesundheitsbezug ist verboten (Brief 2)"
+    },
+    {
+      "muster": "(?<![a-z])(disease|illness|symptom|medication|warning|alert)(?![a-z])",
+      "label": "englischer Begriff zur Prüfung"
+    }
+  ],
+  "ausnahmen": [
+    "scripts/forbidden-terms.json"
+  ]
+}

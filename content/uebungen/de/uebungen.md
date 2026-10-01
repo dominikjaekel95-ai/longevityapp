@@ -43,5 +43,5 @@ uebungen:
 sicherheit:
   - "Bei Schwindel, Brustschmerz oder Atemnot während des Trainings: aufhören und abklären lassen."
   - "Muskelkater ist normal, Gelenkschmerz nicht. Dann die Übung leichter machen oder tauschen."
-  - "Wenn du in ärztlicher Behandlung bist oder Gelenkprobleme hast: den Start vorher mit deiner Ärztin oder deinem Arzt besprechen."
+  - "Wenn du ärztlich betreut wirst oder Gelenkprobleme hast: den Start vorher mit deiner Ärztin oder deinem Arzt besprechen."
 ---

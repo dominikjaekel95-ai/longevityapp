@@ -9,5 +9,5 @@ stand: 2026-10-01
 programm_angaben: []
 vorab_klaeren:
   - "Hast du eine Nierenerkrankung, kläre die Protein- und Kreatin-Hinweise vorher mit deiner Ärztin oder deinem Arzt."
-ausnahme_claims: "Krankheitsbezüge sind in vorab_klaeren als Ausschluss erlaubt, nicht als Ratschlag."
+ausnahme_claims: "Erkrankungen sind in vorab_klaeren als Ausschluss erlaubt, nicht als Ratschlag."
 ---

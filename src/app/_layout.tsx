@@ -72,6 +72,9 @@ function Root() {
         <Stack.Screen name="einstellungen/konto" options={{ headerShown: true, title: t('einstellungen.konto') }} />
         <Stack.Screen name="einstellungen/programm" options={{ headerShown: true, title: t('einstellungen.programm') }} />
         <Stack.Screen name="einstellungen/loeschen" options={{ headerShown: true, title: t('einstellungen.loeschen.titel') }} />
+        <Stack.Screen name="einstellungen/datenschutz" options={{ headerShown: true, title: t('einstellungen.einwilligungen') }} />
+        <Stack.Screen name="einstellungen/aerztlicher-rat" options={{ headerShown: true, title: t('einstellungen.aerztlicherRat') }} />
+        <Stack.Screen name="programm/uebungen" options={{ headerShown: true, title: t('uebungen.titel') }} />
       </Stack>
     </ThemeProvider>
   );

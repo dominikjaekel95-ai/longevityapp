@@ -1,5 +1,7 @@
 import { getEstimateForCheckin, getPreviousPhotoCheckin, saveEstimate, type Checkin, type Estimate } from '@/lib/db/checkins';
 import { getLocale } from '@/i18n';
+import { CONSENT_PHOTO } from '@/content/consent';
+import { hasConsent } from '@/lib/db/consents';
 
 import { supabase } from '@/lib/sync/supabase';
 
@@ -11,6 +13,8 @@ import type { EstimateRequest, EstimateResult } from './types';
  */
 export async function requestEstimate(checkin: Checkin): Promise<Estimate | null> {
   if (!supabase || !checkin.photo_remote_path) return null;
+  // Ohne Einwilligung foto-auswertung kein Aufruf (docs/REVIEW.md R2); die Edge Function prüft zusätzlich serverseitig.
+  if (!(await hasConsent(CONSENT_PHOTO))) return null;
   const existing = await getEstimateForCheckin(checkin.id);
   if (existing) return existing;
 

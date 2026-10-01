@@ -3,21 +3,22 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { View } from 'react-native';
 
 import { Button } from '@/components/Button';
-import { Checkbox } from '@/components/Checkbox';
 import { Row, Section } from '@/components/Row';
 import { Screen } from '@/components/Screen';
 import { Txt } from '@/components/Txt';
+import { WeekCard } from '@/components/WeekCard';
 import { getProgramWeeks, programStatus } from '@/content/program';
 import { getProgram } from '@/content/programs';
 import { useT } from '@/hooks/useT';
 import { useCurrentWeek } from '@/hooks/useWeek';
+import { statusKey } from '@/i18n';
 import { listProgress, setTaskDone, type ProgressRow } from '@/lib/db/program';
 import { syncNow } from '@/lib/sync/sync';
 import { useApp } from '@/state/AppProvider';
 import { spacing } from '@/theme/tokens';
 
 export default function ProgrammTab() {
-  const { t, tc, locale, pick } = useT();
+  const { t, locale, pick } = useT();
   const { settings } = useApp();
   const { week } = useCurrentWeek();
   const [progress, setProgress] = useState<ProgressRow[]>([]);
@@ -46,9 +47,14 @@ export default function ProgrammTab() {
   }
 
   const done = new Set(progress.filter((p) => p.done === 1).map((p) => p.task_id));
-  const currentWeek = Math.min(week ?? 0, meta.weeks);
+  const currentWeek = Math.min(Math.max(week ?? 0, 0), meta.weeks);
   const current = weeks.find((w) => w.week === currentWeek);
   const status = programStatus(programId);
+  const toggle = async (taskId: string, next: boolean) => {
+    await setTaskDone(programId, current?.week ?? currentWeek, taskId, next);
+    await reload();
+    syncNow().catch(() => undefined);
+  };
 
   return (
     <Screen kicker={pick(meta.title)} title={t('programm.titel')}>
@@ -56,9 +62,9 @@ export default function ProgrammTab() {
         <Txt variant="small" color="amberDark">
           {t('programm.status.platzhalter')}
         </Txt>
-      ) : status === 'entwurf' ? (
+      ) : status !== 'freigegeben' ? (
         <Txt variant="small" color="amberDark">
-          {tc('programDraft')}
+          {t('programm.stand', { status: t(statusKey(status)) })}
         </Txt>
       ) : null}
       {week !== null && week > meta.weeks ? <Txt color="ink2">{t('programm.nachEnde')}</Txt> : null}
@@ -68,19 +74,7 @@ export default function ProgrammTab() {
             {t('programm.aktuell')}
           </Txt>
           <Txt variant="h2">{`${t('common.wocheN', { n: current.week })}: ${current.title}`}</Txt>
-          {current.summary ? <Txt color="ink2">{current.summary}</Txt> : null}
-          {current.tasks.map((task) => (
-            <Checkbox
-              key={task.id}
-              checked={done.has(task.id)}
-              label={`${t(`programm.kind.${task.kind}` as const)}: ${task.text}`}
-              onChange={async (next) => {
-                await setTaskDone(programId, current.week, task.id, next);
-                await reload();
-                syncNow().catch(() => undefined);
-              }}
-            />
-          ))}
+          <WeekCard week={current} done={done} onToggle={toggle} programHinweise={meta.hinweise} compact />
           <Button
             label={t('programm.detail', { n: current.week })}
             variant="text"

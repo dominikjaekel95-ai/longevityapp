@@ -119,8 +119,8 @@ export const claims = {
     en: 'Deleting your account immediately removes all data: on the device, in the account and all photos in storage. This cannot be undone.',
   },
   headMaskExplain: {
-    de: 'Kopf abschneiden: Das Foto wird oberhalb der Schulterlinie beschnitten, bevor es gespeichert oder hochgeladen wird. Standard: an.',
-    en: 'Crop head: the photo is cropped above the shoulder line before it is saved or uploaded. Default: on.',
+    de: 'Das Foto wird vor dem Speichern oberhalb der Schulterlinie beschnitten. Das lässt sich nicht abschalten; die Einwilligung gilt für Fotos ohne Kopf.',
+    en: 'The photo is cropped above the shoulder line before it is saved. This cannot be switched off; the consent covers photos without head.',
   },
   reminderExplain: {
     de: 'Eine Erinnerung pro Woche an deinen Check-in, am Wochentag deiner Wahl. Standard: aus.',

@@ -35,6 +35,7 @@ Wie Expo Go, aber mit dem eigenen Build. Nötig, sobald Module dazukommen, die E
 |---|---|
 | Onboarding | Fünf Schritte, Alter und Einwilligung sind Pflicht, Programm und Startdatum, Konto optional, Erinnerung standardmäßig aus |
 | Check-in mit Foto | Vorschau 3:4 mit Silhouette, Foto wird oberhalb der Schulterlinie abgeschnitten, Werte mit Vorwert als Hilfe, unter zwei Minuten |
+| Foto, Ausrichtung | Handy hochkant und leicht gekippt fotografieren: Liegt der Kopf im gespeicherten Ausschnitt vollständig über der Schnittlinie? Android liefert Bilder teils gedreht (EXIF); dann meldet der Test, bei welchem Gerät |
 | Check-in ohne Foto | Nur Werte, mindestens ein Wert Pflicht |
 | Verlauf | Unter drei Check-ins Zahl und Veränderung, ab drei eine Kurve mit Punkten und Achsen |
 | Programm | Wochenkarten mit Checkliste; Haken bleiben nach Neustart |

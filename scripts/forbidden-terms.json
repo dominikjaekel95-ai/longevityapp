@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Verbotene Formulierungen für alle nutzerseitigen Texte der App und den Store-Eintrag. Quellen: CLAUDE.md Abschnitt 2 (Brief), CLAIMS.md Abschnitt E des Website-Repos, scripts/check-text.mjs der Website. Ein Treffer bricht den Build (npm run check:claims). Einträge unter 'pruefen' erzeugen nur eine Warnung.",
+  "_hinweis": "Verbotene Formulierungen für alle nutzerseitigen Texte der App und den Store-Eintrag. Quellen: CLAUDE.md Abschnitt 2 (Brief), CLAIMS.md Abschnitt E des Website-Repos, scripts/check-text.mjs der Website. Ein Treffer bricht den Build (npm run check:claims). Einträge unter 'pruefen' erzeugen nur eine Warnung. Einträge mit krankheitsbezug=true werden in Feldern ausgelassen, die per ausnahme_claims im Frontmatter als Ausschlussliste gekennzeichnet sind (vorab_klaeren, punkte).",
   "dateien": [
     "src/**/*.ts",
     "src/**/*.tsx",
@@ -32,17 +32,20 @@
     {
       "muster": "sarkopenie",
       "label": "„Sarkopenie“ (Brief 2)",
-      "quelle": "brief"
+      "quelle": "brief",
+      "krankheitsbezug": true
     },
     {
       "muster": "adipositas|adipös",
       "label": "„Adipositas“ (Brief 2)",
-      "quelle": "brief"
+      "quelle": "brief",
+      "krankheitsbezug": true
     },
     {
       "muster": "risiko f[üu]r",
       "label": "„Risiko für …“ (Brief 2)",
-      "quelle": "brief"
+      "quelle": "brief",
+      "krankheitsbezug": true
     },
     {
       "muster": "verhindert (den )?(jojo|jo-jo)",
@@ -62,22 +65,26 @@
     {
       "muster": "(?<![a-zäöüß])rückfall",
       "label": "„Rückfall“ (Brief 2)",
-      "quelle": "brief"
+      "quelle": "brief",
+      "krankheitsbezug": true
     },
     {
       "muster": "(?<![a-zäöüß])therapie",
       "label": "„Therapie“ (Brief 2)",
-      "quelle": "brief"
+      "quelle": "brief",
+      "krankheitsbezug": true
     },
     {
-      "muster": "(?<![a-zäöüß])behandlung",
-      "label": "„Behandlung“ (Brief 2)",
-      "quelle": "brief"
+      "muster": "(?<!in |in ärztlicher |ärztlicher |ärztlichen |aller |ohne |keine )behandlung",
+      "label": "„Behandlung“ als Angebot oder Wirkung (Brief 2); „in ärztlicher Behandlung sein“ ist erlaubt",
+      "quelle": "brief",
+      "krankheitsbezug": true
     },
     {
       "muster": "(?<![a-zäöüß])patient",
       "label": "„Patient“ (Brief 2)",
-      "quelle": "brief"
+      "quelle": "brief",
+      "krankheitsbezug": true
     },
     {
       "muster": "nach (ihrer|deiner) medikation",
@@ -190,6 +197,7 @@
     }
   ],
   "ausnahmen": [
-    "scripts/forbidden-terms.json"
+    "scripts/forbidden-terms.json",
+    "content/README.md"
   ]
 }

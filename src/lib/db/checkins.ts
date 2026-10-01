@@ -272,3 +272,14 @@ export async function listAcceptedEstimates(): Promise<(Estimate & { week_index:
      ORDER BY c.date ASC`,
   );
 }
+
+export async function listAllEstimates(): Promise<Estimate[]> {
+  const db = await getDb();
+  return db.getAllAsync<Estimate>('SELECT * FROM estimates ORDER BY created_at ASC');
+}
+
+/** Alle Schätzungen lokal löschen (Widerruf der Einwilligung foto-auswertung). */
+export async function deleteAllEstimates(): Promise<void> {
+  const db = await getDb();
+  await db.runAsync('DELETE FROM estimates');
+}

@@ -1,47 +1,18 @@
 #!/usr/bin/env node
 /**
- * Liest die Inhalte der Begleitinstanz aus content/ (Markdown mit YAML-Frontmatter) und schreibt
+ * Liest die Inhalte der Begleitinstanz aus content/ (Format: content/README.md) und schreibt
  * src/content/generated/content.json. Fehlt ein Teil, bleibt der Eintrag leer und die App zeigt Platzhalter.
  *
  * Aufruf: npm run build:content   (Teil von check:all; CI prüft, dass die erzeugte Datei committet ist)
  *
- * Erwartete Struktur (Vorschlag der Coding-Instanz; verbindlich wird content/README.md der Begleitinstanz,
- * Abweichungen werden hier nachgezogen):
- *
- *   content/programme/<id>/programm.md            Metadaten des Programms (optional)
- *     ---
- *     titel: "Grundprogramm"        # Pflicht
- *     kurz: "..."                   # ein Satz
- *     wochen: 12
- *     standard: true                # genau ein Programm ist Standard
- *     verfuegbar: true
- *     einstellungen:                # programmspezifische Felder, landen in program_settings (nie im Kern)
- *       - key: letzte_dosis
- *         typ: date                 # date | text | number
- *         label: "..."
- *         hilfe: "..."
- *         pflicht: false
- *     ---
- *
- *   content/programme/<id>/<locale>/woche-NN.md   oder   content/programme/<id>/woche-NN.<locale>.md
- *     ---
- *     woche: 3                      # Pflicht
- *     status: entwurf | freigegeben # optional, Standard entwurf
- *     titel: "..."                  # Pflicht
- *     kurz: "..."                   # optional, ein Satz
- *     aufgaben:                     # optional
- *       - id: w3-protein            # eindeutig im Programm
- *         art: protein              # messen | protein | kraft | alltag
- *         text: "..."
- *     ---
- *     Absätze als Fließtext (werden als Erklärung unter der Checkliste gezeigt).
- *
- *   content/rechtliches/einwilligung/<locale>.md   oder   content/rechtliches/einwilligung.<locale>.md
- *     Frontmatter: status, version, titel, checkbox, alter_checkbox, hinweis
- *     Body: erster Absatz = Einleitung, Aufzählung (- …) = Punkte
- *
- *   content/onboarding/fuer-wen-nicht/<locale>.md  oder   content/onboarding/fuer-wen-nicht.<locale>.md
- *     Frontmatter: titel; Body: Aufzählung = Punkte
+ * Gelesen werden:
+ *   content/programme/<id>/programm.md            id, titel, kurz, standard, wochen, status, programm_angaben, vorab_klaeren, hinweise
+ *   content/programme/<id>/<locale>/woche-NN.md   woche, titel, status, einleitung, einleitung_quellen, training, checkliste, hinweis
+ *   content/uebungen/<locale>/uebungen.md         ablauf, ablauf_quellen, uebungen, sicherheit
+ *   content/hinweise/<locale>/aerztlicher-rat.md  titel, punkte, abschluss
+ *   content/onboarding/<locale>/bevor-du-startest.md  titel, punkte, abschluss
+ *   content/rechtliches/<locale>/einwilligung-art9.md status, version, einwilligungen; Body: ## Bildschirmtext, ## Details
+ *   content/quellen.json                          Quellen zu den IDs in quellen-Feldern
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -51,14 +22,17 @@ const root = process.cwd();
 const contentDir = path.join(root, 'content');
 const outFile = path.join(root, 'src/content/generated/content.json');
 const LOCALES = ['de', 'en'];
-const KINDS = new Set(['messen', 'protein', 'kraft', 'alltag']);
-const FIELD_TYPES = new Set(['date', 'text', 'number']);
+const STATUS = new Set(['entwurf', 'geprueft', 'freigegeben']);
 
 let problems = 0;
 const fail = (msg) => {
   problems++;
   console.error(`FEHLER  ${msg}`);
 };
+const rel = (f) => path.relative(root, f);
+const str = (v, fallback = '') => (v === undefined || v === null ? fallback : String(v));
+const list = (v) => (Array.isArray(v) ? v.map((x) => str(x)).filter(Boolean) : []);
+const statusOf = (v) => (STATUS.has(str(v)) ? str(v) : 'entwurf');
 
 function readMd(file) {
   const raw = fs.readFileSync(file, 'utf8');
@@ -68,202 +42,232 @@ function readMd(file) {
   try {
     meta = YAML.parse(m[1]) ?? {};
   } catch (e) {
-    fail(`${path.relative(root, file)}: Frontmatter ungültig (${e.message})`);
+    fail(`${rel(file)}: Frontmatter ungültig (${e.message})`);
   }
   return { meta, body: m[2].trim() };
 }
 
-const paragraphs = (body) =>
-  body
+/** Absätze eines Markdown-Abschnitts ohne Platzhalterzeilen in eckigen Klammern; Fettung wird entfernt. */
+const paragraphs = (text) =>
+  text
     .split(/\n\s*\n/)
-    .map((p) => p.replace(/\s*\n\s*/g, ' ').trim())
-    .filter((p) => p && !p.startsWith('- '));
+    .map((p) => p.replace(/\s*\n\s*/g, ' ').replace(/\*\*/g, '').trim())
+    .filter((p) => p && !p.startsWith('[') && !p.startsWith('#'));
 
-const bullets = (body) =>
-  body
-    .split('\n')
-    .map((l) => l.trim())
-    .filter((l) => l.startsWith('- '))
-    .map((l) => l.slice(2).trim());
-
-function findLocaleFile(base, locale) {
-  const a = path.join(contentDir, base, `${locale}.md`);
-  const b = path.join(contentDir, `${base}.${locale}.md`);
-  if (fs.existsSync(a)) return a;
-  if (fs.existsSync(b)) return b;
-  return null;
+/** Zerlegt den Body in Abschnitte nach "## Überschrift". */
+function sections(body) {
+  const out = {};
+  let current = '_';
+  for (const line of body.split('\n')) {
+    const h = /^##\s+(.+)$/.exec(line.trim());
+    if (h) {
+      current = h[1].trim().toLowerCase();
+      out[current] = out[current] ?? '';
+      continue;
+    }
+    out[current] = (out[current] ?? '') + line + '\n';
+  }
+  return out;
 }
 
-const str = (v, fallback = '') => (v === undefined || v === null ? fallback : String(v));
+function perLocale(subdir, filename) {
+  const found = {};
+  for (const locale of LOCALES) {
+    const f = path.join(contentDir, subdir, locale, filename);
+    if (fs.existsSync(f)) found[locale] = readMd(f);
+  }
+  return found;
+}
+
+const exists = (p) => fs.existsSync(path.join(contentDir, p));
+
+// --- Quellen ---
+let quellen = {};
+if (exists('quellen.json')) {
+  try {
+    quellen = JSON.parse(fs.readFileSync(path.join(contentDir, 'quellen.json'), 'utf8'));
+  } catch (e) {
+    fail(`content/quellen.json ungültig (${e.message})`);
+  }
+}
+const checkQuellen = (ids, where) => {
+  for (const id of ids) if (!quellen[id]) fail(`${where}: Quelle „${id}“ fehlt in content/quellen.json`);
+  return ids;
+};
 
 // --- Programme ---
 const programme = {};
-const programDir = path.join(contentDir, 'programme');
-if (fs.existsSync(programDir)) {
-  const ids = fs
-    .readdirSync(programDir, { withFileTypes: true })
-    .filter((d) => d.isDirectory())
-    .map((d) => d.name);
+if (exists('programme')) {
+  const dir = path.join(contentDir, 'programme');
+  const ids = fs.readdirSync(dir, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name);
   for (const id of ids) {
-    const dir = path.join(programDir, id);
-    const prog = { status: 'freigegeben', byWeek: new Map(), meta: null };
+    const pdir = path.join(dir, id);
+    const prog = { status: 'freigegeben', meta: null, weeks: {} };
     programme[id] = prog;
 
-    const metaFile = ['programm.md', 'meta.md', 'index.md'].map((n) => path.join(dir, n)).find((f) => fs.existsSync(f));
-    if (metaFile) {
+    const metaFile = path.join(pdir, 'programm.md');
+    if (fs.existsSync(metaFile)) {
       const { meta } = readMd(metaFile);
-      const rel = path.relative(root, metaFile);
-      if (!meta.titel) fail(`${rel}: 'titel' fehlt`);
-      const fields = Array.isArray(meta.einstellungen) ? meta.einstellungen : [];
+      if (!meta.titel) fail(`${rel(metaFile)}: 'titel' fehlt`);
+      if (meta.id && String(meta.id) !== id) fail(`${rel(metaFile)}: 'id' (${meta.id}) weicht vom Ordnernamen ab`);
+      const angaben = Array.isArray(meta.programm_angaben) ? meta.programm_angaben : [];
       prog.meta = {
         title: { de: str(meta.titel, id), en: str(meta.titel_en, str(meta.titel, id)) },
         summary: { de: str(meta.kurz), en: str(meta.kurz_en, str(meta.kurz)) },
         weeks: Number(meta.wochen ?? 12),
         available: meta.verfuegbar !== false,
         default: meta.standard === true,
-        settings: fields.map((f, i) => {
-          const typ = str(f?.typ, 'text');
-          if (!FIELD_TYPES.has(typ)) fail(`${rel}: Einstellung ${i + 1}: 'typ' muss date, text oder number sein`);
-          if (!f?.key || !f?.label) fail(`${rel}: Einstellung ${i + 1}: 'key' und 'label' sind Pflicht`);
-          const field = {
-            key: str(f?.key, `feld${i + 1}`),
-            type: typ,
-            label: { de: str(f?.label), en: str(f?.label_en, str(f?.label)) },
-            required: f?.pflicht === true,
+        status: statusOf(meta.status),
+        settings: angaben.map((a, i) => {
+          const typ = str(a?.typ, 'text');
+          const type = typ === 'datum' ? 'date' : typ === 'zahl' ? 'number' : 'text';
+          if (!a?.id || !a?.frage) fail(`${rel(metaFile)}: programm_angaben ${i + 1}: 'id' und 'frage' sind Pflicht`);
+          return {
+            key: str(a?.id, `angabe${i + 1}`),
+            type,
+            label: { de: str(a?.frage), en: str(a?.frage_en, str(a?.frage)) },
+            required: a?.pflicht === true,
           };
-          if (f?.hilfe) field.help = { de: str(f.hilfe), en: str(f.hilfe_en, str(f.hilfe)) };
-          return field;
         }),
+        vorabKlaeren: list(meta.vorab_klaeren),
+        hinweise: list(meta.hinweise),
       };
+      if (prog.meta.status !== 'freigegeben') prog.status = prog.meta.status;
     }
 
-    const weekFiles = [];
     for (const locale of LOCALES) {
-      const sub = path.join(dir, locale);
-      if (fs.existsSync(sub)) {
-        for (const f of fs.readdirSync(sub).filter((n) => /^woche-\d+\.md$/.test(n))) {
-          weekFiles.push({ locale, file: path.join(sub, f) });
+      const ldir = path.join(pdir, locale);
+      if (!fs.existsSync(ldir)) continue;
+      const weeks = [];
+      for (const f of fs.readdirSync(ldir).filter((n) => /^woche-\d+\.md$/.test(n)).sort()) {
+        const file = path.join(ldir, f);
+        const { meta } = readMd(file);
+        const week = Number(meta.woche ?? f.match(/\d+/)?.[0]);
+        if (!Number.isInteger(week) || week < 0) fail(`${rel(file)}: 'woche' fehlt oder ungültig`);
+        if (!meta.titel) fail(`${rel(file)}: 'titel' fehlt`);
+        const wstatus = statusOf(meta.status);
+        if (wstatus !== 'freigegeben' && locale === 'de') prog.status = prog.status === 'entwurf' ? 'entwurf' : wstatus;
+        const tr = meta.training && typeof meta.training === 'object' ? meta.training : null;
+        const tasks = Array.isArray(meta.checkliste) ? meta.checkliste : [];
+        weeks.push({
+          week,
+          title: str(meta.titel),
+          status: wstatus,
+          intro: str(meta.einleitung),
+          introQuellen: checkQuellen(list(meta.einleitung_quellen), rel(file)),
+          training: tr
+            ? {
+                saetze: Number(tr.saetze ?? 0),
+                wiederholungen: Number(tr.wiederholungen ?? 0),
+                hinweis: str(tr.hinweis),
+                quellen: checkQuellen(list(tr.quellen), rel(file)),
+              }
+            : null,
+          tasks: tasks.map((t, i) => {
+            if (!t || typeof t !== 'object' || !t.id || !t.text) fail(`${rel(file)}: checkliste ${i + 1}: 'id' und 'text' sind Pflicht`);
+            return { id: str(t?.id, `w${week}-${i + 1}`), text: str(t?.text), quellen: checkQuellen(list(t?.quellen), rel(file)) };
+          }),
+          hinweis: meta.hinweis ? str(meta.hinweis) : null,
+        });
+      }
+      weeks.sort((a, b) => a.week - b.week);
+      const seen = new Set();
+      for (const w of weeks) {
+        for (const t of w.tasks) {
+          if (seen.has(t.id)) fail(`Programm ${id} (${locale}): Checklisten-ID ${t.id} doppelt`);
+          seen.add(t.id);
         }
       }
-      const flat = new RegExp(`^woche-\\d+\\.${locale}\\.md$`);
-      for (const f of fs.readdirSync(dir).filter((n) => flat.test(n))) {
-        weekFiles.push({ locale, file: path.join(dir, f) });
-      }
+      prog.weeks[locale] = weeks;
     }
-    weekFiles.sort((a, b) => a.file.localeCompare(b.file));
-    for (const { locale, file } of weekFiles) {
-      const { meta, body } = readMd(file);
-      const rel = path.relative(root, file);
-      const week = Number(meta.woche ?? path.basename(file).match(/\d+/)?.[0]);
-      if (!Number.isInteger(week) || week < 0) fail(`${rel}: 'woche' fehlt oder ungültig`);
-      if (!meta.titel) fail(`${rel}: 'titel' fehlt`);
-      if (str(meta.status, 'entwurf') !== 'freigegeben') prog.status = 'entwurf';
-      const entry = prog.byWeek.get(week) ?? {
-        week,
-        title: { de: '', en: '' },
-        summary: { de: '', en: '' },
-        body: { de: [], en: [] },
-        tasks: [],
-      };
-      entry.title[locale] = str(meta.titel);
-      entry.summary[locale] = str(meta.kurz);
-      entry.body[locale] = paragraphs(body);
-      const tasks = Array.isArray(meta.aufgaben) ? meta.aufgaben : [];
-      tasks.forEach((t, i) => {
-        if (!t || typeof t !== 'object') {
-          fail(`${rel}: Aufgabe ${i + 1} ist kein Objekt`);
-          return;
-        }
-        const tid = str(t.id, `w${week}-${i + 1}`);
-        const kind = str(t.art, 'alltag');
-        if (!KINDS.has(kind)) fail(`${rel}: Aufgabe ${tid}: 'art' muss messen, protein, kraft oder alltag sein`);
-        let task = entry.tasks.find((x) => x.id === tid);
-        if (!task) {
-          task = { id: tid, kind, text: { de: '', en: '' } };
-          entry.tasks.push(task);
-        }
-        task.text[locale] = str(t.text);
-      });
-      prog.byWeek.set(week, entry);
-    }
+    if (!prog.weeks.de) fail(`Programm ${id}: keine deutschen Wochenkarten`);
+  }
+  if (Object.values(programme).filter((p) => p.meta?.default).length > 1) fail('Mehr als ein Programm ist als Standard markiert');
+}
+
+// --- Übungen ---
+const uebungen = {};
+{
+  const found = perLocale('uebungen', 'uebungen.md');
+  for (const [locale, { meta }] of Object.entries(found)) {
+    const items = Array.isArray(meta.uebungen) ? meta.uebungen : [];
+    uebungen[locale] = {
+      status: statusOf(meta.status),
+      ablauf: str(meta.ablauf),
+      ablaufQuellen: checkQuellen(list(meta.ablauf_quellen), 'uebungen.md'),
+      uebungen: items.map((u, i) => ({
+        id: str(u?.id, `uebung${i + 1}`),
+        nr: Number(u?.nr ?? i + 1),
+        name: str(u?.name),
+        zuhause: str(u?.zuhause),
+        studio: str(u?.studio),
+        trainiert: str(u?.trainiert),
+      })),
+      sicherheit: list(meta.sicherheit),
+    };
+    if (items.length === 0) fail(`uebungen (${locale}): keine Übungen`);
   }
 }
 
-const programmeOut = {};
-for (const [id, p] of Object.entries(programme)) {
-  const weeks = [...p.byWeek.values()].sort((a, b) => a.week - b.week);
-  const seen = new Set();
-  for (const w of weeks) {
-    for (const t of w.tasks) {
-      if (seen.has(t.id)) fail(`Programm ${id}: Aufgaben-ID ${t.id} doppelt`);
-      seen.add(t.id);
-      if (!t.text.de) fail(`Programm ${id}, Woche ${w.week}: Aufgabe ${t.id} ohne deutschen Text`);
-    }
-    if (!w.title.de) fail(`Programm ${id}, Woche ${w.week}: kein deutscher Titel`);
+// --- Hinweise und Onboarding ---
+const noteOf = (found) => {
+  const out = {};
+  for (const [locale, { meta }] of Object.entries(found)) {
+    out[locale] = { title: str(meta.titel), items: list(meta.punkte), closing: meta.abschluss ? str(meta.abschluss) : null, status: statusOf(meta.status) };
+    if (out[locale].items.length === 0) fail(`${str(meta.titel)} (${locale}): keine Punkte`);
   }
-  programmeOut[id] = { status: p.status, meta: p.meta, weeks };
-}
-const defaults = Object.values(programmeOut).filter((p) => p.meta?.default).length;
-if (defaults > 1) fail('Mehr als ein Programm ist als Standard markiert');
+  return out;
+};
+const aerztlicherRat = noteOf(perLocale('hinweise', 'aerztlicher-rat.md'));
+const bevorDuStartest = noteOf(perLocale('onboarding', 'bevor-du-startest.md'));
 
 // --- Einwilligung ---
-let einwilligung = null;
+const einwilligung = {};
 {
-  const perLocale = {};
-  for (const locale of LOCALES) {
-    const file = findLocaleFile('rechtliches/einwilligung', locale);
-    if (file) perLocale[locale] = readMd(file);
-  }
-  if (perLocale.de) {
-    const get = (loc, key, fallback = '') => str(perLocale[loc]?.meta?.[key], fallback);
-    const de = perLocale.de;
-    const en = perLocale.en ?? de;
-    const introOf = (b) => paragraphs(b)[0] ?? '';
-    einwilligung = {
-      status: get('de', 'status', 'entwurf') === 'freigegeben' ? 'freigegeben' : 'entwurf',
-      version: get('de', 'version', 'ohne-version'),
-      title: { de: get('de', 'titel'), en: get('en', 'titel', get('de', 'titel')) },
-      intro: { de: introOf(de.body), en: introOf(en.body) },
-      points: { de: bullets(de.body), en: bullets(en.body) },
-      checkbox: { de: get('de', 'checkbox'), en: get('en', 'checkbox', get('de', 'checkbox')) },
-      ageCheckbox: { de: get('de', 'alter_checkbox'), en: get('en', 'alter_checkbox', get('de', 'alter_checkbox')) },
-      draftNotice: { de: get('de', 'hinweis'), en: get('en', 'hinweis', get('de', 'hinweis')) },
+  const found = perLocale('rechtliches', 'einwilligung-art9.md');
+  for (const [locale, { meta, body }] of Object.entries(found)) {
+    const secs = sections(body);
+    const titleLine = /^#\s+(.+)$/m.exec(body);
+    const items = Array.isArray(meta.einwilligungen) ? meta.einwilligungen : [];
+    einwilligung[locale] = {
+      status: statusOf(meta.status),
+      version: str(meta.version, 'ohne-version'),
+      scope: str(meta.geltung),
+      title: titleLine ? titleLine[1].trim() : 'Einwilligung',
+      screen: paragraphs(secs.bildschirmtext ?? secs._ ?? ''),
+      details: paragraphs(secs.details ?? ''),
+      items: items.map((e, i) => {
+        if (!e?.id || !e?.text) fail(`einwilligung (${locale}): Eintrag ${i + 1} braucht 'id' und 'text'`);
+        return {
+          id: str(e?.id),
+          required: e?.pflicht === true,
+          active: e?.aktiv !== false,
+          text: str(e?.text),
+          textVisible: e?.text_sichtbar ? str(e.text_sichtbar) : null,
+        };
+      }),
     };
-    if (!einwilligung.title.de || !einwilligung.checkbox.de) fail('Einwilligung: titel und checkbox sind Pflicht');
-    if (einwilligung.points.de.length === 0) fail('Einwilligung: keine Aufzählungspunkte im Text');
-  }
-}
-
-// --- Onboarding: Für wen nicht ---
-let fuerWenNicht = null;
-{
-  const perLocale = {};
-  for (const locale of LOCALES) {
-    const file = findLocaleFile('onboarding/fuer-wen-nicht', locale);
-    if (file) perLocale[locale] = readMd(file);
-  }
-  if (perLocale.de) {
-    const de = perLocale.de;
-    const en = perLocale.en ?? de;
-    fuerWenNicht = {
-      title: { de: str(de.meta.titel), en: str(en.meta.titel, str(de.meta.titel)) },
-      items: { de: bullets(de.body), en: bullets(en.body) },
-    };
-    if (fuerWenNicht.items.de.length === 0) fail('Für wen nicht: keine Aufzählungspunkte');
+    if (!einwilligung[locale].items.some((e) => e.required)) fail(`einwilligung (${locale}): keine Pflicht-Einwilligung`);
+    if (einwilligung[locale].screen.length === 0) fail(`einwilligung (${locale}): Bildschirmtext fehlt`);
   }
 }
 
 const out = {
   _hinweis: 'Erzeugt von scripts/build-content.mjs aus content/. Nicht von Hand ändern.',
   source: fs.existsSync(contentDir) ? 'content' : 'platzhalter',
-  programme: programmeOut,
-  einwilligung,
-  onboarding: { fuerWenNicht },
+  programme,
+  uebungen: Object.keys(uebungen).length ? uebungen : null,
+  hinweise: { aerztlicherRat: Object.keys(aerztlicherRat).length ? aerztlicherRat : null },
+  onboarding: { bevorDuStartest: Object.keys(bevorDuStartest).length ? bevorDuStartest : null },
+  einwilligung: Object.keys(einwilligung).length ? einwilligung : null,
+  // Nur Kurztitel und URL gelangen in die App; Volltitel und Notizen bleiben in content/quellen.json.
+  quellen: Object.fromEntries(Object.entries(quellen).map(([id, q]) => [id, { kurz: str(q?.kurz), url: str(q?.url) }])),
 };
 fs.mkdirSync(path.dirname(outFile), { recursive: true });
 fs.writeFileSync(outFile, JSON.stringify(out, null, 2) + '\n');
 console.log(
-  `Inhalte: ${Object.keys(programmeOut).length} Programm(e), Einwilligung ${einwilligung ? 'aus content/' : 'Platzhalter'}, ` +
-    `Für-wen-nicht ${fuerWenNicht ? 'aus content/' : 'fehlt'}, ${problems} Fehler`,
+  `Inhalte: ${Object.keys(programme).length} Programm(e), Übungen ${out.uebungen ? 'ja' : 'nein'}, ` +
+    `Einwilligung ${out.einwilligung ? 'aus content/' : 'Platzhalter'}, Hinweise ${out.hinweise.aerztlicherRat ? 'ja' : 'nein'}, ` +
+    `Onboarding ${out.onboarding.bevorDuStartest ? 'ja' : 'nein'}, ${Object.keys(quellen).length} Quellen, ${problems} Fehler`,
 );
 process.exit(problems > 0 ? 1 : 0);

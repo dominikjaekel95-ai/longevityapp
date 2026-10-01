@@ -63,3 +63,8 @@ export function formatDate(iso: string, locale: Locale = current): string {
 export function weekdayKey(day: number): I18nKey {
   return `wochentag.${((day % 7) + 7) % 7}` as I18nKey;
 }
+
+/** Schlüssel für den Freigabestand eines Textes. */
+export function statusKey(status: string): I18nKey {
+  return (['entwurf', 'geprueft', 'freigegeben', 'platzhalter'].includes(status) ? `status.${status}` : 'status.entwurf') as I18nKey;
+}

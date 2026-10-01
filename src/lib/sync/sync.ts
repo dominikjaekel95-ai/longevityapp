@@ -4,9 +4,11 @@ import {
   applyRemoteCheckin,
   listUnsyncedCheckins,
   markCheckinsSynced,
+  saveEstimate,
   type Checkin,
 } from '@/lib/db/checkins';
-import { listUnsyncedConsents, markConsentsSynced } from '@/lib/db/consents';
+import { CONSENT_HEALTH } from '@/content/consent';
+import { hasConsent, listUnsyncedConsents, markConsentsSynced } from '@/lib/db/consents';
 import {
   applyRemoteProgress,
   listUnsyncedProgramSettings,
@@ -48,6 +50,8 @@ async function doSync(): Promise<SyncResult> {
   if (!supabase) return { ok: false, pushed: 0, pulled: 0, reason: 'kein Backend' };
   const session = await getSession();
   if (!session) return { ok: false, pushed: 0, pulled: 0, reason: 'nicht angemeldet' };
+  // Ohne die Pflicht-Einwilligung verlässt nichts das Gerät (docs/REVIEW.md R2).
+  if (!(await hasConsent(CONSENT_HEALTH))) return { ok: false, pushed: 0, pulled: 0, reason: 'keine Einwilligung' };
   if (!(await isOnline())) return { ok: false, pushed: 0, pulled: 0, reason: 'offline' };
 
   const userId = session.user.id;
@@ -64,14 +68,14 @@ async function doSync(): Promise<SyncResult> {
     updated_at: at,
   });
 
-  // Einwilligungen (nur anhängen)
+  // Einwilligungen (Erteilung anhängen, Widerruf nachtragen)
   const consents = await listUnsyncedConsents();
   if (consents.length > 0) {
     const { error } = await supabase.from('consents').upsert(
       consents.map((c) => ({
         id: c.id,
         user_id: userId,
-        kind: c.kind,
+        consent_id: c.consent_id,
         text_version: c.text_version,
         granted_at: c.granted_at,
         revoked_at: c.revoked_at,
@@ -169,6 +173,26 @@ async function doSync(): Promise<SyncResult> {
     );
     pulled += remoteProgress.length;
   }
+  // Schätzungen schreibt nur die Edge Function; nach einem Gerätewechsel holt die App sie hierher (Export, R8).
+  const { data: remoteEstimates } = await supabase.from('estimates').select('*').gt('created_at', since);
+  for (const e of remoteEstimates ?? []) {
+    await saveEstimate({
+      id: String(e.id),
+      checkin_id: String(e.checkin_id),
+      provider: String(e.provider),
+      body_fat_low: e.body_fat_low === null ? null : Number(e.body_fat_low),
+      body_fat_high: e.body_fat_high === null ? null : Number(e.body_fat_high),
+      body_fat_mid: e.body_fat_mid === null ? null : Number(e.body_fat_mid),
+      lean_mass_low_kg: e.lean_mass_low_kg === null ? null : Number(e.lean_mass_low_kg),
+      lean_mass_high_kg: e.lean_mass_high_kg === null ? null : Number(e.lean_mass_high_kg),
+      confidence: e.confidence === null ? null : Number(e.confidence),
+      consistency: e.consistency === null ? null : Number(e.consistency),
+      accepted: e.accepted ? 1 : 0,
+      notes_json: e.notes ? JSON.stringify(e.notes) : null,
+    });
+    pulled++;
+  }
+
   if (!settings[SettingKeys.programStart]) {
     const { data: profile } = await supabase.from('profiles').select('*').eq('user_id', userId).maybeSingle();
     if (profile?.program_start) {

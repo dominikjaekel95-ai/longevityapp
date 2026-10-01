@@ -13,17 +13,18 @@ create table public.profiles (
   updated_at timestamptz not null default now()
 );
 
--- Einwilligungen (Art. 9 DSGVO und Alter): nur anhängen, nie überschreiben.
+-- Einwilligungen (Art. 9 DSGVO): pro ID Fassung, Erteilung, Widerruf. IDs aus content/rechtliches: gesundheitsdaten,
+-- foto-auswertung, nutzungsstatistik; dazu age18. Erteilung = neue Zeile, Widerruf = revoked_at setzen.
 create table public.consents (
   id uuid primary key,
   user_id uuid not null references auth.users(id) on delete cascade,
-  kind text not null check (kind in ('art9', 'age18')),
+  consent_id text not null,
   text_version text not null,
   granted_at timestamptz not null,
   revoked_at timestamptz,
   created_at timestamptz not null default now()
 );
-create index consents_user_idx on public.consents (user_id);
+create index consents_user_idx on public.consents (user_id, consent_id);
 
 -- Wöchentliche Check-ins. photo_path zeigt in den privaten Bucket "checkins" (Pfad <user_id>/<checkin_id>.jpg).
 create table public.checkins (
@@ -108,13 +109,17 @@ create policy "consents: eigene lesen" on public.consents
   for select to authenticated using (auth.uid() = user_id);
 create policy "consents: eigene anlegen" on public.consents
   for insert to authenticated with check (auth.uid() = user_id);
+create policy "consents: eigenen Widerruf nachtragen" on public.consents
+  for update to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
 create policy "checkins: eigene Zeilen" on public.checkins
   for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
--- Schätzungen: Nutzer lesen, nur die Edge Function (Service-Role) schreibt.
+-- Schätzungen: Nutzer lesen und löschen (Widerruf), nur die Edge Function (Service-Role) schreibt.
 create policy "estimates: eigene lesen" on public.estimates
   for select to authenticated using (auth.uid() = user_id);
+create policy "estimates: eigene löschen" on public.estimates
+  for delete to authenticated using (auth.uid() = user_id);
 
 create policy "progress: eigene Zeilen" on public.program_progress
   for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);

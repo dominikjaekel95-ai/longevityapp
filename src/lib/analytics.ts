@@ -5,7 +5,7 @@ import { getSetting, setSetting, SettingKeys } from '@/lib/db/settings';
 import { env } from '@/lib/env';
 
 /**
- * Ereignisse an PostHog Cloud EU, nur mit Opt-in in den Einstellungen (Standard: aus). Kein SDK, kein Autocapture,
+ * Ereignisse an PostHog Cloud EU, nur mit der Einwilligung nutzungsstatistik (Standard: aus; src/lib/consents.ts). Kein SDK, kein Autocapture,
  * kein Session Replay. Ereignisse enthalten keine Messwerte und keine Foto-Informationen, nur Zähl- und Zeitangaben
  * für die Kennzahlen aus CLAUDE.md Abschnitt 6. Kennung ist eine zufällige Installations-ID ohne Bezug zur Person.
  */

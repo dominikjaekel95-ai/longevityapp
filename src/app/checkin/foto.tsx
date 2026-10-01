@@ -10,14 +10,12 @@ import { Silhouette } from '@/components/Silhouette';
 import { Txt } from '@/components/Txt';
 import { useT } from '@/hooks/useT';
 import { track } from '@/lib/analytics';
-import { deleteLocalPhoto, PREVIEW_ASPECT, processCapture, type ProcessedPhoto } from '@/lib/photo';
-import { useApp } from '@/state/AppProvider';
+import { commitPhoto, deleteLocalPhoto, PREVIEW_ASPECT, processCapture, type ProcessedPhoto } from '@/lib/photo';
 import { countRetake, setDraftPhoto, startDraft } from '@/state/checkinDraft';
 import { spacing } from '@/theme/tokens';
 
 export default function CheckinFoto() {
   const { t, tc } = useT();
-  const { settings } = useApp();
   const { width, height } = useWindowDimensions();
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
@@ -40,8 +38,13 @@ export default function CheckinFoto() {
     try {
       const pic = await cameraRef.current.takePictureAsync({ quality: 0.9 });
       if (pic) {
-        const processed = await processCapture(pic.uri, pic.width, pic.height, { maskHead: settings.headMask });
-        setShot(processed);
+        try {
+          // Zuschnitt läuft immer (docs/REVIEW.md R12); das Original wird in jedem Fall gelöscht (R13).
+          const processed = await processCapture(pic.uri, pic.width, pic.height, { maskHead: true });
+          setShot(processed);
+        } finally {
+          deleteLocalPhoto(pic.uri);
+        }
       }
     } catch {
       setCameraError(true);
@@ -99,7 +102,7 @@ export default function CheckinFoto() {
             <Button
               label={t('checkin.foto.behalten')}
               onPress={() => {
-                setDraftPhoto(shot);
+                setDraftPhoto(commitPhoto(shot));
                 router.push('/checkin/werte');
               }}
             />
@@ -116,6 +119,9 @@ export default function CheckinFoto() {
           </>
         }>
         <Image source={{ uri: shot.uri }} style={{ width: frameW, height: Math.round((frameW * shot.height) / shot.width) }} contentFit="contain" />
+        <Txt variant="small" color="ink3">
+          {t('checkin.foto.vorschauHinweis')}
+        </Txt>
         <Txt variant="small" color="ink3">
           {tc('photoWhy')}
         </Txt>

@@ -39,6 +39,18 @@ describe('check-claims', () => {
     const r2 = runIn({ 'src/content/claims.ts': okClaims.replace('Progress over weeks.', 'The app detects muscle loss.') });
     expect(r2.code).toBe(1);
   });
+  it('nimmt Ausschlusslisten mit ausnahme_claims für Krankheitsbegriffe aus, nicht aber Medikamentennamen', () => {
+    const md = "---\ntitel: \"Bevor du startest\"\nausnahme_claims: \"Krankheitsbezüge als Ausschluss\"\npunkte:\n  - \"Bist du in Therapie: sprich vorher mit deiner Ärztin.\"\n---\n";
+    expect(runIn({ 'src/content/claims.ts': okClaims, 'content/onboarding/de/x.md': md }).code).toBe(0);
+    const bad = md.replace("in Therapie", "unter Ozempic");
+    expect(runIn({ 'src/content/claims.ts': okClaims, 'content/onboarding/de/x.md': bad }).code).toBe(1);
+    const noFlag = md.replace("ausnahme_claims: \"Krankheitsbezüge als Ausschluss\"\n", "");
+    expect(runIn({ 'src/content/claims.ts': okClaims, 'content/onboarding/de/x.md': noFlag }).code).toBe(1);
+  });
+  it('erlaubt „in ärztlicher Behandlung“, verbietet Behandlung als Angebot', () => {
+    expect(runIn({ 'src/content/claims.ts': okClaims.replace("Verlauf über Wochen.", "Wenn du in ärztlicher Behandlung bist, frag vorher.") }).code).toBe(0);
+    expect(runIn({ 'src/content/claims.ts': okClaims.replace("Verlauf über Wochen.", "Die App unterstützt deine Behandlung.") }).code).toBe(1);
+  });
   it('verlangt de und en in claims.ts', () => {
     const r = runIn({ 'src/content/claims.ts': "export const claims = {\n  a: {\n    de: 'Nur deutsch.',\n  },\n};\n" });
     expect(r.code).toBe(1);

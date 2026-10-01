@@ -84,3 +84,7 @@ Dominik will nüchterne Namen statt Marketing (D10). Die Begleitinstanz hat das 
 ## D19. Zuschnitt ohne Schalter
 
 docs/REVIEW.md R12, 01.10.2026. Der Schnitt an der Schulterlinie läuft immer; die Einwilligung verspricht Fotos ohne Kopf, ein Schalter hätte das Versprechen brechen können. Die Einstellungen zeigen den Zuschnitt nur noch als Information.
+
+## D20. Google-Anmeldung über den Browser, kein Google-SDK
+
+Dominik, 01.10.2026: Single Sign-on mit den Standardanbietern. Umgesetzt ist Google über Supabase (PKCE, Rücksprung per App-Link `longvy://auth`), ohne natives Google-SDK. Vorteil: läuft in Expo Go und im Build, keine SHA-1-Registrierung, kein zusätzliches natives Modul. Nachteil: ein Browserfenster statt des nativen Google-Dialogs. Apple folgt mit dem Apple-Entwicklerkonto (Pflicht auf iOS, sobald es Google gibt). Der E-Mail-Code bleibt als Weg ohne Google-Konto. Einrichtung in docs/SETUP.md, Abschnitt 3.5.

@@ -1,11 +1,20 @@
 # Testen auf Android
 
-Drei Wege, vom schnellsten zum vollständigsten. Für alle gilt: Repo klonen, Node 22, `npm ci`.
+Drei Wege, vom schnellsten zum vollständigsten. Für alle gilt: Node 22 oder neuer, dann einmalig
+
+```bash
+cd ~
+git clone https://github.com/dominikjaekel95-ai/longevityapp.git
+cd longevityapp
+npm ci
+```
+
+Kein `npm install -g`: Auf dem Mac scheitert das oft an Berechtigungen (`EACCES`). Alles läuft mit `npx`.
 
 ## 1. Expo Go (zehn Minuten, kein Konto nötig)
 
 1. App „Expo Go“ aus dem Play Store installieren.
-2. Auf dem Laptop im Repo: `npm start`. Laptop und Handy im selben WLAN.
+2. Auf dem Laptop im Repo: `npx expo start`. Laptop und Handy im selben WLAN. Bricht die Verbindung ab: `npx expo start --tunnel`.
 3. In Expo Go den QR-Code scannen. Die App lädt vom Laptop; Änderungen am Code erscheinen sofort.
 
 Was geht: alles aus Phase 1, auch Kamera, lokale Datenbank, Erinnerung, Export. Was nicht geht: eigenes App-Icon und eigener Name (es ist Expo Go), und ohne `.env.local` mit Supabase-Werten läuft die App im Modus „nur Gerät“ (kein Konto, keine Foto-Schätzung).
@@ -15,7 +24,8 @@ Was geht: alles aus Phase 1, auch Kamera, lokale Datenbank, Erinnerung, Export. 
 Voraussetzungen aus `docs/SETUP.md`: Expo-Konto, `eas init`, EAS-Secrets.
 
 ```bash
-npx eas-cli build --platform android --profile preview
+npx eas-cli@latest login
+npx eas-cli@latest build --platform android --profile preview
 ```
 
 EAS baut in der Cloud und zeigt einen Link zur APK. Link auf dem Handy öffnen, APK installieren (Installation aus unbekannten Quellen einmal erlauben). Diese APK läuft ohne Laptop und lässt sich an Michael weitergeben. Kein Play-Upload nötig.
@@ -23,8 +33,8 @@ EAS baut in der Cloud und zeigt einen Link zur APK. Link auf dem Handy öffnen, 
 ## 3. Development Build (für laufende Entwicklung mit nativen Modulen)
 
 ```bash
-npx eas-cli build --platform android --profile development
-npm start -- --dev-client
+npx eas-cli@latest build --platform android --profile development
+npx expo start --dev-client
 ```
 
 Wie Expo Go, aber mit dem eigenen Build. Nötig, sobald Module dazukommen, die Expo Go nicht enthält (in Phase 1 keins).

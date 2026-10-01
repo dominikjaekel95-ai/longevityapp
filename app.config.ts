@@ -87,8 +87,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   extra: {
     eas: {
-      // Wird von `eas init` gesetzt bzw. über EAS_PROJECT_ID gelesen; keine Geheimnis, aber kontospezifisch.
-      projectId: process.env.EAS_PROJECT_ID,
+      // Projekt-ID aus dem Expo-Dashboard (kein Geheimnis). EAS_PROJECT_ID überschreibt sie, z. B. für ein zweites Konto.
+      projectId: process.env.EAS_PROJECT_ID ?? '25164f87-5aff-457e-aaca-9967524c8c67',
     },
   },
   owner: process.env.EXPO_OWNER,

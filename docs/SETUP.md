@@ -6,9 +6,9 @@ Reihenfolge für den ersten Testbuild: 1 und 2 reichen für Expo Go und eine APK
 
 ## 1. Expo und EAS (Build in der Cloud)
 
-1. Konto auf expo.dev anlegen (kostenlos). `npm i -g eas-cli`, `eas login`.
-2. Im Repo: `eas init`. Das vergibt eine Projekt-ID. Sie und der Kontoname gehören in die EAS-Umgebungsvariablen (siehe Tabelle), nicht ins Repo.
-3. Erste APK: `eas build -p android --profile preview` (docs/TESTEN.md). EAS fragt beim ersten Mal nach einem Keystore und erzeugt ihn selbst.
+1. Konto auf expo.dev anlegen (kostenlos). Kein globales `npm i -g eas-cli` nötig; auf dem Mac scheitert das oft an Berechtigungen. Stattdessen immer `npx eas-cli@latest <befehl>`.
+2. Die Projekt-ID aus dem Expo-Dashboard steht in `app.config.ts` (`25164f87-…`). Ein anderes Konto setzt `EAS_PROJECT_ID` und `EXPO_OWNER`.
+3. Erste APK: `npx eas-cli@latest login`, dann `npx eas-cli@latest build -p android --profile preview` (docs/TESTEN.md). EAS fragt beim ersten Mal nach einem Keystore und erzeugt ihn selbst.
 
 ## 2. Umgebungsvariablen der App
 
@@ -30,8 +30,13 @@ Alle Variablen stehen mit Erklärung in `.env.example`. Lokal als `.env.local` (
 2. Supabase-CLI: `npm i -g supabase`, `supabase login`, im Repo `supabase link --project-ref <ref>`.
 3. Schema einspielen: `supabase db push` (führt `supabase/migrations/0001_init.sql` aus: Tabellen, Row Level Security, privater Bucket `checkins`).
 4. Auth: Authentication, Providers, Email aktivieren. **E-Mail-Vorlage „Magic Link“** auf den Code umstellen: in Authentication, Email Templates, Magic Link den Platzhalter `{{ .ConfirmationURL }}` durch `{{ .Token }}` ersetzen (sechsstelliger Code, siehe docs/DECISIONS.md). OTP-Gültigkeit 600 Sekunden.
-5. Edge Functions: `supabase functions deploy estimate-body` und `supabase functions deploy delete-account`.
-6. Secrets für die Functions (nie in EAS, nie im Repo): `supabase secrets set NAME=WERT`. `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` setzt Supabase selbst.
+5. **Google-Anmeldung** (optional, neben dem E-Mail-Code):
+   - Google Cloud Console, APIs und Dienste, OAuth-Zustimmungsbildschirm: Typ „Extern“, App-Name Longvy, deine E-Mail. Im Status „Testen“ dürfen sich nur eingetragene Testnutzer anmelden: dich und Michael als Testnutzer eintragen.
+   - Anmeldedaten, OAuth-Client-ID vom Typ „Webanwendung“. Autorisierte Weiterleitungs-URI: `https://<projekt-ref>.supabase.co/auth/v1/callback`. Client-ID und Client-Secret kopieren.
+   - Supabase, Authentication, Providers, Google: aktivieren, Client-ID und Secret eintragen.
+   - Supabase, Authentication, URL Configuration, Redirect URLs: `longvy://auth` für die APK und `exp://**` für Expo Go eintragen (das Wildcard später vor echten Nutzern entfernen).
+6. Edge Functions: `supabase functions deploy estimate-body` und `supabase functions deploy delete-account`.
+7. Secrets für die Functions (nie in EAS, nie im Repo): `supabase secrets set NAME=WERT`. `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` setzt Supabase selbst.
 
 | Secret | Wert |
 |---|---|

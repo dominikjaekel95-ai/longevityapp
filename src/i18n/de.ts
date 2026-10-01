@@ -234,6 +234,10 @@ export const de = {
   'uebungen.trainiert': 'Trainiert',
   'uebungen.sicherheit': 'Sicherheit',
   'checkin.foto.vorschauHinweis': 'So wird das Foto gespeichert: ohne Kopf, nur dieser Ausschnitt.',
+
+  // Google-Anmeldung
+  'onboarding.konto.google': 'Mit Google anmelden',
+  'onboarding.konto.oder': 'oder per E-Mail-Code',
 } as const;
 
 export type I18nKey = keyof typeof de;

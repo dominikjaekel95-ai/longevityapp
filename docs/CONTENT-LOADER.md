@@ -1,6 +1,6 @@
 # Inhalte aus content/: Loader
 
-`content/` gehört der Begleitinstanz; das Format steht in `content/README.md`. Die App liest die Dateien im Build-Schritt `npm run build:content` nach `src/content/generated/content.json` (committet, CI prüft Aktualität). Fehlt etwas, zeigt die App Platzhalter aus `src/content/placeholder/`. Weicht `content/README.md` vom Loader ab, wird der Loader nachgezogen, nie `content/`.
+`content/` schreibt und pflegt die Coding-Instanz (seit 01.10.2026); das Format steht in `content/README.md`. Die App liest die Dateien im Build-Schritt `npm run build:content` nach `src/content/generated/content.json` (committet, CI prüft Aktualität). Fehlt etwas, zeigt die App Platzhalter aus `src/content/placeholder/`. Format und Loader ändern sich nur zusammen, im selben PR.
 
 | Quelle | Loader | Wo in der App |
 |---|---|---|

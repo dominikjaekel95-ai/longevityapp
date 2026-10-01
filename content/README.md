@@ -1,6 +1,6 @@
 # content/
 
-Alle Texte, die die App anzeigt und die nicht Oberfläche sind: Programme, Übungen, Hinweise, Rechtstexte. Gepflegt von der Begleitinstanz (siehe `docs/ZUSAMMENARBEIT.md`), fachlich gegengelesen von Michael, freigegeben von Dominik. Alles hier ist `status: entwurf`, bis Dominik freigibt.
+Alle Texte, die die App anzeigt und die nicht Oberfläche sind: Programme, Übungen, Hinweise, Rechtstexte. Geschrieben und gepflegt von der Coding-Instanz (seit 01.10.2026, Entscheidung Dominik; die Begleitinstanz gibt Feedback über `docs/REVIEW.md`), fachlich gegengelesen von Michael, freigegeben von Dominik. Alles hier ist `status: entwurf`, bis Dominik freigibt.
 
 ## Was die App ist
 

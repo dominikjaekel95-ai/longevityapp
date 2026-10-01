@@ -106,7 +106,7 @@ export function LineChart({ title, points, band, unit, decimals = 1, formatNumbe
         </Svg>
       ) : null}
       <View style={styles.footer}>
-        <Txt variant="small" color="ink3">
+        <Txt variant="small" color="ink3" align="right">
           {xLabel}
         </Txt>
         {caption ? (
@@ -121,5 +121,6 @@ export function LineChart({ title, points, band, unit, decimals = 1, formatNumbe
 
 const styles = StyleSheet.create({
   wrap: { gap: spacing.s },
-  footer: { flexDirection: 'row', justifyContent: 'space-between', gap: spacing.m },
+  // Achsenbeschriftung rechts unter der Achse, Trendzeile darunter in voller Breite: nebeneinander wurde die Trendzeile am Rand abgeschnitten.
+  footer: { gap: spacing.xs },
 });

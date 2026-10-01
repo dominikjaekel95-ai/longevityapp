@@ -39,6 +39,14 @@ npx expo start --dev-client
 
 Wie Expo Go, aber mit dem eigenen Build. Nötig, sobald Module dazukommen, die Expo Go nicht enthält (in Phase 1 keins).
 
+## Für Michael und andere Tester ohne Laptop
+
+Der einfachste Weg ist die APK aus Abschnitt 2. Dominik baut sie einmal; danach zeigt expo.dev unter „Builds“ einen Link und einen QR-Code zur Datei. Diesen Link schickt Dominik weiter (Mail, Messenger). Auf dem Android-Handy: Link öffnen, APK herunterladen, beim ersten Mal „Installation aus unbekannten Quellen“ für den Browser erlauben, installieren. Kein Expo-Konto, kein Laptop. Für jede neue Version gibt es einen neuen Link; die alte App wird beim Installieren ersetzt, die Daten bleiben.
+
+Ohne APK geht es nur über Expo Go, und nur solange Dominiks Laptop den Server laufen hat: `npx expo start --tunnel` zeigt im Terminal eine Adresse `exp://…`. Michael installiert Expo Go aus dem Play Store, tippt dort auf „Enter URL manually“ und gibt die Adresse ein (oder scannt ein abfotografiertes Bild des QR-Codes). Beendet der Laptop den Server, lädt die App auf seinem Handy nicht mehr.
+
+In beiden Fällen gilt: Solange Supabase nicht eingerichtet ist, läuft die App im Modus „nur Gerät“. Die Daten bleiben auf dem jeweiligen Handy, es gibt kein Konto und keine Foto-Schätzung.
+
 ## Was beim ersten Test geprüft wird
 
 | Ablauf | Erwartung |
@@ -49,7 +57,7 @@ Wie Expo Go, aber mit dem eigenen Build. Nötig, sobald Module dazukommen, die E
 | Check-in ohne Foto | Nur Werte, mindestens ein Wert Pflicht |
 | Verlauf | Unter drei Check-ins Zahl und Veränderung, ab drei eine Kurve mit Punkten und Achsen |
 | Programm | Wochenkarten mit Checkliste; Haken bleiben nach Neustart |
-| Einstellungen | Erinnerung an/aus mit Wochentag (nur APK, in Expo Go steht dort „nicht verfügbar“), Sprache, Export als ZIP, Konto löschen mit Bestätigungswort. Der Kopf wird immer abgeschnitten, es gibt keinen Schalter mehr |
+| Einstellungen | Erinnerung an/aus mit Wochentag (nur APK, in Expo Go steht dort „nicht verfügbar“), Export als ZIP, Konto löschen mit Bestätigungswort. Der Kopf wird immer abgeschnitten, es gibt keinen Schalter mehr. Keine Sprachwahl: Deutsch ist fest, bis die Inhalte englisch vorliegen |
 | Offline | Flugmodus an: Check-in speichern funktioniert; danach synchronisiert die App, sobald ein Konto besteht |
 | Dunkelmodus | Systemeinstellung umschalten: alle Bildschirme lesbar |
 

@@ -56,6 +56,11 @@ export const claims = {
     en: 'This photo does not match the previous one closely enough to compare. Common reasons: different distance, light or posture. You can retake it or save it without comparison.',
   },
 
+  photoNoBody: {
+    de: 'Auf dem Foto ist kein Oberkörper zu sehen, deshalb gibt es keine Schätzung. Nimm das Foto nach der Anleitung noch einmal auf: frontal, Schultern an der Linie.',
+    en: 'The photo does not show a torso, so there is no estimate. Take it again following the guide: facing the camera, shoulders on the line.',
+  },
+
   // --- Foto-Schätzung (Beta) ---
   estimateTitle: {
     de: 'Beta-Schätzung Körperfett',

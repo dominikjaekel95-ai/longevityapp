@@ -11,7 +11,7 @@ import { Txt } from '@/components/Txt';
 import { CONSENT_HEALTH, getConsent } from '@/content/consent';
 import { getProgram } from '@/content/programs';
 import { useT } from '@/hooks/useT';
-import { formatDate, weekdayKey } from '@/i18n';
+import { availableLocales, formatDate, weekdayKey } from '@/i18n';
 import { track } from '@/lib/analytics';
 import { countUnsynced } from '@/lib/db/checkins';
 import { getActiveConsent } from '@/lib/db/consents';
@@ -135,16 +135,15 @@ export default function EinstellungenTab() {
         />
       </Section>
 
-      <Section title={t('einstellungen.sprache')}>
-        <Choice
-          options={[
-            { value: 'de', label: t('einstellungen.sprache.de') },
-            { value: 'en', label: t('einstellungen.sprache.en') },
-          ]}
-          value={locale}
-          onChange={(l) => changeLocale(l)}
-        />
-      </Section>
+      {availableLocales.length > 1 ? (
+        <Section title={t('einstellungen.sprache')}>
+          <Choice
+            options={availableLocales.map((l) => ({ value: l, label: t(`einstellungen.sprache.${l}` as const) }))}
+            value={locale}
+            onChange={(l) => changeLocale(l)}
+          />
+        </Section>
+      ) : null}
 
       <Section title={t('einstellungen.daten')}>
         <View style={{ gap: spacing.s, paddingVertical: spacing.s }}>

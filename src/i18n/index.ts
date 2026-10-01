@@ -12,14 +12,26 @@ const dictionaries: Record<Locale, Record<I18nKey, string>> = { de, en };
 
 let current: Locale = 'de';
 
-/** Sprache aus dem System ableiten: Englisch nur, wenn das Gerät auf Englisch steht; sonst Deutsch. */
+/**
+ * Wählbare Sprachen. Nur Deutsch, bis die Inhalte in content/ vollständig auf Englisch vorliegen (docs/REVIEW.md R20):
+ * Oberfläche und claims.ts gibt es zweisprachig, content/ nur deutsch; gemischt darf die App nicht erscheinen.
+ * Sobald content/<...>/en/ vollständig ist: 'en' hier ergänzen, dann greift die Gerätesprache wieder.
+ */
+export const availableLocales: readonly Locale[] = ['de'];
+
+/** Sprache aus dem System ableiten, beschränkt auf availableLocales. */
 export function detectLocale(): Locale {
   try {
     const tag = getLocales()[0]?.languageCode ?? 'de';
-    return tag === 'en' ? 'en' : 'de';
+    const wanted: Locale = tag === 'en' ? 'en' : 'de';
+    return availableLocales.includes(wanted) ? wanted : 'de';
   } catch {
     return 'de';
   }
+}
+
+export function isAvailableLocale(value: unknown): value is Locale {
+  return typeof value === 'string' && (availableLocales as readonly string[]).includes(value);
 }
 
 export function setLocale(locale: Locale) {

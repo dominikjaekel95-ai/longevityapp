@@ -1,7 +1,7 @@
 import type { Session } from '@supabase/supabase-js';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-import { detectLocale, setLocale, type Locale } from '@/i18n';
+import { detectLocale, isAvailableLocale, setLocale, type Locale } from '@/i18n';
 import { getDb } from '@/lib/db/client';
 import { boolSetting, getAllSettings, setSetting, SettingKeys } from '@/lib/db/settings';
 import { env } from '@/lib/env';
@@ -51,7 +51,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const refresh = useCallback(async () => {
     const raw = await getAllSettings();
-    const loc = (raw[SettingKeys.locale] as Locale | null) ?? detectLocale();
+    const stored = raw[SettingKeys.locale];
+    const loc: Locale = isAvailableLocale(stored) ? stored : detectLocale();
     setLocale(loc);
     setLocaleState(loc);
     setSettings({

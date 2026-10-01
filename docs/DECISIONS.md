@@ -88,3 +88,11 @@ docs/REVIEW.md R12, 01.10.2026. Der Schnitt an der Schulterlinie läuft immer; d
 ## D20. Google-Anmeldung über den Browser, kein Google-SDK
 
 Dominik, 01.10.2026: Single Sign-on mit den Standardanbietern. Umgesetzt ist Google über Supabase (PKCE, Rücksprung per App-Link `longvy://auth`), ohne natives Google-SDK. Vorteil: läuft in Expo Go und im Build, keine SHA-1-Registrierung, kein zusätzliches natives Modul. Nachteil: ein Browserfenster statt des nativen Google-Dialogs. Apple folgt mit dem Apple-Entwicklerkonto (Pflicht auf iOS, sobald es Google gibt). Der E-Mail-Code bleibt als Weg ohne Google-Konto. Einrichtung in docs/SETUP.md, Abschnitt 3.5.
+
+## D21. Alle Texte schreibt die Coding-Instanz, die Begleitinstanz gibt Feedback
+
+Dominik, 01.10.2026. Die Texte wirkten uneinheitlich, weil Oberfläche (Coding-Instanz) und `content/` (Begleitinstanz) aus zwei Händen kamen. Ab sofort schreibt und pflegt die Coding-Instanz alle Texte, auch `content/`; die Begleitinstanz gibt Feedback nur über `docs/REVIEW.md` (`docs/ZUSAMMENARBEIT.md`). Freigabe von Programm- und Rechtstexten weiter durch Dominik, fachliche Durchsicht durch Michael.
+
+## D22. Deutsch fest eingestellt, bis Englisch vollständig ist
+
+docs/REVIEW.md R20, 01.10.2026. Die Sprache folgte der Gerätesprache; auf englischen Geräten kamen Oberfläche und `claims.ts` englisch, `content/` deutsch. Jetzt gilt: `availableLocales = ['de']` in `src/i18n/index.ts`, die Gerätesprache wird darauf beschränkt, eine früher gespeicherte Wahl „en“ wird ignoriert, und die Sprachwahl in den Einstellungen erscheint erst bei mehr als einer Sprache. Die englischen Oberflächentexte bleiben im Code und werden wieder aktiv, sobald `content/` vollständig englisch vorliegt.

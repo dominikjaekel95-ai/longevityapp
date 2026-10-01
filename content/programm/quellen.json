@@ -1,0 +1,74 @@
+{
+  "acsm2009": {
+    "kurz": "ACSM Position Stand Krafttraining, 2009",
+    "voll": "American College of Sports Medicine. Progression Models in Resistance Training for Healthy Adults (Position Stand). Med Sci Sports Exerc. 2009;41(3):687–708.",
+    "url": "https://doi.org/10.1249/MSS.0b013e3181915670",
+    "notiz": "Einsteiger: 8–12 Wiederholungen, 1–3 Sätze, 2–3 Einheiten pro Woche, Belastung schrittweise steigern."
+  },
+  "dgeBallaststoffe": {
+    "kurz": "DGE, Richtwert Ballaststoffe",
+    "voll": "Deutsche Gesellschaft für Ernährung e. V. Referenzwerte für die Nährstoffzufuhr: Ballaststoffe. Bonn.",
+    "url": "https://www.dge.de/wissenschaft/referenzwerte/ballaststoffe/",
+    "notiz": "Richtwert mindestens 30 g pro Tag für Erwachsene."
+  },
+  "euClaims": {
+    "kurz": "EU-Register zugelassener Health Claims (VO (EU) Nr. 432/2012, VO (EU) 2017/672)",
+    "voll": "Verordnung (EU) Nr. 432/2012 der Kommission zur Festlegung einer Liste zulässiger anderer gesundheitsbezogener Angaben über Lebensmittel; ergänzt u. a. durch Verordnung (EU) 2017/672 (Kreatin und Krafttraining ab 55 Jahren).",
+    "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32012R0432",
+    "notiz": "Grundlage aller gesundheitsbezogenen Aussagen zum Set."
+  },
+  "jensen2024": {
+    "kurz": "Jensen et al., S-LiTE Nachbeobachtung, eClinicalMedicine 2024",
+    "voll": "Jensen SBK, Blond MB, Sandsdal RM, et al. Healthy weight loss maintenance with exercise, GLP-1 receptor agonist, or both combined followed by one year without treatment: a post-treatment analysis of a randomised placebo-controlled trial. eClinicalMedicine. 2024;69:102475.",
+    "url": "https://www.thelancet.com/journals/eclinm/article/PIIS2589-5370(24)00054-3/fulltext",
+    "notiz": "Ein Jahr nach Therapieende: Wer trainiert hatte, hielt Gewicht und Körperzusammensetzung; nach Liraglutid allein kam das Gewicht zurück (6,0 kg mehr Zunahme als nach Training)."
+  },
+  "kreider2017": {
+    "kurz": "Kreider et al., ISSN Position Stand Kreatin, 2017",
+    "voll": "Kreider RB, Kalman DS, Antonio J, et al. International Society of Sports Nutrition position stand: safety and efficacy of creatine supplementation in exercise, sport, and medicine. J Int Soc Sports Nutr. 2017;14:18.",
+    "url": "https://jissn.biomedcentral.com/articles/10.1186/s12970-017-0173-z",
+    "notiz": "Kreatin-Monohydrat gilt bei gesunden Erwachsenen in üblichen Dosen (3–5 g/Tag) als sicher und gut untersucht."
+  },
+  "leidy2015": {
+    "kurz": "Leidy et al., Am J Clin Nutr 2015",
+    "voll": "Leidy HJ, Clifton PM, Astrup A, et al. The role of protein in weight loss and maintenance. Am J Clin Nutr. 2015;101(6):1320S–1329S.",
+    "url": "https://doi.org/10.3945/ajcn.114.084038",
+    "notiz": "Empfiehlt für Gewichtsabnahme und -erhalt eine Proteinzufuhr von 1,2–1,6 g pro kg Körpergewicht und Tag."
+  },
+  "moore2015": {
+    "kurz": "Moore et al., J Gerontol A 2015",
+    "voll": "Moore DR, Churchward-Venne TA, Witard O, et al. Protein Ingestion to Stimulate Myofibrillar Protein Synthesis Requires Greater Relative Protein Intakes in Healthy Older Versus Younger Men. J Gerontol A Biol Sci Med Sci. 2015;70(1):57–62.",
+    "url": "https://doi.org/10.1093/gerona/glu103",
+    "notiz": "Pro Mahlzeit etwa 0,24 g Protein pro kg Körpergewicht bei jüngeren und 0,40 g/kg bei älteren Männern, um die Muskelproteinsynthese maximal anzuregen."
+  },
+  "sardeli2018": {
+    "kurz": "Sardeli et al., Meta-Analyse, Nutrients 2018",
+    "voll": "Sardeli AV, Komatsu TR, Mori MA, Gáspari AF, Chacon-Mikahil MPT. Resistance Training Prevents Muscle Loss Induced by Caloric Restriction in Obese Elderly Individuals: A Systematic Review and Meta-Analysis. Nutrients. 2018;10(4):423.",
+    "url": "https://www.mdpi.com/2072-6643/10/4/423",
+    "notiz": "Krafttraining während einer Kalorienreduktion verhinderte den Verlust an fettfreier Masse weitgehend."
+  },
+  "spiegel2004": {
+    "kurz": "Spiegel et al., Ann Intern Med 2004",
+    "voll": "Spiegel K, Tasali E, Penev P, Van Cauter E. Brief Communication: Sleep Curtailment in Healthy Young Men Is Associated with Decreased Leptin Levels, Elevated Ghrelin Levels, and Increased Hunger and Appetite. Ann Intern Med. 2004;141(11):846–850.",
+    "url": "https://doi.org/10.7326/0003-4819-141-11-200412070-00008",
+    "notiz": "Zwei Nächte mit vier Stunden Schlaf: Leptin sank, Ghrelin stieg, Hunger und Appetit nahmen zu."
+  },
+  "sumithran2011": {
+    "kurz": "Sumithran et al., NEJM 2011",
+    "voll": "Sumithran P, Prendergast LA, Delbridge E, et al. Long-Term Persistence of Hormonal Adaptations to Weight Loss. N Engl J Med. 2011;365:1597–1604.",
+    "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1105816",
+    "notiz": "Ein Jahr nach einer Diät waren appetitsteigernde Hormonveränderungen (u. a. mehr Ghrelin, weniger Leptin) weiterhin messbar."
+  },
+  "who2020": {
+    "kurz": "WHO-Bewegungsempfehlungen 2020",
+    "voll": "World Health Organization. WHO guidelines on physical activity and sedentary behaviour. Genf: WHO; 2020.",
+    "url": "https://www.who.int/publications/i/item/9789240015128",
+    "notiz": "Erwachsene: an mindestens zwei Tagen pro Woche muskelkräftigende Aktivitäten für alle großen Muskelgruppen."
+  },
+  "wu2025": {
+    "kurz": "Wu et al., Meta-Analyse, BMC Medicine 2025",
+    "voll": "Wu H, Yang W, Guo T, et al. Trajectory of the body weight after drug discontinuation in the treatment of anti-obesity medications. BMC Med. 2025;23:398.",
+    "url": "https://link.springer.com/article/10.1186/s12916-025-04200-0",
+    "notiz": "Meta-Analyse von RCTs: Ab etwa Woche 8 nach dem Absetzen ist die Gewichtszunahme messbar, sie setzt sich bis etwa Woche 20 fort."
+  }
+}

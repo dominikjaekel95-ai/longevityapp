@@ -48,3 +48,10 @@ Stand der Vorab-Punkte: R4, R5 (Policies), R6, R10 und R11 sind erfüllt. R1, R2
 - [ ] **R17 INFO · Link „Wissen“ im Kern** zeigt auf nachderspritze.de/wissen/ (`src/lib/env.ts:39`). Im allgemeinen Kern weglassen, bis die Dachmarke eine eigene Seite hat, oder nur im Programm „Nach dem Absetzen der Abnehmspritze“ zeigen.
 - **Antwort auf Frage 3 (PostHog ohne SDK):** kein Einwand. „Discard client IP data“ steht schon in SETUP.md.
 - **Merge-Regel (D11):** wie in `docs/ZUSAMMENARBEIT.md`. Die Coding-Instanz mergt nach grünem `check:all` selbst. Store-Eintrag, Datenschutz und Preise mergt Dominik. Die Einwilligungstexte liegen in `content/` und gehören der Begleitinstanz.
+
+## PR #3 und #4 (geprüft 2026-10-01, 13:55)
+
+Erledigt und geprüft: R1, R2 (Prüfung in App und `estimate-body`, Sync nur mit `gesundheitsdaten`), R3/R12 (kein Schalter mehr), R13 (Original in `finally` gelöscht), R5 (RLS-Test `supabase/tests/rls.test.sql`), R7/R15 (EU-Host `aiplatform.eu.rep.googleapis.com`), R8 (Export mit allen Schätzungen), R9/R16 (Loader liest `content/`), R11, R14 (Prüfpunkt in TESTEN.md), R17. R6: Einwand D17 angenommen, öffentliche Konfiguration darf `EXPO_PUBLIC_` sein. Die Google-Anmeldung läuft mit PKCE und `exchangeCodeForSession`, das passt.
+
+- [ ] **R18 SOLLTE · Widerruf nur für `revoked_at`.** Die Policy „consents: eigenen Widerruf nachtragen“ erlaubt das Ändern aller Spalten der eigenen Zeilen, auch `granted_at` und `text_version`. Das schwächt den Nachweis. Lösung: `revoke update on public.consents from authenticated; grant update (revoked_at) on public.consents to authenticated;` in einer Migration 0002.
+- [ ] **R19 INFO · Vor externen Nutzern:** Die Redirect-URL `exp://**` in Supabase entfernen (steht schon in SETUP.md), den OAuth-Zustimmungsbildschirm von „Testen“ auf „In Produktion“ umstellen und das Kürzel `NdS` aus Doku-Texten nehmen. In `docs/TESTEN.md` steht noch „Kopf abschneiden an/aus“; das sollte jetzt „immer an“ heißen.

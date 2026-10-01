@@ -17,7 +17,7 @@ import { countUnsynced } from '@/lib/db/checkins';
 import { getActiveConsent } from '@/lib/db/consents';
 import { env, hasBackend } from '@/lib/env';
 import { exportAll } from '@/lib/export';
-import { cancelReminder, scheduleWeeklyReminder } from '@/lib/notifications';
+import { cancelReminder, notificationsAvailable, scheduleWeeklyReminder } from '@/lib/notifications';
 import { syncNow } from '@/lib/sync/sync';
 import { useApp } from '@/state/AppProvider';
 import { spacing } from '@/theme/tokens';
@@ -82,6 +82,8 @@ export default function EinstellungenTab() {
       ) : null}
 
       <Section title={t('einstellungen.erinnerung')}>
+        {!notificationsAvailable ? <Row label={t('einstellungen.erinnerung')} sub={t('einstellungen.erinnerungNichtVerfuegbar')} value={t('common.aus')} last /> : null}
+        {notificationsAvailable ? (
         <Row
           label={t('einstellungen.erinnerung')}
           sub={settings.reminderEnabled ? t(weekdayKey(settings.reminderWeekday)) : t('common.aus')}
@@ -103,6 +105,7 @@ export default function EinstellungenTab() {
             />
           }
         />
+        ) : null}
         {settings.reminderEnabled ? (
           <Row label={t('onboarding.erinnerung.wochentag')} onPress={() => setShowWeekdays((s) => !s)} last={!showWeekdays} />
         ) : null}

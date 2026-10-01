@@ -231,4 +231,7 @@ export const en: Record<I18nKey, string> = {
   // Google-Anmeldung
   'onboarding.konto.google': 'Sign in with Google',
   'onboarding.konto.oder': 'or by email code',
+
+  // Expo Go
+  'einstellungen.erinnerungNichtVerfuegbar': 'Not available in Expo Go. Works in the standalone app (APK).',
 };

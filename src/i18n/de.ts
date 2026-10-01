@@ -238,6 +238,9 @@ export const de = {
   // Google-Anmeldung
   'onboarding.konto.google': 'Mit Google anmelden',
   'onboarding.konto.oder': 'oder per E-Mail-Code',
+
+  // Expo Go
+  'einstellungen.erinnerungNichtVerfuegbar': 'In Expo Go nicht verfügbar. In der eigenen App (APK) funktioniert die Erinnerung.',
 } as const;
 
 export type I18nKey = keyof typeof de;

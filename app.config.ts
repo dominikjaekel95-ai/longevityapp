@@ -81,6 +81,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     'expo-sharing',
     'expo-font',
   ],
+  // EAS Update: Korrekturen am JavaScript ohne neuen Build, je Kanal (preview, production) aus eas.json.
+  updates: {
+    url: `https://u.expo.dev/${process.env.EAS_PROJECT_ID ?? '25164f87-5aff-457e-aaca-9967524c8c67'}`,
+  },
+  runtimeVersion: { policy: 'appVersion' },
   experiments: {
     typedRoutes: true,
     reactCompiler: true,

@@ -8,7 +8,7 @@ import { Screen } from '@/components/Screen';
 import { Txt } from '@/components/Txt';
 import { useT } from '@/hooks/useT';
 import { weekdayKey } from '@/i18n';
-import { scheduleWeeklyReminder } from '@/lib/notifications';
+import { notificationsAvailable, scheduleWeeklyReminder } from '@/lib/notifications';
 import { useApp } from '@/state/AppProvider';
 import { spacing } from '@/theme/tokens';
 import { useColors } from '@/theme/useColors';
@@ -53,10 +53,16 @@ export default function OnboardingReminder() {
         />
       }>
       <Txt color="ink2">{tc('reminderExplain')}</Txt>
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: spacing.m }}>
-        <Txt>{t('onboarding.erinnerung.frage')}</Txt>
-        <Switch value={enabled} onValueChange={setEnabled} trackColor={{ true: colors.accent }} />
-      </View>
+      {!notificationsAvailable ? (
+        <Txt variant="small" color="ink3">
+          {t('einstellungen.erinnerungNichtVerfuegbar')}
+        </Txt>
+      ) : (
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: spacing.m }}>
+          <Txt>{t('onboarding.erinnerung.frage')}</Txt>
+          <Switch value={enabled} onValueChange={setEnabled} trackColor={{ true: colors.accent }} />
+        </View>
+      )}
       {enabled ? (
         <View style={{ gap: spacing.s }}>
           <Txt variant="kicker" color="ink3">

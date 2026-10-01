@@ -62,3 +62,21 @@ docs/DESIGN.md. Verlauf, Check-in, Programm, Einstellungen; Hanken Grotesk; Vari
 ## D14. Lokal zuerst, Konto optional
 
 Alle Daten liegen in SQLite auf dem Gerät; ohne Konto funktioniert die App vollständig außer Sync und Foto-Schätzung. Mit Konto werden Zeilen und Fotos nach Supabase gespiegelt (Fotos nur im privaten Bucket, signierte URLs 10 Minuten). Löschen entfernt zuerst serverseitig (Edge Function), dann lokal.
+
+## D15. Einwilligungen pro ID, Fassung und Zeitpunkt, mit Folgen für den Datenfluss
+
+docs/REVIEW.md R1 und R2, umgesetzt 01.10.2026. IDs aus `content/rechtliches/de/einwilligung-art9.md`: `gesundheitsdaten` (Pflicht), `foto-auswertung`, `nutzungsstatistik`; dazu `alter18`. Jede Erteilung ist eine Zeile mit Fassung und Zeitpunkt, ein Widerruf setzt `revoked_at`; lokal und in Supabase. Ohne `gesundheitsdaten` verlässt nichts das Gerät. Ohne `foto-auswertung` ruft die App die Schätzung nicht auf, und die Edge Function prüft die Einwilligung noch einmal serverseitig. Widerruf von `foto-auswertung` löscht alle Schätzungen lokal und im Konto. Widerruf von `gesundheitsdaten` ist das Löschen des Kontos. Der Export enthält Schätzungen und Einwilligungen als eigene CSV-Dateien (R8).
+
+Offen für die Begleitinstanz: Der Einwilligungstext sagt, die Schätzung werde „nur gespeichert und nicht angezeigt“. Dominik hat entschieden, dass sie sichtbar ist (D2). Der Text muss nachziehen.
+
+## D16. Fragt ein Programm ein Datum ab, ist es Woche 0
+
+Coding-Instanz, 01.10.2026. „Nach der Spritze“ fragt `letzte_dosis` ab (typ datum). Dieses Datum ist der Programmstart; es darf in der Zukunft liegen (Woche 0 beginnt dann später, bis dahin zählt Woche 0). Ein zweites Startdatum entfiele sonst nicht erklärbar daneben. Für Programme ohne Datumsfeld gilt weiter das frei gewählte Startdatum. Check-ins gehören zum Nutzer, nicht zum Programm (R11); ein Programmwechsel verliert nichts.
+
+## D17. EXPO_PUBLIC_ bleibt für öffentliche Konfiguration erlaubt
+
+Einwand zu docs/REVIEW.md R6 („kein EXPO_PUBLIC_ außer Supabase-URL und Anon-Key“): `EXPO_PUBLIC_` ist der einzige Weg, Werte in den App-Bundle zu bekommen, und der Bundle ist ohnehin öffentlich. Hier liegen nur Werte, die öffentlich sein dürfen: der Schätz-Modus, der PostHog-Projekt-Key (schreibt nur Ereignisse, ist in jeder PostHog-App öffentlich) und drei URLs. Geheimnisse (Service-Role, Dienstkonto, API-Schlüssel) liegen ausschließlich in Supabase-Secrets. Wenn die Begleitinstanz den PostHog-Key trotzdem nicht im Bundle will, bleibt nur ein Proxy über eine Edge Function; das wäre ein eigener PR.
+
+## D18. Programmnamen in content/ sind Sache der Begleitinstanz
+
+Dominik will nüchterne Namen statt Marketing (D10). Die Begleitinstanz hat `nach-der-spritze` mit dem Titel „Nach der Spritze“ angelegt. Die App zeigt den Titel aus `programm.md`; der Vorschlag der Coding-Instanz steht in D10 („Nach dem Absetzen der Abnehmspritze“). Entscheidung: Dominik, Umsetzung: Begleitinstanz in `content/programme/nach-der-spritze/programm.md`.

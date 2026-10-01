@@ -6,7 +6,8 @@ import {
   markCheckinsSynced,
   type Checkin,
 } from '@/lib/db/checkins';
-import { listUnsyncedConsents, markConsentsSynced } from '@/lib/db/consents';
+import { CONSENT_HEALTH } from '@/content/consent';
+import { hasConsent, listUnsyncedConsents, markConsentsSynced } from '@/lib/db/consents';
 import {
   applyRemoteProgress,
   listUnsyncedProgramSettings,
@@ -48,6 +49,8 @@ async function doSync(): Promise<SyncResult> {
   if (!supabase) return { ok: false, pushed: 0, pulled: 0, reason: 'kein Backend' };
   const session = await getSession();
   if (!session) return { ok: false, pushed: 0, pulled: 0, reason: 'nicht angemeldet' };
+  // Ohne die Pflicht-Einwilligung verlässt nichts das Gerät (docs/REVIEW.md R2).
+  if (!(await hasConsent(CONSENT_HEALTH))) return { ok: false, pushed: 0, pulled: 0, reason: 'keine Einwilligung' };
   if (!(await isOnline())) return { ok: false, pushed: 0, pulled: 0, reason: 'offline' };
 
   const userId = session.user.id;
@@ -64,14 +67,14 @@ async function doSync(): Promise<SyncResult> {
     updated_at: at,
   });
 
-  // Einwilligungen (nur anhängen)
+  // Einwilligungen (Erteilung anhängen, Widerruf nachtragen)
   const consents = await listUnsyncedConsents();
   if (consents.length > 0) {
     const { error } = await supabase.from('consents').upsert(
       consents.map((c) => ({
         id: c.id,
         user_id: userId,
-        kind: c.kind,
+        consent_id: c.consent_id,
         text_version: c.text_version,
         granted_at: c.granted_at,
         revoked_at: c.revoked_at,

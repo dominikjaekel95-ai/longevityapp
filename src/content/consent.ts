@@ -1,52 +1,40 @@
 /**
- * Einwilligungstext (Art. 9 DSGVO). Quelle: content/rechtliches/einwilligung (Begleitinstanz, Freigabe durch
- * Dominik über `status` im Frontmatter), eingelesen von scripts/build-content.mjs. Fehlt die Datei: Platzhalter.
- * Jede Textänderung ändert `version`; die App protokolliert, welche Fassung bestätigt wurde.
+ * Einwilligungen (Art. 9 DSGVO). Quelle: content/rechtliches/<locale>/einwilligung-art9.md (Begleitinstanz,
+ * Freigabe durch Dominik über `status`), eingelesen von scripts/build-content.mjs. Fehlt die Datei: Platzhalter.
+ * Jede Einwilligung hat eine ID; die App speichert pro ID Fassung, Zeitpunkt der Erteilung und des Widerrufs.
  */
 import type { Locale } from '@/i18n';
 
-import type { ContentStatus } from './program';
 import generated from './generated/content.json';
 import { placeholderConsent } from './placeholder/consent';
+import type { ContentStatus } from './program';
 
-type Pair = { de: string; en: string };
+export const CONSENT_HEALTH = 'gesundheitsdaten';
+export const CONSENT_PHOTO = 'foto-auswertung';
+export const CONSENT_ANALYTICS = 'nutzungsstatistik';
+export const CONSENT_AGE = 'alter18';
 
-export type ConsentRaw = {
-  status: ContentStatus;
-  version: string;
-  title: Pair;
-  intro: Pair;
-  points: { de: string[]; en: string[] };
-  checkbox: Pair;
-  ageCheckbox: Pair;
-  draftNotice: Pair;
-};
+export type ConsentItem = { id: string; required: boolean; active: boolean; text: string };
 
 export type ConsentText = {
   status: ContentStatus;
   version: string;
+  scope: string;
   title: string;
-  intro: string;
-  points: string[];
-  checkbox: string;
-  ageCheckbox: string;
-  draftNotice: string;
+  screen: string[];
+  details: string[];
+  items: ConsentItem[];
 };
 
-type Generated = { einwilligung: ConsentRaw | null };
+type Generated = { einwilligung: Partial<Record<Locale, ConsentText>> | null };
 const data = generated as unknown as Generated;
 
 export function getConsent(locale: Locale): ConsentText {
-  const raw = data.einwilligung ?? placeholderConsent;
-  const p = (pair: Pair) => pair[locale] || pair.de;
-  return {
-    status: raw.status,
-    version: raw.version,
-    title: p(raw.title),
-    intro: p(raw.intro),
-    points: raw.points[locale]?.length ? raw.points[locale] : raw.points.de,
-    checkbox: p(raw.checkbox),
-    ageCheckbox: p(raw.ageCheckbox),
-    draftNotice: p(raw.draftNotice),
-  };
+  const all = data.einwilligung;
+  if (!all) return placeholderConsent;
+  return all[locale] ?? all.de ?? placeholderConsent;
+}
+
+export function consentItem(locale: Locale, id: string): ConsentItem | undefined {
+  return getConsent(locale).items.find((i) => i.id === id);
 }

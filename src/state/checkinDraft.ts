@@ -1,4 +1,4 @@
-import type { ProcessedPhoto } from '@/lib/photo';
+import { deleteLocalPhoto, type ProcessedPhoto } from '@/lib/photo';
 
 /** Zwischenstand des laufenden Check-ins (Foto, Startzeit), lebt nur im Speicher während des Ablaufs. */
 type Draft = { photo: ProcessedPhoto | null; startedAt: number | null; photoRetakes: number };
@@ -27,6 +27,8 @@ export function durationSeconds(): number | null {
 }
 
 export function resetDraft(): void {
+  // Ein Foto, das noch im Vorschau-Cache liegt (nicht übernommen), wird gelöscht; übernommene Fotos liegen im Dokumentenordner.
+  if (draft.photo && draft.photo.uri.includes('checkin-vorschau')) deleteLocalPhoto(draft.photo.uri);
   draft.photo = null;
   draft.startedAt = null;
   draft.photoRetakes = 0;

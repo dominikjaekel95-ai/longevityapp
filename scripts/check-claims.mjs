@@ -52,12 +52,34 @@ const files = listFiles(root)
   .filter((rel) => config.dateien.some((g) => matchesGlob(rel, g)))
   .filter((rel) => !exceptions.has(rel));
 
+/**
+ * Felder, die per ausnahme_claims als Ausschlussliste gekennzeichnet sind (content/README.md, Regel 3):
+ * Zeilen innerhalb der Listen vorab_klaeren und punkte werden für Krankheitsbegriffe nicht geprüft.
+ */
+function exemptLines(text) {
+  const exempt = new Set();
+  if (!/^ausnahme_claims:/m.test(text)) return exempt;
+  const lines = text.split('\n');
+  let inList = false;
+  lines.forEach((line, i) => {
+    if (/^(vorab_klaeren|punkte):/.test(line)) {
+      inList = true;
+      return;
+    }
+    if (inList && /^\s+-\s/.test(line)) exempt.add(i);
+    else if (inList && !/^\s/.test(line)) inList = false;
+  });
+  return exempt;
+}
+
 for (const rel of files) {
   const ext = path.extname(rel);
   const text = stripComments(fs.readFileSync(path.join(root, rel), 'utf8'), ext);
+  const exempt = ext === '.md' ? exemptLines(text) : new Set();
   const lines = text.split('\n');
   lines.forEach((line, i) => {
     for (const e of forbidden) {
+      if (e.krankheitsbezug && exempt.has(i)) continue;
       const m = line.match(e.rx);
       if (m) {
         problems++;
@@ -65,6 +87,7 @@ for (const rel of files) {
       }
     }
     for (const e of review) {
+      if (exempt.has(i)) continue;
       const m = line.match(e.rx);
       if (m) {
         warnings++;

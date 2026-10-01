@@ -8,11 +8,11 @@ import { Notice } from '@/components/Notice';
 import { Row, Section } from '@/components/Row';
 import { Screen } from '@/components/Screen';
 import { Txt } from '@/components/Txt';
-import { getConsent } from '@/content/consent';
+import { CONSENT_HEALTH, getConsent } from '@/content/consent';
 import { getProgram } from '@/content/programs';
 import { useT } from '@/hooks/useT';
 import { formatDate, weekdayKey } from '@/i18n';
-import { isAnalyticsEnabled, loadAnalyticsState, setAnalyticsOptIn, track } from '@/lib/analytics';
+import { track } from '@/lib/analytics';
 import { countUnsynced } from '@/lib/db/checkins';
 import { getActiveConsent } from '@/lib/db/consents';
 import { env, hasBackend } from '@/lib/env';
@@ -33,15 +33,13 @@ export default function EinstellungenTab() {
   const [consentDate, setConsentDate] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
   const [syncing, setSyncing] = useState(false);
-  const [analytics, setAnalytics] = useState(false);
   const [showWeekdays, setShowWeekdays] = useState(false);
   const consent = getConsent(locale);
   const program = getProgram(settings.programId);
 
   useEffect(() => {
     countUnsynced().then(setPending);
-    getActiveConsent('art9').then((c) => setConsentDate(c?.granted_at ?? null));
-    loadAnalyticsState().then(() => setAnalytics(isAnalyticsEnabled()));
+    getActiveConsent(CONSENT_HEALTH).then((c) => setConsentDate(c?.granted_at ?? null));
   }, [settings.lastSyncAt]);
 
   const open = (url: string, ziel: string) => {
@@ -150,26 +148,6 @@ export default function EinstellungenTab() {
         />
       </Section>
 
-      {env.posthogKey ? (
-        <Section title={t('einstellungen.analytics')}>
-          <Row
-            label={t('einstellungen.analytics')}
-            sub={t('einstellungen.analyticsHinweis')}
-            last
-            right={
-              <Switch
-                value={analytics}
-                trackColor={{ true: colors.accent }}
-                onValueChange={async (v) => {
-                  await setAnalyticsOptIn(v);
-                  setAnalytics(isAnalyticsEnabled());
-                }}
-              />
-            }
-          />
-        </Section>
-      ) : null}
-
       <Section title={t('einstellungen.daten')}>
         <View style={{ gap: spacing.s, paddingVertical: spacing.s }}>
           <Txt variant="small" color="ink3">
@@ -197,6 +175,7 @@ export default function EinstellungenTab() {
       </Section>
 
       <Section title={t('einstellungen.rechtliches')}>
+        <Row label={t('einstellungen.einwilligungen')} onPress={() => router.push('/einstellungen/datenschutz')} />
         <Row label={t('einstellungen.datenschutz')} onPress={() => open(env.urlDatenschutz, 'datenschutz')} />
         <Row label={t('einstellungen.impressum')} onPress={() => open(env.urlImpressum, 'impressum')} />
         <Row label={t('programm.wissen')} onPress={() => open(env.urlWissen, 'wissen')} />
@@ -207,6 +186,9 @@ export default function EinstellungenTab() {
         />
       </Section>
 
+      <Section title={t('einstellungen.hinweis')}>
+        <Row label={t('einstellungen.aerztlicherRat')} onPress={() => router.push('/einstellungen/aerztlicher-rat')} last />
+      </Section>
       <Notice kicker={t('einstellungen.hinweis')}>{tc('doctorHint')}</Notice>
       <Txt variant="small" color="ink3">
         {t('einstellungen.version', { v: env.appVersion })}

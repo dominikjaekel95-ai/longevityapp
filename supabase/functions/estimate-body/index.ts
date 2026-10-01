@@ -52,6 +52,16 @@ Deno.serve(async (req) => {
   const { data: checkin } = await userClient.from('checkins').select('id').eq('id', checkin_id).maybeSingle();
   if (!checkin) return json({ error: 'checkin nicht gefunden' }, 404);
 
+  // Einwilligung foto-auswertung muss aktiv sein (docs/REVIEW.md R2); die App prüft das auch, hier zählt es.
+  const { data: consent } = await userClient
+    .from('consents')
+    .select('id')
+    .eq('consent_id', 'foto-auswertung')
+    .is('revoked_at', null)
+    .limit(1)
+    .maybeSingle();
+  if (!consent) return json({ error: 'keine Einwilligung foto-auswertung' }, 403);
+
   const photo = await download(admin, photo_path);
   if (!photo) return json({ error: 'foto nicht lesbar' }, 404);
   const previous = previous_photo_path ? await download(admin, previous_photo_path) : null;

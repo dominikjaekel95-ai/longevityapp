@@ -1,25 +1,24 @@
 /**
- * Platzhalter für die Wochenkarten, bis die Programmtexte der Begleitinstanz in content/programm/ liegen
- * (docs/ZUSAMMENARBEIT.md). Enthält bewusst keinen eigenen Programmtext, nur die Struktur und die eine
- * Aufgabe, die technisch feststeht: der wöchentliche Check-in.
+ * Platzhalter für die Wochenkarten, bis die Programmtexte der Begleitinstanz in content/programme/ liegen
+ * (docs/ZUSAMMENARBEIT.md). Kein eigener Programmtext, nur die Struktur und die eine technisch feststehende
+ * Aufgabe: der wöchentliche Check-in.
  */
-import type { ProgramWeekRaw } from '../program';
+import type { Locale } from '@/i18n';
 
-export function placeholderWeeks(weeks: number): ProgramWeekRaw[] {
-  const out: ProgramWeekRaw[] = [];
+import type { ProgramWeek } from '../program';
+
+export function placeholderWeeks(weeks: number, locale: Locale): ProgramWeek[] {
+  const out: ProgramWeek[] = [];
   for (let w = 0; w <= weeks; w++) {
     out.push({
       week: w,
-      title: { de: `Woche ${w}`, en: `Week ${w}` },
-      summary: { de: '', en: '' },
-      body: { de: [], en: [] },
-      tasks: [
-        {
-          id: `w${w}-checkin`,
-          kind: 'messen',
-          text: { de: 'Check-in der Woche.', en: 'This week’s check-in.' },
-        },
-      ],
+      title: locale === 'en' ? `Week ${w}` : `Woche ${w}`,
+      status: 'platzhalter',
+      intro: '',
+      introQuellen: [],
+      training: null,
+      tasks: [{ id: `w${w}-checkin`, text: locale === 'en' ? 'This week’s check-in.' : 'Check-in der Woche.', quellen: [] }],
+      hinweis: null,
     });
   }
   return out;

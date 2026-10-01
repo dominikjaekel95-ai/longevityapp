@@ -1,9 +1,1124 @@
 {
   "_hinweis": "Erzeugt von scripts/build-content.mjs aus content/. Nicht von Hand ändern.",
-  "source": "platzhalter",
-  "programme": {},
-  "einwilligung": null,
+  "source": "content",
+  "programme": {
+    "grundprogramm": {
+      "status": "entwurf",
+      "meta": {
+        "title": {
+          "de": "Grundprogramm: Kraft und Muskeln",
+          "en": "Grundprogramm: Kraft und Muskeln"
+        },
+        "summary": {
+          "de": "Zwölf Wochen Krafttraining, Protein und regelmäßiges Messen. Für alle, die Kraft und Muskeln fürs Älterwerden aufbauen wollen.",
+          "en": "Zwölf Wochen Krafttraining, Protein und regelmäßiges Messen. Für alle, die Kraft und Muskeln fürs Älterwerden aufbauen wollen."
+        },
+        "weeks": 12,
+        "available": true,
+        "default": true,
+        "status": "entwurf",
+        "settings": [],
+        "vorabKlaeren": [
+          "Hast du eine Nierenerkrankung, kläre die Protein- und Kreatin-Hinweise vorher mit deiner Ärztin oder deinem Arzt."
+        ],
+        "hinweise": []
+      },
+      "weeks": {
+        "de": [
+          {
+            "week": 0,
+            "title": "Start: Ausgangswerte",
+            "status": "entwurf",
+            "intro": "Woche 0 ist dein Start. Die Reihenfolge ist Absicht: erst messen, dann Training und Protein, dann Steigerung.",
+            "introQuellen": [],
+            "training": null,
+            "tasks": [
+              {
+                "id": "w00-messen",
+                "text": "Ersten Check-in machen: Foto, Gewicht (morgens, nüchtern), Taillenumfang, Griffkraft. Das sind deine Ausgangswerte.",
+                "quellen": []
+              },
+              {
+                "id": "w00-wiegetag",
+                "text": "Check-in-Tag festlegen: einmal pro Woche, morgens, gleiche Bedingungen. Nicht täglich wiegen. An diesem Tag erinnert dich die App an den Check-in.",
+                "quellen": []
+              },
+              {
+                "id": "w00-uebungen",
+                "text": "Die sechs Übungen einmal ansehen und ausprobieren, ohne zu zählen. Für den Start reichen das eigene Körpergewicht und ein Set Widerstandsbänder.",
+                "quellen": []
+              },
+              {
+                "id": "w00-ziel",
+                "text": "Ein Ziel für die zwölf Wochen in einem Satz notieren, zum Beispiel: die Treppe in den vierten Stock ohne Pause.",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 1,
+            "title": "Gewohnheiten bauen",
+            "status": "entwurf",
+            "intro": "Die ersten Wochen entscheiden, ob aus dem Plan eine Gewohnheit wird. Klein anfangen, aber regelmäßig.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 2,
+              "wiederholungen": 8,
+              "hinweis": "Leicht. Bewegungen lernen, auf saubere Technik achten.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w01-protein",
+                "text": "Zu jeder Hauptmahlzeit eine Proteinquelle einplanen. Die DGE empfiehlt Erwachsenen 0,8 g Protein pro kg Körpergewicht und Tag, ab 65 Jahren 1,0 g; pro Mahlzeit brauchen Ältere mehr als Jüngere.",
+                "quellen": [
+                  "dgeProtein",
+                  "moore2015"
+                ]
+              },
+              {
+                "id": "w01-training",
+                "text": "Zwei Krafteinheiten, je etwa 30 Minuten, sechs Übungen für den ganzen Körper. Die WHO empfiehlt an mindestens zwei Tagen pro Woche muskelkräftigende Aktivitäten.",
+                "quellen": [
+                  "who2020"
+                ]
+              },
+              {
+                "id": "w01-ballaststoffe",
+                "text": "Ballaststoffe Richtung 30 g pro Tag (Richtwert der DGE), dazu reichlich trinken.",
+                "quellen": [
+                  "dgeBallaststoffe"
+                ]
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 2,
+            "title": "Technik vor Gewicht",
+            "status": "entwurf",
+            "intro": "Gleiches Training wie in Woche 1. Wer jetzt sauber lernt, kann später schneller steigern.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 2,
+              "wiederholungen": 8,
+              "hinweis": "Leicht. Die letzten Wiederholungen dürfen anstrengend sein, aber nicht unsauber.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w02-schlaf",
+                "text": "Schlaf schützen: Schon zwei Nächte mit vier Stunden Schlaf erhöhen das Hungerhormon Ghrelin messbar.",
+                "quellen": [
+                  "spiegel2004"
+                ]
+              },
+              {
+                "id": "w02-protein",
+                "text": "Rückblick auf die erste Woche: An wie vielen Tagen kamen drei Proteinportionen zusammen? Was hat gefehlt?",
+                "quellen": []
+              },
+              {
+                "id": "w02-schmerz",
+                "text": "Muskelkater in den ersten zwei Wochen ist normal, Gelenkschmerz nicht. Dann die Übung leichter machen oder tauschen.",
+                "quellen": []
+              },
+              {
+                "id": "w02-kurz",
+                "text": "Wird es zeitlich eng: kürzer trainieren statt auslassen. Zwei Sätze von drei Übungen sind besser als nichts.",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 3,
+            "title": "Mahlzeiten mit System",
+            "status": "entwurf",
+            "intro": "Training ist der Reiz, Protein der Baustoff. Diese Woche geht es darum, dass die Proteinmahlzeiten ohne viel Planung klappen.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 2,
+              "wiederholungen": 10,
+              "hinweis": "Band oder Gewicht so wählen, dass die letzten zwei Wiederholungen schwer sind, aber sauber. 60 bis 90 Sekunden Pause zwischen den Sätzen.",
+              "quellen": [
+                "acsm2009"
+              ]
+            },
+            "tasks": [
+              {
+                "id": "w03-vorraete",
+                "text": "Vorräte für Proteinmahlzeiten anlegen. Was schnell geht, wird auch gegessen.",
+                "quellen": []
+              },
+              {
+                "id": "w03-schritte",
+                "text": "Alltagsbewegung als Ausgangswert notieren: Wie viele Schritte machst du an einem normalen Tag?",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 4,
+            "title": "Kreatin und Zwischenstand",
+            "status": "entwurf",
+            "intro": "Vier Wochen Routine. Jetzt kann Kreatin dazukommen, wenn du es nehmen willst.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 2,
+              "wiederholungen": 10,
+              "hinweis": "Wie Woche 3. Schaffst du in allen Sätzen 12 saubere Wiederholungen, wird die Übung beim nächsten Mal schwerer.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w04-kreatin",
+                "text": "Optional Kreatin-Monohydrat, 3 g täglich, nur zusammen mit dem Training: Kreatin erhöht die körperliche Leistung bei Schnellkrafttraining im Rahmen kurzzeitiger intensiver körperlicher Betätigung.",
+                "quellen": [
+                  "euClaims"
+                ]
+              },
+              {
+                "id": "w04-kreatin-rat",
+                "text": "Wenn du in ärztlicher Behandlung bist oder regelmäßig Medikamente nimmst: Kreatin vorher mit deiner Ärztin oder deinem Arzt besprechen. Kreatin kann den Laborwert Kreatinin erhöhen; sag es bei einer Blutabnahme dazu.",
+                "quellen": [
+                  "kreider2017"
+                ]
+              },
+              {
+                "id": "w04-verlauf",
+                "text": "Im Verlauf Gewicht und Taillenumfang nebeneinander ansehen. Mit Kreatin kann die Waage in den ersten Wochen leicht steigen, weil die Muskeln mehr Wasser speichern. Das ist kein Fett.",
+                "quellen": [
+                  "kreider2017"
+                ]
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 5,
+            "title": "Steigern",
+            "status": "entwurf",
+            "intro": "Ab jetzt kommt der dritte Satz dazu. Die Muskeln bleiben nur, wenn die Belastung wächst.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 8,
+              "hinweis": "Dritter Satz kommt dazu. Eine Einheit dauert jetzt 25 bis 30 Minuten.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w05-belastung",
+                "text": "Belastung erhöhen, wo alle Sätze sauber gelingen: stärkeres Band, mehr Gewicht oder die schwerere Variante der Übung. Das American College of Sports Medicine empfiehlt Schritte von etwa 2 bis 10 %.",
+                "quellen": [
+                  "acsm2009"
+                ]
+              },
+              {
+                "id": "w05-alltag",
+                "text": "Alltagsbewegung zählen: Schritte, Treppen, Wege zu Fuß. Die WHO empfiehlt zusätzlich 150 bis 300 Minuten moderate Bewegung pro Woche.",
+                "quellen": [
+                  "who2020"
+                ]
+              },
+              {
+                "id": "w05-nach-training",
+                "text": "Eine proteinreiche Mahlzeit nach dem Training ist sinnvoll. Wichtiger ist, dass die Tagesmenge stimmt.",
+                "quellen": [
+                  "leidy2015"
+                ]
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 6,
+            "title": "Messen, was das Training macht",
+            "status": "entwurf",
+            "intro": "Nach sechs Wochen lohnt der Vergleich mit dem Start, und zwar nicht nur auf der Waage.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 8,
+              "hinweis": "Wie Woche 5.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w06-griffkraft",
+                "text": "Griffkraft im Check-in mit Woche 0 vergleichen. Steigt sie, wirkt das Training, egal was die Waage sagt.",
+                "quellen": []
+              },
+              {
+                "id": "w06-protein",
+                "text": "Protein prüfen: Kommen an Trainingstagen wirklich drei Portionen zusammen?",
+                "quellen": []
+              },
+              {
+                "id": "w06-stufe",
+                "text": "Die schwerste Stufe jeder Übung notieren: welche Variante, welches Band, welches Gewicht. Das ist dein Vergleich für Woche 12.",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 7,
+            "title": "Trend statt Tageswert",
+            "status": "entwurf",
+            "intro": "Messwerte schwanken von Woche zu Woche. Aussagekräftig ist der Verlauf.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 10,
+              "hinweis": "Stärkeres Band oder mehr Gewicht bei Kniebeuge, Rudern und Hüftstrecken.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w07-trend",
+                "text": "Nur den Wochentrend lesen, nicht den einzelnen Wert. Einzelne Wiegewerte schwanken durch Wasser und Speicher; aussagekräftig ist der Verlauf über mehrere Wochen.",
+                "quellen": []
+              },
+              {
+                "id": "w07-abnehmen",
+                "text": "Willst du Gewicht verlieren: lieber langsam über Ernährung und Training als durch Hungern. Hungern kostet Muskeln.",
+                "quellen": [
+                  "sardeli2018"
+                ]
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 8,
+            "title": "Bilanz nach acht Wochen",
+            "status": "entwurf",
+            "intro": "Acht Wochen sind ein guter Punkt, um ehrlich hinzusehen: Was läuft von selbst, was fällt immer wieder aus?",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 10,
+              "hinweis": "Wie Woche 7.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w08-bilanz",
+                "text": "Bilanz ziehen: Was hat funktioniert, was fällt aus?",
+                "quellen": []
+              },
+              {
+                "id": "w08-ziel",
+                "text": "Das Ziel aus Woche 0 ansehen: Bist du näher dran? Passt es noch?",
+                "quellen": []
+              },
+              {
+                "id": "w08-eine-sache",
+                "text": "Für die nächsten vier Wochen eine Sache ändern, nicht fünf. Zum Beispiel: Training immer an denselben Tagen.",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 9,
+            "title": "Aus dem Programm wird Routine",
+            "status": "entwurf",
+            "intro": "Zwölf Wochen sind ein Anfang. In den letzten vier Wochen geht es darum, dass das, was funktioniert, auch ohne Wochenkarte weiterläuft.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 12,
+              "hinweis": "Zuhause-Varianten auf die nächste Stufe, zum Beispiel Liegestütz von der Tischkante an den Boden.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w09-kalender",
+                "text": "Trainingszeiten für die nächsten Wochen fest in den Kalender eintragen, wie einen Termin.",
+                "quellen": []
+              },
+              {
+                "id": "w09-mahlzeiten",
+                "text": "Drei bis vier Proteinmahlzeiten auswählen, die du ohne Nachdenken zubereiten kannst. Das ist deine feste Auswahl für volle Tage.",
+                "quellen": []
+              },
+              {
+                "id": "w09-alltag",
+                "text": "Alltagsbewegung prüfen: Wo lassen sich Wege zu Fuß oder Treppen fest einbauen?",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 10,
+            "title": "Schwierige Wochen einplanen",
+            "status": "entwurf",
+            "intro": "Jede Routine trifft irgendwann auf eine Woche mit Reise, Besuch oder zu viel Arbeit. Wer vorher eine Mindestversion festlegt, fällt seltener ganz heraus.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 12,
+              "hinweis": "Wie Woche 9.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w10-mindest",
+                "text": "Mindestversion festlegen, zum Beispiel eine Einheit mit drei Übungen und zwei Sätzen. Sie zählt, auch wenn sie klein ist.",
+                "quellen": []
+              },
+              {
+                "id": "w10-ausfall",
+                "text": "Fällt eine Woche aus: in der nächsten normal weitermachen, nichts nachholen.",
+                "quellen": []
+              },
+              {
+                "id": "w10-gewohnheit",
+                "text": "Schlaf, feste Mahlzeiten, Wiegetag: Was davon ist schon Gewohnheit, was hängt noch an der Erinnerung der App?",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 11,
+            "title": "Schwerer, nicht länger",
+            "status": "entwurf",
+            "intro": "Der Widerstand steigt, die Wiederholungen gehen zurück auf 8. Das ist die eigentliche Steigerung.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 8,
+              "hinweis": "Mehr Widerstand als in Woche 9 und 10. Die letzten zwei Wiederholungen sind schwer, aber sauber.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w11-regel",
+                "text": "Die Regel für die Zeit danach: Schaffst du in allen Sätzen 12 saubere Wiederholungen, wird die Übung beim nächsten Mal schwerer, nie länger.",
+                "quellen": []
+              },
+              {
+                "id": "w11-studio",
+                "text": "Werden die stärksten Bänder zu leicht, ist ein Studio der nächste Schritt. Jede Übung hat eine Studio-Variante.",
+                "quellen": []
+              },
+              {
+                "id": "w11-ausdauer",
+                "text": "Ausdauer wie Radfahren oder Schwimmen kann dazukommen. Sie ersetzt aber keine Krafteinheit.",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 12,
+            "title": "Bilanz und wie es weitergeht",
+            "status": "entwurf",
+            "intro": "Zwölf Wochen Programm sind geschafft. Was jetzt zählt, ist, was davon bleibt.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 8,
+              "hinweis": "Wie Woche 11. Danach weiter steigern: alle ein bis zwei Wochen ein kleiner Schritt.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w12-vergleich",
+                "text": "Check-in machen und mit Woche 0 vergleichen: Griffkraft, Taillenumfang, Gewicht, die schwerste Stufe jeder Übung und dein Ziel.",
+                "quellen": []
+              },
+              {
+                "id": "w12-bleibt",
+                "text": "Festlegen, was bleibt: zwei Krafteinheiten pro Woche, Proteinmahlzeiten, ein Wiegetag. Die WHO empfiehlt muskelkräftigende Aktivitäten an mindestens zwei Tagen pro Woche.",
+                "quellen": [
+                  "who2020"
+                ]
+              },
+              {
+                "id": "w12-naechstes",
+                "text": "Ein neues Ziel für die nächsten zwölf Wochen festlegen.",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          }
+        ]
+      }
+    },
+    "nach-der-spritze": {
+      "status": "entwurf",
+      "meta": {
+        "title": {
+          "de": "Nach der Spritze",
+          "en": "Nach der Spritze"
+        },
+        "summary": {
+          "de": "Zwölf Wochen für die Zeit nach dem Absetzen der Abnehmspritze: Muskeln behalten, Kraft aufbauen, Routine finden.",
+          "en": "Zwölf Wochen für die Zeit nach dem Absetzen der Abnehmspritze: Muskeln behalten, Kraft aufbauen, Routine finden."
+        },
+        "weeks": 12,
+        "available": true,
+        "default": false,
+        "status": "entwurf",
+        "settings": [
+          {
+            "key": "letzte_dosis",
+            "type": "date",
+            "label": {
+              "de": "Wann war oder ist deine letzte Dosis?",
+              "en": "Wann war oder ist deine letzte Dosis?"
+            },
+            "required": false
+          }
+        ],
+        "vorabKlaeren": [
+          "Das Programm ist nicht für dich, wenn du schwanger bist oder stillst.",
+          "Hast du eine Nierenerkrankung: nur nach Rücksprache mit deiner Ärztin oder deinem Arzt, vor allem wegen Kreatin und Protein.",
+          "Hast du Schluckbeschwerden: Der Ballaststoff-Stick braucht viel Flüssigkeit."
+        ],
+        "hinweise": [
+          "Ob und wie du dein Medikament absetzt oder wieder beginnst, besprichst du mit deiner Ärztin oder deinem Arzt. Das entscheidet niemand allein.",
+          "Wenn du wegen einer Erkrankung in Behandlung bist: in der Praxis absprechen, worauf du nach dem Absetzen achten sollst."
+        ]
+      },
+      "weeks": {
+        "de": [
+          {
+            "week": 0,
+            "title": "Start: Ausgangswerte",
+            "status": "entwurf",
+            "intro": "Woche 0 ist die Woche der letzten Dosis. Liegt sie schon länger zurück, ist es die Woche, in der du startest. Ab hier zählen die Wochen. Die Reihenfolge ist Absicht: erst messen und Protein, dann Training, dann Steigerung.",
+            "introQuellen": [],
+            "training": null,
+            "tasks": [
+              {
+                "id": "w00-datum",
+                "text": "Datum der letzten Dosis eintragen. Steht sie noch bevor, das geplante Datum.",
+                "quellen": []
+              },
+              {
+                "id": "w00-messen",
+                "text": "Ersten Check-in machen: Foto, Gewicht (morgens, nüchtern), Taillenumfang, Griffkraft. Das sind deine Ausgangswerte.",
+                "quellen": []
+              },
+              {
+                "id": "w00-wiegetag",
+                "text": "Wiegetag festlegen: einmal pro Woche, morgens, gleiche Bedingungen. Nicht täglich. An diesem Tag erinnert dich die App an den Check-in.",
+                "quellen": []
+              },
+              {
+                "id": "w00-uebungen",
+                "text": "Die sechs Übungen einmal ansehen und ausprobieren, ohne zu zählen. Für den Start reichen das eigene Körpergewicht und ein Set Widerstandsbänder.",
+                "quellen": []
+              },
+              {
+                "id": "w00-termin",
+                "text": "Kontrolltermin bei deiner Ärztin oder deinem Arzt vereinbaren. Wann er sinnvoll ist, legt die Praxis fest.",
+                "quellen": []
+              }
+            ],
+            "hinweis": "Ob und wie du dein Medikament absetzt, besprichst du mit deiner Ärztin oder deinem Arzt."
+          },
+          {
+            "week": 1,
+            "title": "Auswaschphase: Gewohnheiten bauen",
+            "status": "entwurf",
+            "intro": "Der Wirkstoff ist noch da, der Appetit klein. Das ist das Fenster, um Gewohnheiten zu bauen, bevor der Hunger zurück ist.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 2,
+              "wiederholungen": 8,
+              "hinweis": "Leicht. Bewegungen lernen, auf saubere Technik achten.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w01-protein",
+                "text": "Drei Mahlzeiten mit je 25 bis 30 g Protein planen. Übersichtsarbeiten empfehlen während Gewichtsabnahme und -erhalt 1,2 bis 1,6 g Protein pro kg Körpergewicht und Tag; pro Mahlzeit brauchen Ältere mehr als Jüngere.",
+                "quellen": [
+                  "leidy2015",
+                  "moore2015"
+                ]
+              },
+              {
+                "id": "w01-training",
+                "text": "Zwei Krafteinheiten, je etwa 30 Minuten, sechs Übungen für den ganzen Körper. Die WHO empfiehlt an mindestens zwei Tagen pro Woche muskelkräftigende Aktivitäten.",
+                "quellen": [
+                  "who2020"
+                ]
+              },
+              {
+                "id": "w01-ballaststoffe",
+                "text": "Ballaststoffe Richtung 30 g pro Tag (Richtwert der DGE), dazu reichlich trinken.",
+                "quellen": [
+                  "dgeBallaststoffe"
+                ]
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 2,
+            "title": "Auswaschphase: Technik vor Gewicht",
+            "status": "entwurf",
+            "intro": "Gleiches Training wie in Woche 1. Wer jetzt sauber lernt, kann später schneller steigern.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 2,
+              "wiederholungen": 8,
+              "hinweis": "Leicht. Die letzten Wiederholungen dürfen anstrengend sein, aber nicht unsauber.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w02-schlaf",
+                "text": "Schlaf schützen: Schon zwei Nächte mit vier Stunden Schlaf erhöhen das Hungerhormon Ghrelin messbar.",
+                "quellen": [
+                  "spiegel2004"
+                ]
+              },
+              {
+                "id": "w02-protein",
+                "text": "Rückblick auf die erste Woche: An wie vielen Tagen kamen drei Proteinportionen zusammen? Was hat gefehlt?",
+                "quellen": []
+              },
+              {
+                "id": "w02-schmerz",
+                "text": "Muskelkater in den ersten zwei Wochen ist normal, Gelenkschmerz nicht. Dann die Übung leichter machen oder tauschen.",
+                "quellen": []
+              },
+              {
+                "id": "w02-kurz",
+                "text": "Wird es zeitlich eng: kürzer trainieren statt auslassen. Zwei Sätze von drei Übungen sind besser als nichts.",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 3,
+            "title": "Der Appetit kommt zurück",
+            "status": "entwurf",
+            "intro": "Bei vielen meldet sich jetzt der Hunger. Das ist erwartbar und kein Zeichen, dass etwas schiefläuft.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 2,
+              "wiederholungen": 10,
+              "hinweis": "Band oder Gewicht so wählen, dass die letzten zwei Wiederholungen schwer sind, aber sauber. 60 bis 90 Sekunden Pause zwischen den Sätzen.",
+              "quellen": [
+                "acsm2009"
+              ]
+            },
+            "tasks": [
+              {
+                "id": "w03-struktur",
+                "text": "Mahlzeitenstruktur beibehalten, auch wenn der Hunger zwischendurch kommt. Nach Gewichtsverlust bleiben Hungerhormone über Monate verändert. Das ist Biologie, kein Willensproblem.",
+                "quellen": [
+                  "sumithran2011"
+                ]
+              },
+              {
+                "id": "w03-umgebung",
+                "text": "Umgebung aufräumen: Was nicht in Sichtweite steht, zieht weniger. Vorräte für die Proteinmahlzeiten anlegen.",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 4,
+            "title": "Kreatin und Zwischenstand",
+            "status": "entwurf",
+            "intro": "Vier Wochen Routine. Jetzt kann Kreatin dazukommen, wenn du es nehmen willst.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 2,
+              "wiederholungen": 10,
+              "hinweis": "Wie Woche 3. Schaffst du in allen Sätzen 12 saubere Wiederholungen, wird die Übung beim nächsten Mal schwerer.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w04-kreatin",
+                "text": "Optional Kreatin-Monohydrat, 3 g täglich, nur zusammen mit dem Training: Kreatin erhöht die körperliche Leistung bei Schnellkrafttraining im Rahmen kurzzeitiger intensiver körperlicher Betätigung.",
+                "quellen": [
+                  "euClaims"
+                ]
+              },
+              {
+                "id": "w04-kreatin-rat",
+                "text": "Wenn du in ärztlicher Behandlung bist oder regelmäßig Medikamente nimmst: Kreatin vorher mit deiner Ärztin oder deinem Arzt besprechen. Kreatin kann den Laborwert Kreatinin erhöhen; sag es bei einer Blutabnahme dazu.",
+                "quellen": [
+                  "kreider2017"
+                ]
+              },
+              {
+                "id": "w04-verlauf",
+                "text": "Im Verlauf Gewicht und Taillenumfang nebeneinander ansehen. Mit Kreatin kann die Waage in den ersten Wochen leicht steigen, weil die Muskeln mehr Wasser speichern. Das ist kein Fett.",
+                "quellen": [
+                  "kreider2017"
+                ]
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 5,
+            "title": "Steigern",
+            "status": "entwurf",
+            "intro": "Ab jetzt kommt der dritte Satz dazu. Die Muskeln bleiben nur, wenn die Belastung wächst.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 8,
+              "hinweis": "Dritter Satz kommt dazu. Eine Einheit dauert jetzt 25 bis 30 Minuten.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w05-belastung",
+                "text": "Belastung erhöhen, wo alle Sätze sauber gelingen: stärkeres Band, mehr Gewicht oder die schwerere Variante der Übung. Das American College of Sports Medicine empfiehlt Schritte von etwa 2 bis 10 %.",
+                "quellen": [
+                  "acsm2009"
+                ]
+              },
+              {
+                "id": "w05-alltag",
+                "text": "Alltagsbewegung zählen: Schritte, Treppen, Wege zu Fuß. Die WHO empfiehlt zusätzlich 150 bis 300 Minuten moderate Bewegung pro Woche.",
+                "quellen": [
+                  "who2020"
+                ]
+              },
+              {
+                "id": "w05-nach-training",
+                "text": "Eine proteinreiche Mahlzeit nach dem Training ist sinnvoll. Wichtiger ist, dass die Tagesmenge stimmt.",
+                "quellen": [
+                  "leidy2015"
+                ]
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 6,
+            "title": "Messen, was das Training macht",
+            "status": "entwurf",
+            "intro": "Nach sechs Wochen lohnt der Vergleich mit dem Start, und zwar nicht nur auf der Waage.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 8,
+              "hinweis": "Wie Woche 5.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w06-griffkraft",
+                "text": "Griffkraft im Check-in mit Woche 0 vergleichen. Steigt sie, wirkt das Training, egal was die Waage sagt.",
+                "quellen": []
+              },
+              {
+                "id": "w06-protein",
+                "text": "Protein prüfen: Kommen an Trainingstagen wirklich drei Portionen zusammen?",
+                "quellen": []
+              },
+              {
+                "id": "w06-stufe",
+                "text": "Die schwerste Stufe jeder Übung notieren: welche Variante, welches Band, welches Gewicht. Das ist dein Vergleich für Woche 12.",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 7,
+            "title": "Die Absetzkurve beginnt",
+            "status": "entwurf",
+            "intro": "In Studien wird eine Gewichtszunahme ab etwa Woche 8 nach dem Absetzen messbar und setzt sich bis etwa Woche 20 fort. Jetzt zählt der Wochentrend.",
+            "introQuellen": [
+              "wu2025"
+            ],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 10,
+              "hinweis": "Stärkeres Band oder mehr Gewicht bei Kniebeuge, Rudern und Hüftstrecken.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w07-trend",
+                "text": "Nur den Wochentrend lesen, nicht den einzelnen Wert. Einzelne Wiegewerte schwanken durch Wasser und Speicher; aussagekräftig ist der Verlauf über mehrere Wochen.",
+                "quellen": []
+              },
+              {
+                "id": "w07-anstieg",
+                "text": "Zeigt der Trend nach oben: zuerst Protein und Training prüfen, nicht hungern. Hungern kostet Muskeln.",
+                "quellen": [
+                  "sardeli2018"
+                ]
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 8,
+            "title": "Bilanz nach acht Wochen",
+            "status": "entwurf",
+            "intro": "Acht Wochen sind ein guter Punkt, um ehrlich hinzusehen: Was läuft von selbst, was fällt immer wieder aus?",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 10,
+              "hinweis": "Wie Woche 7.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w08-bilanz",
+                "text": "Bilanz ziehen: Was hat funktioniert, was fällt aus? In der S-LiTE-Studie hielten Menschen, die trainiert hatten, Gewicht und Körperzusammensetzung ein Jahr nach dem Ende aller Behandlungen.",
+                "quellen": [
+                  "jensen2024"
+                ]
+              },
+              {
+                "id": "w08-termin",
+                "text": "Kontrolltermin wahrnehmen, wenn er ansteht. Mitbringen: den Verlauf aus der App (Export) und deine Fragen.",
+                "quellen": []
+              },
+              {
+                "id": "w08-eine-sache",
+                "text": "Für die nächsten vier Wochen eine Sache ändern, nicht fünf. Zum Beispiel: Training immer an denselben Tagen.",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 9,
+            "title": "Aus dem Programm wird Routine",
+            "status": "entwurf",
+            "intro": "Die Haltephase dauert länger als zwölf Wochen. In den letzten vier Wochen geht es darum, dass das, was funktioniert, auch ohne Wochenkarte weiterläuft.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 12,
+              "hinweis": "Zuhause-Varianten auf die nächste Stufe, zum Beispiel Liegestütz von der Tischkante an den Boden.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w09-kalender",
+                "text": "Trainingszeiten für die nächsten Wochen fest in den Kalender eintragen, wie einen Termin.",
+                "quellen": []
+              },
+              {
+                "id": "w09-mahlzeiten",
+                "text": "Drei bis vier Proteinmahlzeiten auswählen, die du ohne Nachdenken zubereiten kannst. Das ist deine feste Auswahl für volle Tage.",
+                "quellen": []
+              },
+              {
+                "id": "w09-alltag",
+                "text": "Alltagsbewegung prüfen: Wo lassen sich Wege zu Fuß oder Treppen fest einbauen?",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 10,
+            "title": "Schwierige Wochen einplanen",
+            "status": "entwurf",
+            "intro": "Jede Routine trifft irgendwann auf eine Woche mit Reise, Besuch oder zu viel Arbeit. Wer vorher eine Mindestversion festlegt, fällt seltener ganz heraus.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 12,
+              "hinweis": "Wie Woche 9.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w10-mindest",
+                "text": "Mindestversion festlegen, zum Beispiel eine Einheit mit drei Übungen und zwei Sätzen. Sie zählt, auch wenn sie klein ist.",
+                "quellen": []
+              },
+              {
+                "id": "w10-ausfall",
+                "text": "Fällt eine Woche aus: in der nächsten normal weitermachen, nichts nachholen.",
+                "quellen": []
+              },
+              {
+                "id": "w10-gewohnheit",
+                "text": "Schlaf, feste Mahlzeiten, Wiegetag: Was davon ist schon Gewohnheit, was hängt noch an der Erinnerung der App?",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 11,
+            "title": "Schwerer, nicht länger",
+            "status": "entwurf",
+            "intro": "Der Widerstand steigt, die Wiederholungen gehen zurück auf 8. Das ist die eigentliche Steigerung.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 8,
+              "hinweis": "Mehr Widerstand als in Woche 9 und 10. Die letzten zwei Wiederholungen sind schwer, aber sauber.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w11-regel",
+                "text": "Die Regel für die Zeit danach: Schaffst du in allen Sätzen 12 saubere Wiederholungen, wird die Übung beim nächsten Mal schwerer, nie länger.",
+                "quellen": []
+              },
+              {
+                "id": "w11-studio",
+                "text": "Werden die stärksten Bänder zu leicht, ist ein Studio der nächste Schritt. Jede Übung hat eine Studio-Variante.",
+                "quellen": []
+              },
+              {
+                "id": "w11-ausdauer",
+                "text": "Ausdauer wie Radfahren oder Schwimmen kann dazukommen. Sie ersetzt aber keine Krafteinheit.",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          },
+          {
+            "week": 12,
+            "title": "Bilanz und wie es weitergeht",
+            "status": "entwurf",
+            "intro": "Zwölf Wochen Programm sind geschafft. Was jetzt zählt, ist, was davon bleibt.",
+            "introQuellen": [],
+            "training": {
+              "saetze": 3,
+              "wiederholungen": 8,
+              "hinweis": "Wie Woche 11. Danach weiter steigern: alle ein bis zwei Wochen ein kleiner Schritt.",
+              "quellen": []
+            },
+            "tasks": [
+              {
+                "id": "w12-vergleich",
+                "text": "Check-in machen und mit Woche 0 vergleichen: Griffkraft, Taillenumfang, Gewicht und die schwerste Stufe jeder Übung.",
+                "quellen": []
+              },
+              {
+                "id": "w12-bleibt",
+                "text": "Festlegen, was bleibt: zwei Krafteinheiten pro Woche, Proteinmahlzeiten, ein Wiegetag. Die WHO empfiehlt muskelkräftigende Aktivitäten an mindestens zwei Tagen pro Woche.",
+                "quellen": [
+                  "who2020"
+                ]
+              },
+              {
+                "id": "w12-termin",
+                "text": "Hast du einen Folgetermin bei deiner Ärztin oder deinem Arzt: den Verlauf aus der App exportieren und mitnehmen.",
+                "quellen": []
+              }
+            ],
+            "hinweis": null
+          }
+        ]
+      }
+    }
+  },
+  "uebungen": {
+    "de": {
+      "status": "entwurf",
+      "ablauf": "3 Minuten Aufwärmen (zügig gehen, Arme kreisen, 10 Kniebeugen ohne Gewicht), dann die sechs Übungen in dieser Reihenfolge, große Muskeln zuerst. 60 bis 90 Sekunden Pause zwischen den Sätzen. Das dauert 25 bis 30 Minuten.",
+      "ablaufQuellen": [
+        "acsm2009"
+      ],
+      "uebungen": [
+        {
+          "id": "kniebeuge",
+          "nr": 1,
+          "name": "Kniebeuge",
+          "zuhause": "Aufstehen und Hinsetzen vom Stuhl, später ohne Stuhl, später mit Band",
+          "studio": "Beinpresse oder Kniebeuge mit Langhantel",
+          "trainiert": "Oberschenkel, Gesäß, das Aufstehen im Alltag"
+        },
+        {
+          "id": "rudern",
+          "nr": 2,
+          "name": "Rudern",
+          "zuhause": "Band um Türgriff oder Fuß, zum Bauch ziehen",
+          "studio": "Rudermaschine oder Kabelzug",
+          "trainiert": "Rücken, Haltung, Tragen"
+        },
+        {
+          "id": "druecken",
+          "nr": 3,
+          "name": "Drücken",
+          "zuhause": "Liegestütz an der Wand, später an der Tischkante, später am Boden",
+          "studio": "Brustpresse oder Kurzhantel-Bankdrücken",
+          "trainiert": "Brust, Schultern, Arme"
+        },
+        {
+          "id": "hueftstrecken",
+          "nr": 4,
+          "name": "Hüftstrecken",
+          "zuhause": "Beckenheben im Liegen, später einbeinig",
+          "studio": "Hip Thrust oder Rumänisches Kreuzheben",
+          "trainiert": "Gesäß, hintere Oberschenkel, Rücken"
+        },
+        {
+          "id": "ausfallschritt",
+          "nr": 5,
+          "name": "Ausfallschritt oder Step-up",
+          "zuhause": "Auf eine Treppenstufe steigen, später mit Band oder Rucksack",
+          "studio": "Ausfallschritte mit Kurzhanteln",
+          "trainiert": "Beine einzeln, Gleichgewicht"
+        },
+        {
+          "id": "rumpf",
+          "nr": 6,
+          "name": "Rumpf",
+          "zuhause": "Unterarmstütz 20 bis 40 Sekunden oder „Dead Bug“ im Liegen",
+          "studio": "gleich",
+          "trainiert": "Rumpf, Rücken, Stabilität"
+        }
+      ],
+      "sicherheit": [
+        "Bei Schwindel, Brustschmerz oder Atemnot während des Trainings: aufhören und abklären lassen.",
+        "Muskelkater ist normal, Gelenkschmerz nicht. Dann die Übung leichter machen oder tauschen.",
+        "Wenn du in ärztlicher Behandlung bist oder Gelenkprobleme hast: den Start vorher mit deiner Ärztin oder deinem Arzt besprechen."
+      ]
+    }
+  },
+  "hinweise": {
+    "aerztlicherRat": {
+      "de": {
+        "title": "Wann du ärztlichen Rat holst",
+        "items": [
+          "Bei Brustschmerz, Atemnot oder starkem Schwindel: sofort ärztliche Hilfe holen, im Notfall die 112.",
+          "Bei Beschwerden, die dich beunruhigen oder nicht weggehen: ärztlich abklären lassen.",
+          "Wenn du in ärztlicher Behandlung bist oder regelmäßig Medikamente nimmst: Training und Ernährung mit deiner Praxis absprechen."
+        ],
+        "closing": "Die App ist eine allgemeine Information. Sie stellt keine Diagnosen und ersetzt keine ärztliche Beratung.",
+        "status": "entwurf"
+      }
+    }
+  },
   "onboarding": {
-    "fuerWenNicht": null
+    "bevorDuStartest": {
+      "de": {
+        "title": "Bevor du startest",
+        "items": [
+          "Die App ist für Erwachsene ab 18 Jahren.",
+          "Hast du eine Essstörung oder hattest du eine: Bitte sprich zuerst mit deiner Behandlerin oder deinem Behandler. Die App arbeitet mit Gewicht, Umfang und Körperfotos.",
+          "Bist du schwanger, stillst du oder bist du in ärztlicher Behandlung: Sprich Training und Ernährung vorher mit deiner Ärztin oder deinem Arzt ab."
+        ],
+        "closing": "Die App stellt keine Diagnosen und ersetzt keine ärztliche Beratung.",
+        "status": "entwurf"
+      }
+    }
+  },
+  "einwilligung": {
+    "de": {
+      "status": "entwurf",
+      "version": "0.1",
+      "scope": "Testversion für eingeladene Testerinnen und Tester",
+      "title": "Einwilligung in die Verarbeitung deiner Gesundheitsdaten",
+      "screen": [
+        "Diese App verarbeitet Gesundheitsdaten: dein Gewicht, deinen Taillenumfang, deine Griffkraft, deine Check-in-Fotos und Angaben zu deinem gewählten Programm. Solche Daten sind nach Art. 9 DSGVO besonders geschützt. Wir verarbeiten sie nur mit deiner ausdrücklichen Einwilligung.",
+        "Die erste Einwilligung brauchst du, um die App zu nutzen. Die zweite ist freiwillig. Du kannst jede Einwilligung jederzeit in den Einstellungen unter „Datenschutz“ widerrufen. Der Widerruf gilt ab dann, die Verarbeitung bis dahin bleibt rechtmäßig.",
+        "Vor jedem Upload schneidet die App das Foto auf deinem Gerät an der Schulterlinie der Vorlage ab. Du siehst den Ausschnitt, bevor er gespeichert wird. Achte beim Foto darauf, dass dein Kopf oberhalb der Linie ist.",
+        "Die App stellt keine Diagnosen und gibt keine medizinischen Empfehlungen."
+      ],
+      "details": [
+        "Verantwortlich: [PRÜFEN: Name und Anschrift; für den Test wie im Impressum von nachderspritze.de, nach einer Gründung die Gesellschaft]",
+        "Welche Daten: E-Mail-Adresse für die Anmeldung; Bestätigung, dass du mindestens 18 Jahre alt bist; Gewicht, Taillenumfang, Griffkraft; Check-in-Fotos ohne Kopf; Angaben, die dein gewähltes Programm abfragt (zum Beispiel im Programm „Nach der Spritze“ das Datum der letzten Dosis); abgehakte Punkte der Wochenkarten; Erinnerungszeit. Mit der zweiten Einwilligung zusätzlich die automatische Schätzung der Körperzusammensetzung.",
+        "Wozu: Programm und Verlauf anzeigen, Daten zwischen Gerät und Konto abgleichen, Export und Löschung. Mit der zweiten Einwilligung: prüfen, wie genau eine Schätzung aus Fotos ist.",
+        "Rechtsgrundlage: deine ausdrückliche Einwilligung, Art. 9 Abs. 2 lit. a und Art. 6 Abs. 1 lit. a DSGVO. Für die Nutzungsstatistik zusätzlich § 25 Abs. 1 TDDDG.",
+        "Wer die Daten verarbeitet: - Supabase (Datenbank, Anmeldung, Speicher für Fotos), Serverstandort Frankfurt am Main. - Google Cloud (Gemini), Verarbeitung in der EU. Nur mit der zweiten Einwilligung, nur die Fotos ohne Kopf, ohne Name und E-Mail-Adresse. - PostHog, Server in der EU. Nur mit der dritten Einwilligung, ohne Messwerte und Fotos.",
+        "Wie lange: bis du die Einwilligung widerrufst oder dein Konto löschst. Dann löschen wir deine Daten einschließlich der Fotos und Schätzungen. [PRÜFEN: Löschfrist für Backups bei Supabase nennen.] Google speichert die Fotos nach der Auswertung nicht. [PRÜFEN: erst zutreffend, wenn das Caching abgeschaltet und die Ausnahme vom Prompt-Logging für Missbrauchserkennung bewilligt ist; bis dahin die Speicherfrist laut Google nennen.]",
+        "Deine Rechte: Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit (Export in der App, inklusive der Schätzungen), Widerruf jeder Einwilligung. Du kannst dich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel bei der Berliner Beauftragten für Datenschutz und Informationsfreiheit.",
+        "Wenn du widerrufst: Widerrufst du die erste Einwilligung, kannst du die App nicht weiter nutzen. Vorher kannst du deine Daten exportieren; danach werden sie gelöscht. Widerrufst du die zweite, werden keine Fotos mehr ausgewertet und die bisherigen Schätzungen gelöscht."
+      ],
+      "items": [
+        {
+          "id": "gesundheitsdaten",
+          "required": true,
+          "active": true,
+          "text": "Ich willige ausdrücklich ein, dass meine Gesundheitsdaten (Gewicht, Taillenumfang, Griffkraft, Check-in-Fotos ohne Kopf, Angaben zu meinem gewählten Programm und mein Programmfortschritt) auf meinem Gerät und auf Servern in Frankfurt am Main gespeichert und verarbeitet werden, damit die App mir mein Programm und meinen Verlauf anzeigen kann."
+        },
+        {
+          "id": "foto-auswertung",
+          "required": false,
+          "active": true,
+          "text": "Ich willige ausdrücklich ein, dass meine Check-in-Fotos ohne Kopf an Google übermittelt und dort in der EU automatisch ausgewertet werden, um meine Körperzusammensetzung zu schätzen. In dieser Version wird die Schätzung nur gespeichert und mir nicht angezeigt. Sie dient dazu, die Genauigkeit des Verfahrens zu prüfen."
+        },
+        {
+          "id": "nutzungsstatistik",
+          "required": false,
+          "active": false,
+          "text": "Ich willige ein, dass die App erfasst, welche Bildschirme und Funktionen ich nutze, und diese Angaben an PostHog (Server in der EU) übermittelt werden, damit die App verbessert werden kann. Messwerte und Fotos werden dabei nicht übertragen."
+        }
+      ]
+    }
+  },
+  "quellen": {
+    "acsm2009": {
+      "kurz": "ACSM Position Stand Krafttraining, 2009",
+      "url": "https://doi.org/10.1249/MSS.0b013e3181915670"
+    },
+    "dgeBallaststoffe": {
+      "kurz": "DGE, Richtwert Ballaststoffe",
+      "url": "https://www.dge.de/wissenschaft/referenzwerte/ballaststoffe/"
+    },
+    "dgeProtein": {
+      "kurz": "DGE, Referenzwerte Protein",
+      "url": "https://www.dge.de/wissenschaft/referenzwerte/protein/"
+    },
+    "euClaims": {
+      "kurz": "EU-Register zugelassener Health Claims (VO (EU) Nr. 432/2012, VO (EU) 2017/672)",
+      "url": "https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32012R0432"
+    },
+    "jensen2024": {
+      "kurz": "Jensen et al., S-LiTE Nachbeobachtung, eClinicalMedicine 2024",
+      "url": "https://www.thelancet.com/journals/eclinm/article/PIIS2589-5370(24)00054-3/fulltext"
+    },
+    "kreider2017": {
+      "kurz": "Kreider et al., ISSN Position Stand Kreatin, 2017",
+      "url": "https://jissn.biomedcentral.com/articles/10.1186/s12970-017-0173-z"
+    },
+    "leidy2015": {
+      "kurz": "Leidy et al., Am J Clin Nutr 2015",
+      "url": "https://doi.org/10.3945/ajcn.114.084038"
+    },
+    "moore2015": {
+      "kurz": "Moore et al., J Gerontol A 2015",
+      "url": "https://doi.org/10.1093/gerona/glu103"
+    },
+    "sardeli2018": {
+      "kurz": "Sardeli et al., Meta-Analyse, Nutrients 2018",
+      "url": "https://www.mdpi.com/2072-6643/10/4/423"
+    },
+    "spiegel2004": {
+      "kurz": "Spiegel et al., Ann Intern Med 2004",
+      "url": "https://doi.org/10.7326/0003-4819-141-11-200412070-00008"
+    },
+    "sumithran2011": {
+      "kurz": "Sumithran et al., NEJM 2011",
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1105816"
+    },
+    "who2020": {
+      "kurz": "WHO-Bewegungsempfehlungen 2020",
+      "url": "https://www.who.int/publications/i/item/9789240015128"
+    },
+    "wu2025": {
+      "kurz": "Wu et al., Meta-Analyse, BMC Medicine 2025",
+      "url": "https://link.springer.com/article/10.1186/s12916-025-04200-0"
+    }
   }
 }

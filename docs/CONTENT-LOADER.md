@@ -1,22 +1,24 @@
-# Inhalte aus content/: Loader und erwartetes Format
+# Inhalte aus content/: Loader
 
-`content/` gehört der Begleitinstanz (docs/ZUSAMMENARBEIT.md). Die App liest die Dateien im Build-Schritt `npm run build:content` nach `src/content/generated/content.json`. Fehlt etwas, zeigt die App Platzhalter aus `src/content/placeholder/`. Verbindlich für das Format ist `content/README.md` der Begleitinstanz; dieses Dokument beschreibt, was der Loader derzeit versteht. Abweichungen werden im Loader nachgezogen, nicht in `content/`.
+`content/` gehört der Begleitinstanz; das Format steht in `content/README.md`. Die App liest die Dateien im Build-Schritt `npm run build:content` nach `src/content/generated/content.json` (committet, CI prüft Aktualität). Fehlt etwas, zeigt die App Platzhalter aus `src/content/placeholder/`. Weicht `content/README.md` vom Loader ab, wird der Loader nachgezogen, nie `content/`.
 
-## Programme: `content/programme/<id>/`
+| Quelle | Loader | Wo in der App |
+|---|---|---|
+| `programme/<id>/programm.md` (id, titel, kurz, standard, wochen, status, programm_angaben, vorab_klaeren, hinweise) | `src/content/programs.ts` | Programmauswahl (Onboarding, Einstellungen): „Vorab klären“, Angaben als Felder; `hinweise` unter jeder Wochenkarte |
+| `programme/<id>/de/woche-NN.md` (woche, titel, status, einleitung, einleitung_quellen, training, checkliste, hinweis) | `src/content/program.ts` | Programm-Tab und Wochenkarte: Einleitung, Training, Checkliste mit „Quelle“, Hinweis |
+| `uebungen/de/uebungen.md` | `src/content/uebungen.ts` | `/programm/uebungen`, verlinkt aus jeder Wochenkarte |
+| `hinweise/de/aerztlicher-rat.md` | `src/content/onboarding.ts` (`getMedicalAdvice`) | Einstellungen, „Wann du ärztlichen Rat holst“ |
+| `onboarding/de/bevor-du-startest.md` | `src/content/onboarding.ts` (`getOnboardingNote`) | Onboarding, Schritt 1 |
+| `rechtliches/de/einwilligung-art9.md` (status, version, geltung, einwilligungen; Body `## Bildschirmtext`, `## Details`) | `src/content/consent.ts` | Onboarding, Schritt 2; Einstellungen, „Datenschutz und Einwilligungen“ |
+| `quellen.json` | `src/content/quellen.ts` | „Quelle“-Links öffnen die URL im Browser |
 
-- `programm.md` (optional): Frontmatter `titel` (Pflicht), `kurz`, `wochen` (Standard 12), `standard` (true für genau ein Programm), `verfuegbar` (false = „in Vorbereitung“, nicht wählbar), `einstellungen` (Liste programmspezifischer Felder mit `key`, `typ` date/text/number, `label`, `hilfe`, `pflicht`). Englische Fassungen optional als `titel_en`, `kurz_en`, `label_en`, `hilfe_en`.
-- Wochen: `<locale>/woche-NN.md` oder `woche-NN.<locale>.md`. Frontmatter `woche` (Pflicht), `titel` (Pflicht), `kurz`, `status` (entwurf oder freigegeben), `aufgaben` (Liste mit `id`, `art` messen/protein/kraft/alltag, `text`). Body: Absätze als Erklärung.
-- Programm-IDs, die der Code kennt: `grundprogramm` (Standard), `nach-dem-absetzen-abnehmspritze`, `kraftprogramm-ab-50`. Andere IDs werden aufgenommen, wenn eine `programm.md` sie beschreibt.
-- Programmspezifische Felder landen in `program_settings` (lokal und in Supabase als jsonb), nie im Kern-Datenmodell.
+## Abbildung
 
-## Einwilligung: `content/rechtliches/einwilligung/<locale>.md`
-
-Frontmatter `status` (entwurf oder freigegeben), `version`, `titel`, `checkbox`, `alter_checkbox`, `hinweis`. Body: erster Absatz = Einleitung, Aufzählung = Punkte. Solange `status: entwurf`, zeigt die App „Entwurf“.
-
-## Onboarding: `content/onboarding/fuer-wen-nicht/<locale>.md`
-
-Frontmatter `titel`. Body: Aufzählung = Punkte. Erscheint im ersten Onboarding-Schritt.
+- `programm_angaben[].typ`: `datum` wird zu einem Datumsfeld, `zahl` zu einer Zahl, alles andere Text. `frage` ist das Label. Werte landen in `program_settings` (lokal und Supabase, jsonb), nie im Kern. Ein Datumsfeld definiert Woche 0 des Programms (docs/DECISIONS.md D16); dann gibt es kein eigenes Startdatum.
+- `status` je Datei: `entwurf`, `geprueft`, `freigegeben`. Alles außer `freigegeben` zeigt die App als Stand an („Stand der Texte: Entwurf“); die Einwilligung trägt zusätzlich die Kennzeichnung „Entwurf“.
+- Einwilligungen: eine Zeile pro ID in `consents` mit Fassung (`version`), Erteilung und Widerruf. `pflicht: true` muss im Onboarding angehakt werden. `aktiv: false` (Nutzungsstatistik) erscheint im Onboarding nicht, in den Einstellungen nur, wenn ein PostHog-Key gesetzt ist. Platzhalterzeilen in eckigen Klammern im Body werden nicht angezeigt.
+- Englisch: `en/` neben `de/` wird gelesen, sobald vorhanden; sonst fällt die App auf Deutsch zurück.
 
 ## Prüfungen
 
-`build:content` bricht ab bei: fehlendem `titel` oder `woche`, unbekannter `art`, doppelten Aufgaben-IDs, mehr als einem Standardprogramm, Einwilligung ohne Punkte. Danach läuft die Claims-Prüfung über alle `content/**/*.md`. CI prüft, dass `content.json` committet und aktuell ist.
+`build:content` bricht ab bei: fehlendem `titel` oder `woche`, `id` ungleich Ordnername, doppelten Checklisten-IDs je Programm, Quellen-IDs ohne Eintrag in `quellen.json`, mehr als einem Standardprogramm, Einwilligung ohne Pflicht-Eintrag oder Bildschirmtext. Danach läuft `check:claims` über alle `content/**/*.md` (außer `content/README.md`); Zeilen in `vorab_klaeren` und `punkte` von Dateien mit `ausnahme_claims` sind für Krankheitsbegriffe ausgenommen, Medikamentennamen bleiben überall verboten.

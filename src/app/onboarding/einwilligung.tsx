@@ -1,23 +1,22 @@
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { View } from 'react-native';
 
 import { Button } from '@/components/Button';
-import { Checkbox } from '@/components/Checkbox';
+import { ConsentList } from '@/components/ConsentList';
 import { Screen } from '@/components/Screen';
 import { Txt } from '@/components/Txt';
 import { getConsent } from '@/content/consent';
 import { useT } from '@/hooks/useT';
-import { recordConsent } from '@/lib/db/consents';
-import { spacing } from '@/theme/tokens';
+import { setConsent } from '@/lib/consents';
 
 import { ONBOARDING_STEPS } from './index';
 
 export default function OnboardingConsent() {
   const { t, locale } = useT();
   const consent = getConsent(locale);
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [busy, setBusy] = useState(false);
+  const requiredOk = consent.items.filter((i) => i.required && i.active).every((i) => checked[i.id]);
 
   return (
     <Screen
@@ -26,37 +25,20 @@ export default function OnboardingConsent() {
       footer={
         <Button
           label={t('common.weiter')}
-          disabled={!checked}
+          disabled={!requiredOk}
           loading={busy}
           onPress={async () => {
             setBusy(true);
-            await recordConsent('age18', consent.version);
-            await recordConsent('art9', consent.version);
+            for (const item of consent.items) {
+              if (checked[item.id]) await setConsent(item.id, consent.version, true);
+            }
             setBusy(false);
             router.push('/onboarding/programm');
           }}
         />
       }>
-      {consent.status !== 'freigegeben' ? (
-        <Txt variant="kicker" color="amberDark">
-          {t('common.entwurf')}
-        </Txt>
-      ) : null}
-      <Txt color="ink2">{consent.intro}</Txt>
-      <View style={{ gap: spacing.s }}>
-        {consent.points.map((p, i) => (
-          <Txt key={i} color="ink2">
-            {`– ${p}`}
-          </Txt>
-        ))}
-      </View>
-      {consent.status !== 'freigegeben' ? (
-        <Txt variant="small" color="ink3">
-          {consent.draftNotice}
-        </Txt>
-      ) : null}
-      <Checkbox checked={checked} onChange={setChecked} label={consent.checkbox} />
-      {!checked ? (
+      <ConsentList consent={consent} checked={checked} onChange={(id, v) => setChecked((c) => ({ ...c, [id]: v }))} />
+      {!requiredOk ? (
         <Txt variant="small" color="ink3">
           {t('onboarding.einwilligungPflicht')}
         </Txt>

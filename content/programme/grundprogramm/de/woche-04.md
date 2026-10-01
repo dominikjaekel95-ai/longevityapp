@@ -13,7 +13,7 @@ checkliste:
     text: "Optional Kreatin-Monohydrat, 3 g täglich, nur zusammen mit dem Training: Kreatin erhöht die körperliche Leistung bei Schnellkrafttraining im Rahmen kurzzeitiger intensiver körperlicher Betätigung."
     quellen: [euClaims]
   - id: w04-kreatin-rat
-    text: "Wenn du in ärztlicher Behandlung bist oder regelmäßig Medikamente nimmst: Kreatin vorher mit deiner Ärztin oder deinem Arzt besprechen. Kreatin kann den Laborwert Kreatinin erhöhen; sag es bei einer Blutabnahme dazu."
+    text: "Wenn du regelmäßig Medikamente nimmst oder ärztlich betreut wirst: Kreatin vorher mit deiner Ärztin oder deinem Arzt besprechen. Kreatin kann den Laborwert Kreatinin erhöhen; sag es bei einer Blutabnahme dazu."
     quellen: [kreider2017]
   - id: w04-verlauf
     text: "Im Verlauf Gewicht und Taillenumfang nebeneinander ansehen. Mit Kreatin kann die Waage in den ersten Wochen leicht steigen, weil die Muskeln mehr Wasser speichern. Das ist kein Fett."

@@ -11,6 +11,12 @@
     "url": "https://www.dge.de/wissenschaft/referenzwerte/ballaststoffe/",
     "notiz": "Richtwert mindestens 30 g pro Tag für Erwachsene."
   },
+  "dgeProtein": {
+    "kurz": "DGE, Referenzwerte Protein",
+    "voll": "Deutsche Gesellschaft für Ernährung e. V. Referenzwerte für die Nährstoffzufuhr: Protein. Bonn.",
+    "url": "https://www.dge.de/wissenschaft/referenzwerte/protein/",
+    "notiz": "Erwachsene 0,8 g/kg/Tag, ab 65 Jahren 1,0 g/kg/Tag (Schätzwert)."
+  },
   "euClaims": {
     "kurz": "EU-Register zugelassener Health Claims (VO (EU) Nr. 432/2012, VO (EU) 2017/672)",
     "voll": "Verordnung (EU) Nr. 432/2012 der Kommission zur Festlegung einer Liste zulässiger anderer gesundheitsbezogener Angaben über Lebensmittel; ergänzt u. a. durch Verordnung (EU) 2017/672 (Kreatin und Krafttraining ab 55 Jahren).",

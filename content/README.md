@@ -1,21 +1,49 @@
 # content/
 
-Alle Texte, die die App anzeigt und die nicht Oberfläche sind: Programm, Hinweise, Rechtstexte. Gepflegt von der Begleitinstanz (siehe `docs/ZUSAMMENARBEIT.md`), fachlich geprüft von Michael, freigegeben von Dominik. Alles hier ist `status: entwurf`, bis Dominik freigibt.
+Alle Texte, die die App anzeigt und die nicht Oberfläche sind: Programme, Übungen, Hinweise, Rechtstexte. Gepflegt von der Begleitinstanz (siehe `docs/ZUSAMMENARBEIT.md`), fachlich geprüft von Michael, freigegeben von Dominik. Alles hier ist `status: entwurf`, bis Dominik freigibt.
+
+## Was die App ist
+
+Eine allgemeine Longevity-App: Körperzusammensetzung, Kraft, Ernährung, Verlauf. Der Kern (Onboarding, Check-in, Verlauf, Übungen, Hinweise, Einwilligung) hat keinen Bezug zu einer bestimmten Lebenslage oder einem Medikament.
+
+**Programme sind Anwendungen.** Jedes Programm ist ein Modul unter `programme/<id>/` mit eigenen Wochenkarten. Das Grundprogramm ist Standard. Weitere Programme wählt man im Onboarding oder später, zum Beispiel „Nach der Spritze“ für die Zeit nach dem Absetzen der Abnehmspritze. Neue Programme (etwa „Kreatin und Krafttraining ab 50“) kommen als neuer Ordner dazu, ohne Änderung am Kern.
 
 ## Dateien
 
 | Datei | Inhalt | Wo in der App |
 |---|---|---|
-| `programm/de/woche-00.md` … `woche-12.md` | Wochenkarten: Titel, Einleitung, Training, Checkliste, optionaler Hinweis | Wochenkarte der jeweiligen Woche |
-| `programm/de/uebungen.md` | Sechs Übungen mit Zuhause- und Studio-Variante, Ablauf einer Einheit, Sicherheitshinweise | Trainingsansicht, von jeder Wochenkarte erreichbar |
-| `programm/quellen.json` | Quellen zu allen IDs in `quellen` (aus `src/data/sources.ts` der Website) | „Quelle“-Link an Checklistenpunkten |
-| `hinweise/aerztlicher-rat.md` | Wann ärztlicher Rat nötig ist, Notfall | Einstellungen/Info, verlinkt von Woche 0 |
-| `onboarding/fuer-wen-nicht.md` | Ausschlüsse vor dem Start | Onboarding, vor der Einwilligung |
-| `rechtliches/einwilligung-art9.md` | Einwilligungen (Frontmatter) und Bildschirm-/Detailtext (Body) | Onboarding-Schritt Einwilligung, Einstellungen „Datenschutz“ |
+| `programme/<id>/programm.md` | Titel, Kurzbeschreibung, Standard ja/nein, Angaben, die das Programm abfragt, Punkte zum Vorab-Klären, programmspezifische Hinweise | Programmauswahl, Programmstart |
+| `programme/<id>/de/woche-00.md` … `woche-12.md` | Wochenkarten: Titel, Einleitung, Training, Checkliste, optionaler Hinweis | Wochenkarte der jeweiligen Woche |
+| `uebungen/de/uebungen.md` | Sechs Übungen mit Zuhause- und Studio-Variante, Ablauf einer Einheit, Sicherheitshinweise; gilt für alle Programme | Trainingsansicht |
+| `quellen.json` | Quellen zu allen IDs in `quellen` (übernommen aus `src/data/sources.ts` der Website) | „Quelle“-Link an Checklistenpunkten |
+| `hinweise/de/aerztlicher-rat.md` | Wann ärztlicher Rat nötig ist, Notfall | Einstellungen/Info |
+| `onboarding/de/bevor-du-startest.md` | Allgemeine Ausschlüsse und Hinweise vor dem Start | Onboarding, vor der Einwilligung |
+| `rechtliches/de/einwilligung-art9.md` | Einwilligungen (Frontmatter) und Bildschirm-/Detailtext (Body) | Onboarding-Schritt Einwilligung, Einstellungen „Datenschutz“ |
+
+Englisch kommt später als `en/` neben `de/`.
 
 ## Format
 
-Markdown mit YAML-Frontmatter. Bei Wochenkarten steht alles im Frontmatter, der Body ist leer.
+Markdown mit YAML-Frontmatter, der Body ist bei Programmen und Wochenkarten leer.
+
+`programm.md`:
+
+```yaml
+id: nach-der-spritze          # = Ordnername, stabil
+titel: "…"
+kurz: "…"
+standard: false               # genau ein Programm hat true
+wochen: 12
+status: entwurf
+programm_angaben:             # programmspezifische Felder, gespeichert pro Nutzer und Programm
+  - id: letzte_dosis
+    typ: datum
+    frage: "…"
+vorab_klaeren: ["…"]          # beim Programmstart zeigen; hier sind Krankheitsbezüge als Ausschluss erlaubt
+hinweise: ["…"]               # optional, auf jeder Wochenkarte des Programms erreichbar
+```
+
+Wochenkarte:
 
 ```yaml
 woche: 4                      # 0 bis 12
@@ -30,27 +58,33 @@ training:                     # null in Woche 0
   hinweis: "…"
   quellen: [acsm2009]         # optional
 checkliste:
-  - id: w04-kreatin           # stabil, nie umbenennen: Abhak-Status hängt daran
+  - id: w04-kreatin           # stabil, nie umbenennen: Abhak-Status hängt daran (pro Programm eindeutig)
     text: "…"
-    quellen: [euClaims]       # IDs aus programm/quellen.json, darf leer sein
-hinweis: "…"                  # optional, wird abgesetzt unter der Checkliste gezeigt
+    quellen: [euClaims]       # IDs aus quellen.json, darf leer sein
+hinweis: "…"                  # optional
 ```
-
-Checklisten-IDs sind stabil. Wird ein Punkt gestrichen, verschwindet seine ID; eine neue Formulierung desselben Punkts behält die ID.
 
 ## Regeln für Texte in der App
 
 Strenger als auf der Website, weil die App Messwerte erfasst und sonst schnell wie ein Medizinprodukt wirkt.
 
-1. Die Wochenkarten sind für alle gleich. Die App leitet aus Messwerten keine gesundheitlichen Empfehlungen ab.
+1. Die Wochenkarten sind für alle im Programm gleich. Die App leitet aus Messwerten keine gesundheitlichen Empfehlungen ab.
 2. Keine Schwellenwerte, die aus einem Messwert eine Handlung machen („mehr als x kg, dann …“).
-3. Keine Krankheitsbezüge in Wochenkarten, Übungen und Hinweisen. Erkrankungen stehen nur als Ausschluss in `onboarding/fuer-wen-nicht.md` (Feld `ausnahme_claims`; die Claims-Prüfung nimmt diese Datei für Krankheitsbegriffe aus).
-4. Keine Medikamentennamen, keine Halbwertszeiten, keine Dosierungs-, Absetz- oder Wiedereinstiegshinweise. Der Pflichtsatz „Ob und wie du dein Medikament absetzt, besprichst du mit deiner Ärztin oder deinem Arzt.“ bleibt.
-5. Gesundheitsbezogene Angaben zu Protein und Kreatin nur im zugelassenen Wortlaut (CLAIMS.md der Website, A1 und A2).
-6. Jede Zahl mit Quelle aus `programm/quellen.json`.
-7. Ton wie auf der Website: nüchtern, „du“, keine Superlative, keine Emojis.
+3. Keine Krankheitsbezüge in Wochenkarten, Übungen und Hinweisen. Erkrankungen stehen nur als Ausschluss in `onboarding/de/bevor-du-startest.md` und in `vorab_klaeren` der Programme (Feld `ausnahme_claims`; die Claims-Prüfung nimmt diese Stellen für Krankheitsbegriffe aus).
+4. Keine Medikamentennamen, keine Halbwertszeiten, keine Dosierungs-, Absetz- oder Wiedereinstiegshinweise. Medikamentenbezug gibt es nur in Programmen, die ihn brauchen, dann immer mit dem Satz, dass Absetzen Sache der Ärztin oder des Arztes ist.
+5. Der Kern bleibt ohne Programmbezug. Was nur für ein Programm gilt, steht im Programmordner.
+6. Gesundheitsbezogene Angaben zu Protein und Kreatin nur im zugelassenen Wortlaut (CLAIMS.md der Website, A1 und A2).
+7. Jede Zahl mit Quelle aus `quellen.json`.
+8. Ton: nüchtern, „du“, keine Superlative, keine Emojis.
 
-## Abweichungen von der Website
+## Grundprogramm
+
+Gleicher Trainingsplan wie „Nach der Spritze“ (12 Wochen, sechs Übungen, Steigerung nach dem Positionspapier des ACSM), aber ohne Bezug zum Absetzen:
+- Protein nach DGE (0,8 g/kg, ab 65 Jahren 1,0 g/kg) statt der Spanne für Gewichtsabnahme und -erhalt.
+- Woche 0 mit persönlichem Ziel statt Dosis-Datum und Kontrolltermin; Woche 8 und 12 greifen das Ziel auf.
+- Woche 3 und 7 ohne Appetit- und Absetzkurven-Bezug, Woche 8 ohne S-LiTE.
+
+## „Nach der Spritze“: Abweichungen von der Website
 
 Grundlage sind die Checkliste `/checkliste/` (Woche 0 bis 8) und der 12-Wochen-Plan im Artikel `/wissen/krafttraining-nach-abnehmspritze/`. Die Zweiwochen-Blöcke der Checkliste sind auf einzelne Wochen verteilt, Woche 9 bis 12 sind neu.
 
@@ -62,8 +96,8 @@ Website: „Kontrolltermin in acht bis zwölf Wochen bei der Ärztin oder dem Ar
 - B: „Frag in der Praxis, wann ein Kontrolltermin sinnvoll ist, und trag ihn dir ein.“
 - C: „Kontrolltermin vereinbaren. Den Zeitpunkt bestimmt deine Ärztin oder dein Arzt, nicht die App.“
 
-**2. Kreatin (Woche 4, `w04-kreatin-rat`)**
-Website: „Bei Nierenerkrankungen vorher fragen.“ Die Nierenerkrankung steht weiter im Onboarding-Ausschluss.
+**2. Kreatin (Woche 4, `w04-kreatin-rat`, gilt auch im Grundprogramm)**
+Website: „Bei Nierenerkrankungen vorher fragen.“ Die Nierenerkrankung steht jetzt in `vorab_klaeren` beider Programme.
 - A: „Wenn du in ärztlicher Behandlung bist oder regelmäßig Medikamente nimmst: Kreatin vorher mit deiner Ärztin oder deinem Arzt besprechen. Kreatin kann den Laborwert Kreatinin erhöhen; sag es bei einer Blutabnahme dazu.“
 - B: „Nimmst du regelmäßig Medikamente oder bist in Behandlung, sprich Kreatin vorher in der Praxis an.“
 - C: „Kreatin ist bei gesunden Erwachsenen in üblichen Mengen gut untersucht. Bist du in ärztlicher Behandlung, frag vorher nach.“
@@ -77,14 +111,15 @@ Website: „Regel für den Anstieg: Steigt das Gewicht über zwei Wochen um mehr
 Weitere Anpassungen nach denselben Regeln:
 - Woche 0: Halbwertszeiten und Wirkstoffnamen gestrichen.
 - Woche 7: „Ein bis zwei Kilo Schwankung“ ohne Zahl formuliert.
-- `hinweise/aerztlicher-rat.md`: Typ-2-Diabetes durch „wenn du wegen einer Erkrankung in Behandlung bist“ ersetzt. Akute Beschwerden (Brustschmerz, Atemnot, starker Schwindel) stehen getrennt mit „sofort“ und 112.
+- Typ-2-Diabetes in „Wann du zur Ärztin gehst“ durch „wenn du wegen einer Erkrankung in Behandlung bist“ ersetzt (jetzt in `hinweise` des Programms).
 - `uebungen.md`: Die Liste „Herz-Kreislauf-Erkrankungen, Bluthochdruck, Diabetes mit Insulin“ aus dem Artikel durch „in ärztlicher Behandlung“ ersetzt.
 - Dritter Satz ab Woche 5 wie im 12-Wochen-Plan. Die Website-Checkliste nennt ihn schon in Woche 3 bis 4; dort sollte die Website angeglichen werden.
 
 ## Offen für Michael
 
-- [ ] Alle Karten fachlich prüfen, besonders Woche 9 bis 12 (neu) und die drei Umformulierungen.
-- [ ] Protein: Die Karten nennen 25 bis 30 g pro Mahlzeit und die Spanne 1,2 bis 1,6 g/kg (Website-CLAIMS C8: Zielwert 1,2 g/kg). Bleibt das so?
+- [ ] Grundprogramm: Passt der Rahmen (Kraft, Protein, Messen) als Kern, oder soll er breiter werden (Schlaf, Ausdauer, Biomarker)?
+- [ ] Grundprogramm: Protein nach DGE als Basis, oder höher für Menschen mit Krafttraining?
+- [ ] „Nach der Spritze“: alle Karten fachlich prüfen, besonders Woche 9 bis 12 (neu) und die drei Umformulierungen. Protein: 25 bis 30 g pro Mahlzeit und 1,2 bis 1,6 g/kg (Website-CLAIMS C8: Zielwert 1,2 g/kg).
 - [ ] Kreatin-Hinweis `w04-kreatin-rat`: reicht „in ärztlicher Behandlung oder Medikamente“?
-- [ ] Ausschlussliste `fuer-wen-nicht.md` (Website-CLAIMS D10).
-- [ ] `aerztlicher-rat.md`: Notfallsatz und Formulierungen.
+- [ ] `vorab_klaeren` beider Programme und `onboarding/de/bevor-du-startest.md`.
+- [ ] `hinweise/de/aerztlicher-rat.md`: Notfallsatz und Formulierungen.

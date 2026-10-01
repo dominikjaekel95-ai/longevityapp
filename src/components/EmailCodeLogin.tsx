@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 
 import { useT } from '@/hooks/useT';
-import { sendEmailCode, verifyEmailCode } from '@/lib/sync/supabase';
+import { sendEmailCode, signInWithGoogle, verifyEmailCode } from '@/lib/sync/supabase';
 import { spacing } from '@/theme/tokens';
 
 import { Button } from './Button';
 import { Field } from './Field';
 import { Txt } from './Txt';
 
-/** Anmeldung mit sechsstelligem E-Mail-Code. Kein Passwort, kein Magic-Link (docs/DECISIONS.md). */
+/** Anmeldung mit Google oder sechsstelligem E-Mail-Code. Kein Passwort, kein Magic-Link (docs/DECISIONS.md). */
 export function EmailCodeLogin({ onDone }: { onDone: () => void }) {
   const { t } = useT();
   const [email, setEmail] = useState('');
@@ -18,11 +18,34 @@ export function EmailCodeLogin({ onDone }: { onDone: () => void }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [googleBusy, setGoogleBusy] = useState(false);
+  const [googleError, setGoogleError] = useState<string | null>(null);
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
   return (
     <View style={{ gap: spacing.m }}>
       <Txt color="ink2">{t('onboarding.konto.text')}</Txt>
+      <Button
+        label={t('onboarding.konto.google')}
+        variant="secondary"
+        loading={googleBusy}
+        onPress={async () => {
+          setGoogleBusy(true);
+          setGoogleError(null);
+          const { error: e } = await signInWithGoogle();
+          setGoogleBusy(false);
+          if (e && e !== 'cancel' && e !== 'dismiss') setGoogleError(t('common.fehler'));
+          else if (!e) onDone();
+        }}
+      />
+      {googleError ? (
+        <Txt variant="small" color="danger">
+          {googleError}
+        </Txt>
+      ) : null}
+      <Txt variant="kicker" color="ink3">
+        {t('onboarding.konto.oder')}
+      </Txt>
       <Field
         label={t('onboarding.konto.email')}
         value={email}

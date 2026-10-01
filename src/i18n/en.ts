@@ -227,4 +227,8 @@ export const en: Record<I18nKey, string> = {
   'uebungen.trainiert': 'Trains',
   'uebungen.sicherheit': 'Safety',
   'checkin.foto.vorschauHinweis': 'This is how the photo is saved: without head, only this section.',
+
+  // Google-Anmeldung
+  'onboarding.konto.google': 'Sign in with Google',
+  'onboarding.konto.oder': 'or by email code',
 };
